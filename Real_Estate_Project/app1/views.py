@@ -5,3 +5,6 @@ def home_view(request):
 
 def registration_view(request):
     return render(request, 'registration.html')
+
+def property_listing(request):
+    return render(request, 'property_listing.html')
