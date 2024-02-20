@@ -11,11 +11,11 @@
     <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
     <a href="#home" class="home">Home</a>
     <a href="/property_listing">Listing</a>
-    <a href="#salesperson">Sales Person</a>
-    <a href="#contact">Contact</a>
+    <a href="/salespersons">Sales Person</a>
+    <a href="{% url 'contact' %}">Contact</a>
     <a href="#about">About</a>
     <a href="#help">Help</a>
-    <a href="{% url 'registration' %}">Register</a>
+    <a href="{% url 'registration' %}"  class="login">Register</a>
     <a href="#login" class="login">Login</a>
   </div>
   
@@ -90,28 +90,28 @@
         <div class="card">
           <img src="{% static 'img/sp1.jpg' %}" alt="Card 1" >
           <div class="description">
-            <h2>Name</h2>
+            <h2>Yeabsera </h2>
             <p><a href="#">view profile</a></p>
           </div>
         </div>
         <div class="card">
           <img src="{% static 'img/sp6.jpg' %}" alt="Card 2" style="height:430px">
           <div class="description">
-            <h2>Name</h2>
+            <h2>Efrata</h2>
             <p><a href="#">view profile</a></p>
           </div>
         </div>
         <div class="card">
           <img src="{% static 'img/sp2.jpg' %}" alt="Card 3">
           <div class="description">
-            <h2>Name</h2>
+            <h2>Liya</h2>
             <p><a href="#">view profile</a></p>
           </div>
         </div>
         <div class="card">
           <img src="{% static 'img/sp5.jpg' %}" alt="Card 4" style="height:430px">
           <div class="description">
-            <h2>Name</h2>
+            <h2>Mohamed</h2>
             <p><a href="#">view profile</a></p>
           </div>
         </div>

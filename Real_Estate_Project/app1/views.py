@@ -8,3 +8,9 @@ def registration_view(request):
 
 def property_listing(request):
     return render(request, 'property_listing.html')
+
+def salespersons(request):
+    return render(request, 'salespersons.html')
+
+def contact(request):
+    return render(request, 'contact.html')
