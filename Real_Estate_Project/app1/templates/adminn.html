@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Estate Management System - Admin Panel</title>
+  <style>
+    body {
+    
+      font-family: Arial, sans-serif;
+      display: flex;
+    }
+    .horizontal-menu {
+      display: flex;
+      justify-content: space-between;
+      background-color: #18361a;
+      padding: 10px 20px;
+      margin-bottom: 30px;
+      color: #fff;
+      margin-top: 0px;
+    }
+
+    .horizontal-menu a {
+      text-decoration: none;
+      color: #fff;
+      margin-right: 10px;
+     
+    }
+    .menu {
+      background-color: #18361a;
+      width: 200px;
+      height: 100vh;
+      color: #fff;
+      
+    }
+
+    .menu ul {
+
+      list-style-type: none;
+      padding: 0;
+
+      margin-top: 70px;
+    }
+
+    .menu li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .menu li:hover {
+      background-color: #ddd;
+    }
+
+    #content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+    #customer-table,
+   #employees-table {
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 190px;
+   
+    padding: 20px;
+    border-radius: 5px;
+    color: #080808;
+  }
+
+    #customer-table table,
+    #employees-table table {
+      width: 70%;
+
+    }
+
+    #customer-table th,
+    #customer-table td,
+    #employees-table th,
+    #employees-table td {
+      padding: 10px;
+      border: 1px solid #050505;
+    }
+
+    
+  </style>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var customerLink = document.getElementById("customer-link");
+      var customerTable = document.getElementById("customer-table");
+      var employeesLink = document.getElementById("employees-link");
+      var employeesTable = document.getElementById("employees-table");
+      var profileContent = document.getElementById("profile-content");
+      var activelink = document.getElementById("active-link");
+      customerLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        customerTable.style.display = "block";
+        employeesTable.style.display = "none";
+        profileContent.style.display = "none";
+        toggleActiveLink(customerLink);
+      });
+
+      employeesLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        employeesTable.style.display = "block";
+        customerTable.style.display = "none";
+        profileContent.style.display = "none";
+        toggleActiveLink(employeesLink);
+      });
+
+      // Assuming the "Profile" link has an ID of "profile-link"
+      var profileLink = document.getElementById("profile-link");
+
+      profileLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        profileContent.style.display = "block";
+        customerTable.style.display = "none";
+        employeesTable.style.display = "none";
+        toggleActiveLink(profileLink);
+      });
+
+      function toggleActiveLink(activeLink) {
+        var activeLinks = document.querySelectorAll(".active-link");
+        if (activeLinks.length > 0) {
+          activeLinks.forEach(function(activeLink) {
+            activeLink.classList.remove("active-link");
+            activeLink.innerHTML = "Active";
+          });
+        }
+        link.classList.add("active-link");
+        link.innerHTML = "inactive";
+      }
+    });
+  </script>
+</head>
+<body> 
+  
+   
+  <div  class="menu">
+    <ul>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#" id="customer-link">Customers</a></li>
+      <li><a href="#" id="employees-link">Employees</a></li>
+      <li><a href="#">Add Account</a></li>
+    </ul>
+  </div>
+  <div id="content">
+    <div class="horizontal-menu">
+        <a href="#" id="submenu-link">Menu Link</a>
+      <a href="#">Logout</a>
+     
+    </div>
+    <div id="customer-table">
+      <table>
+        <thead>
+          <tr>
+            <th>First_name</th>
+            <th>Last_name</th>
+            <th>Email</th>
+            <th>address</th>
+            <th>Gender</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>minte</td>
+            <td>ayele</td>
+            <td>kanu@example.com</td>
+            <td>AA</td>
+            <td>M</td>
+        <td> <a href="#"  id="active-link">Active</a></td>
+          </tr>
+         
+        </tbody>
+      </table>
+
+    </div>
+
+    <div id="employees-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>beti@example.com</td>
+            <td> <a href="#"  id="active-link">Active</a></td>
+          </tr>
+          <tr>
+            <td>aster2@example.com</td>
+            <td> <a href="#" id="active-link">Active</a></td>
+          </tr>
+        
+         
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

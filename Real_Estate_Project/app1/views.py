@@ -14,3 +14,5 @@ def salespersons(request):
 
 def contact(request):
     return render(request, 'contact.html')
+def adminn(request):
+    return render(request, 'adminn.html')
