@@ -62,12 +62,12 @@
 <div class="navbar">
     <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
     <a href="/" class="home">Home</a>
-    <a href="/">Listing</a>
+    <a href="{% url 'property_listing' %}">Listing</a>
     <a href="#salesperson">Sales Person</a>
     <a href="#contact">Contact</a>
     <a href="#about">About</a>
     <a href="#help">Help</a>
-    <a href="#register" class="register">Register</a>
+    <a href="{% url 'registration' %}">Register</a>
     <a href="#login" class="login">Login</a>
 </div>
 
