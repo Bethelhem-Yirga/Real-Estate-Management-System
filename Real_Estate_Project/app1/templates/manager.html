@@ -1,278 +1,288 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Manager Page</title>
-  <style>
-  
-    /* CSS for the menu bar */
-    .menu-bar {
-      
-      width: 200px;
-      height: 100vh;
-      background-color:#18361a;
-      color: #fff;
-      float: left;
-    }
-    
-    .menu-item {
-      padding: 10px;
-      cursor: pointer;
-    }
-    
-    .menu-item:hover {
-      background-color: #d8b8b8;
-    }
-    
-    /* CSS for the content area */
-    .content {
-        margin-top:500px;
-      margin-left: 200px; /* Adjust this value to match the menu bar width */
-      padding: 20px;
-    }
-    .content {
-      margin: 20px auto;
-      max-width: 400px;
-      max-height: 400px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #f2f2f2;
-    }
+    <title>Manager Page</title>
+    <style>
+        /* CSS for the menu bar */
+        .menu-bar {
 
-    /* CSS for the profile image */
-    .profile-image {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
+            width: 200px;
+            height: 100vh;
+            background-color: #18361a;
+            color: #fff;
+            float: left;
+        }
 
-    /* CSS for the profile details */
-    .profile-details {
-      margin-bottom: 20px;
-    }
+        .menu-item {
+            padding: 10px;
+            cursor: pointer;
+        }
 
-    .profile-details p {
-      margin: 10px 0;
-    }
+        .menu-item:hover {
+            background-color: #d8b8b8;
+        }
 
-    .profile-details label {
-      font-weight: bold;
-    }
+        /* CSS for the content area */
+        .content {
+            margin-top: 500px;
+            margin-left: 200px;
+            /* Adjust this value to match the menu bar width */
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
 
-    /* CSS for the edit button */
-    .edit-button {
-      display: block;
-      text-align: center;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-      text-decoration: none;
-      cursor: pointer;
-    }
+        .content {
+            margin: 20px auto;
+            max-width: 400px;
+            max-height: 400px;
+            padding: 20px;
 
-    
-    /* CSS for the profile image */
-    .profile-image {
-      width: 50px;
-      height: 50px;
-      margin: 10px;
-      border-radius: 50%;
-      background-color: #ccc;
-    }
-    .profile-form{
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+            border-radius: 5px;
 
-    .profile-form h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
+        /* CSS for the profile image */
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-    }
+        /* CSS for the profile details */
+        .profile-details {
+            margin-bottom: 20px;
+        }
 
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group input[type="tel"],
-    .form-group input[type="radio"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+        .profile-details p {
+            margin: 10px 0;
+        }
 
-    .form-group input[type="radio"] {
-      display: inline-block;
-      width: auto;
-      margin-right: 10px;
-    }
+        .profile-details label {
+            font-weight: bold;
+        }
 
-    .form-group button {
-      display: inline-block;
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    
+        /* CSS for the edit button */
+        .edit-button {
+            display: block;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-    .profile-field input[type="text"],
-    .profile-field input[type="email"],
-    .profile-field input[type="tel"],
-    .profile-field input[type="radio"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
 
-    .profile-field input[type="radio"] {
-      display: inline-block;
-      width: auto;
-      margin-right: 10px;
-    }
+        /* CSS for the profile image */
+        .profile-image {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
 
-   
-    /* CSS for the profile form */
-    .profile-form {
-      display: none;
-      margin-top: 20px;
-    }
-    
-    .profile-form input {
-      margin-bottom: 10px;
-    }
-    
-    .edit-button {
-      margin-top: 10px;
-    }
-  </style>
-  <script>
-    // JavaScript function to toggle visibility of the profile form
-    function toggleProfileForm() {
-      var form = document.getElementById("profileForm");
-      var profileDetails = document.getElementById("profileDetails");
-      var button = document.getElementById("editButton");
-      
-      if (form.style.display === "none") {
-        profileDetails.style.display = "none";
-        form.style.display = "block";
-        button.innerHTML = "Cancel";
-      } else {
-        profileDetails.style.display = "block";
-        form.style.display = "none";
-        button.innerHTML = "Edit";
-      }
-    }
-    
-    // JavaScript function to validate the password and confirmation password
-    function validatePassword() {
-      var password = document.getElementById("password").value;
-      var confirm = document.getElementById("confirmPassword").value;
-      var message = document.getElementById("passwordMessage");
-      
-      if (password !== confirm) {
-        message.innerHTML = "Passwords do not match!";
-        message.style.color = "red";
-      } else {
-        message.innerHTML = "";
-      }
-    }
-  </script>
+        .profile-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="radio"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group input[type="radio"] {
+            display: inline-block;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .form-group button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        .profile-field input[type="text"],
+        .profile-field input[type="email"],
+        .profile-field input[type="tel"],
+        .profile-field input[type="radio"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .profile-field input[type="radio"] {
+            display: inline-block;
+            width: auto;
+            margin-right: 10px;
+        }
+
+
+        /* CSS for the profile form */
+        .profile-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .profile-form input {
+            margin-bottom: 10px;
+        }
+
+.edit-button {
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        // JavaScript function to toggle visibility of the profile form
+        function toggleProfileForm() {
+            var form = document.querySelector(".profile-form");
+            var content = document.querySelector(".content");
+            var button = document.getElementById("editButton");
+
+            if (form.style.display === "none") {
+               content.style.display = "none";
+                form.style.display = "block";
+                button.innerHTML = "Cancel";
+            } else {
+                content.style.display = "block";
+                form.style.display = "none";
+                button.innerHTML = "Edit";
+            }
+        }
+
+        // JavaScript function to validate the password and confirmation password
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var confirm = document.getElementById("confirmPassword").value;
+            var message = document.getElementById("passwordMessage");
+
+            if (password !== confirm) {
+                message.innerHTML = "Passwords do not match!";
+                message.style.color = "red";
+            } else {
+                message.innerHTML = "";
+            }
+        }
+        document.getElementById('editButton').addEventListener('click',toggleProfileForm)
+    </script>
 </head>
+
 <body>
 
-  <div class="menu-bar">
-     <div ><img  class="profile-image" src="profile-photo.jpg"></div>
-     <div class="menu-item"harf="#" id="profile">Profile</div>
-     <div class="menu-item"harf="#" id="report">Report</div>
-     <div class="menu-item" harf="#" id="Mentenance">Mentenance</div>
-     <div class="menu-item"harf="#" id="Message">Message</div>
-     <div class="menu-item"harf="#" id="feedback">feedback</div>
-  
-</div>
+    <div class="menu-bar">
+        <div><img class="profile-image" src="profile-photo.jpg"></div>
+        <div class="menu-item" harf="#" id="profile">Profile</div>
+        <div class="menu-item" harf="#" id="report">Report</div>
+        <div class="menu-item" harf="#" id="Mentenance">Mentenance</div>
+        <div class="menu-item" harf="#" id="Message">Message</div>
+        <div class="menu-item" harf="#" id="feedback">feedback</div>
 
-  <div class="content">
-    <h2>Profile</h2>
-      <div id="profileDetails">
-       
-      <img class="profile-image" src="profile-photo.jpg">
-      <div class="profile-container">
-        <div class="profile-field">
-          <label for="fullName">Full Name:</label>
-          <input type="text" id="fullName" value="Asterbelete" readonly>
-        </div>
-        <div class="profile-field">
-          <label for="email">Email:</label>
-          <input type="email" id="email" value="asterbelete022gmail.com" readonly>
-        </div>
-        <div class="profile-field">
-          <label for="phoneNumber">Phone Number:</label>
-          <input type="tel" id="phoneNumber" value="090987654" readonly>
-        </div>
-        <div class="profile-field">
-          <label for="gender">Gender:</label>
-          <input type="text" id="gender" value="female" readonly>
-        </div>
-       
-      </div>
-      <a href="#" id="editButton" class="edit-button" onclick="toggleProfileForm()">Edit</a>
     </div>
-   
-  </div>
- </div>
-    <div>
-    <form id="profileForm" class="profile-form">
-       
-      <img  class="profile-image" src="profile-photo.jpg">
-      
-      <div class="form-group">
-        <label>Full Name:</label>
-      <input type="text" placeholder="Full Name" required>
-      <label>Email</label>
-      <input type="email" placeholder="Email" required>
-      <label>Phone Number</label>
-      <input type="tel" placeholder="Phone Number" required>
-      <div>
-        <label>Gender:</label>
-      Male<input type="radio" id="male" name="gender" value="male">
-       
-      Female<input type="radio" id="female" name="gender" value="female">
-      
-      </div>
-      <div>
-        <label>Password</label>
-      <input type="password" id="password" placeholder="Password" required>
+
+    <div class="content">
+        <div id="profileDetails">
+            <h2> Profile</h2>
+            <img class="profile-image" src="profile-photo.jpg">
+            <div class="profile-container">
+                <div class="profile-field">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" value="Asterbelete" readonly>
+                </div>
+                <div class="profile-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="asterbelete022gmail.com" readonly>
+                </div>
+                <div class="profile-field">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" value="090987654" readonly>
+                </div>
+                <div class="profile-field">
+                    <label for="gender">Gender:</label>
+                    <input type="text" id="gender" value="female" readonly>
+                </div>
+
+            </div>
+            <a href="#" id="editButton" class="edit-button" onclick="toggleProfileForm()">Edit</a>
+        </div>
+
     </div>
-    <label>Confirm Password</label>
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required onkeyup="validatePassword()">
-   
-      <p id="passwordMessage"></p>
-      
-      <button type="submit">Submit</button>
-    </div>
-    </form>
+
+        <form id="profileForm" class="profile-form">
+            <h2>Edit Profile</h2>
+            <img class="profile-image" src="profile-photo.jpg">
+
+            <div class="form-group">
+                <label>Full Name:</label>
+                <input type="text" placeholder="Full Name" required>
+                <label>Email</label>
+                <input type="email" placeholder="Email" required>
+                <label>Phone Number</label>
+                <input type="tel" placeholder="Phone Number" required>
+                <div>
+                    <label>Gender:</label>
+                    Male<input type="radio" id="male" name="gender" value="male">
+
+                    Female<input type="radio" id="female" name="gender" value="female">
+
+
 </div>
-  </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required
+                    onkeyup="validatePassword()">
+
+                <p id="passwordMessage"></p>
+
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    </div>
 </body>
+
 </html>

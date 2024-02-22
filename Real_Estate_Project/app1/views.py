@@ -17,7 +17,8 @@ def salespersons(request):
 
 def adminn(request):
     return render(request, 'adminn.html')
-
+def manage(request):
+    return render(request, 'manage.html')
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
