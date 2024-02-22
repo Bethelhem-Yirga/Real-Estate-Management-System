@@ -2,14 +2,19 @@ function validateForm() {
     var name = document.forms["contactForm"]["name"].value;
     var email = document.forms["contactForm"]["email"].value;
     var message = document.forms["contactForm"]["message"].value;
+    var subject = document.forms["contactForm"]["subject"].value;
 
     var nameError = document.getElementById("nameError");
     var emailError = document.getElementById("emailError");
     var messageError = document.getElementById("messageError");
+    var subjectError = document.getElementById("subjectError");
+
 
     nameError.textContent = "";
     emailError.textContent = "";
     messageError.textContent = "";
+    subjectError.textContent = "";
+
 
     if (name === "") {
       nameError.textContent = "Please enter your name.";
@@ -23,6 +28,17 @@ function validateForm() {
 
     if (email === "") {
       emailError.textContent = "Please enter your email address.";
+      return false;
+    }
+
+    if (subject === "") {
+      subjectError.textContent = "Please enter a subject.";
+      return false;
+    }
+
+    
+    if (subject.length < 5) {
+      subjectError.textContent = "subject must be at least 5 characters long.";
       return false;
     }
 
@@ -53,3 +69,6 @@ function validateForm() {
    
     return true;
   }
+
+
+  
