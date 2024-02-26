@@ -2,8 +2,8 @@ from django.shortcuts import render
 from .models import Registration
 
 from django.core.mail import send_mail
-
 from Real_Estate_Project import settings
+from .models import Registration
 
 
 def home_view(request):
@@ -18,9 +18,6 @@ def property_listing(request):
 def salespersons(request):
     return render(request, 'salespersons.html')
 
-#def contact(request):
-    #return render(request, 'contact.html')
-
 def adminn(request):
     return render(request, 'adminn.html')
 
@@ -30,13 +27,17 @@ def custemer(request):
     context = {'all_custemers': all_custemers}  # Correct the syntax for creating a dictionary
     return render(request, 'custemer.html', context)
 
+
+def manage(request):
+    return render(request, 'manage.html')
+
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        
+
         settings.EMAIL_HOST_USER = email
 
         receiver_email = "giftrealestate24@gmail.com"
@@ -44,17 +45,21 @@ def contact(request):
             subject,
             f"Name: {name}\nEmail: {email}\n\n{message}",
             email,
-            #[settings.EMAIL_HOST_USER],
-            [receiver_email], 
+            [receiver_email],
             fail_silently=False,
         )
 
         settings.EMAIL_HOST_USER = 'bethelyg909@gmail.com'
-        
+
         return render(request, 'contact_success.html')
-   
-    
+
     return render(request, 'contact.html')
 
 def marketing_manager(request):
     return render(request, 'marketing_manager.html')
+
+def custemer(request):
+    all_customers = Registration.objects.all()
+    context = {'all_customers': all_customers}
+    return render(request, 'custemer.html', context)
+
