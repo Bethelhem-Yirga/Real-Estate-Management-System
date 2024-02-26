@@ -1,12 +1,11 @@
 from django.shortcuts import render
-<<<<<<< HEAD
 from .models import Registration
-=======
+
 from django.core.mail import send_mail
 
 from Real_Estate_Project import settings
 
->>>>>>> 0826b7d9dc44587e6a74d74bdb762219d9f3bb99
+
 def home_view(request):
     return render(request, 'home.html')
 
@@ -25,12 +24,12 @@ def salespersons(request):
 def adminn(request):
     return render(request, 'adminn.html')
 
-<<<<<<< HEAD
+
 def custemer(request):
     all_custemers = Registration.objects.all()  # Correct the variable name
     context = {'all_custemers': all_custemers}  # Correct the syntax for creating a dictionary
     return render(request, 'custemer.html', context)
-=======
+
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -56,4 +55,6 @@ def contact(request):
    
     
     return render(request, 'contact.html')
->>>>>>> 0826b7d9dc44587e6a74d74bdb762219d9f3bb99
+
+def marketing_manager(request):
+    return render(request, 'marketing_manager.html')
