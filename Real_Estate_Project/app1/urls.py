@@ -13,6 +13,8 @@ urlpatterns = [
     path('marketing_manager/', views.properties, name='marketing_manager'),
     path('manager/', views.custemer, name='manager'),
 
- 
+  path('appform/', views.appform, name='appform'),
+  path(' addemploy/', views.addemploy, name=' addemploy'),
+  
 ]
 

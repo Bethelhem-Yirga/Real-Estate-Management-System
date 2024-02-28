@@ -20,7 +20,10 @@ def salespersons(request):
 
 def adminn(request):
     return render(request, 'adminn.html')
-
+def appform(request):
+    return render(request, 'appform.html')
+def addemploy(request):
+    return render(request, 'addemploy.html')
 
 def custemer(request):
     all_custemers = Registration.objects.all()  # Correct the variable name
