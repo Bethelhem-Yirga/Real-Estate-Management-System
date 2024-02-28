@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Registration
+from .models import Properties, Registration
 
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
@@ -62,4 +62,9 @@ def custemer(request):
     all_customers = Registration.objects.all()
     context = {'all_customers': all_customers}
     return render(request, 'custemer.html', context)
+
+def properties(request):
+   all_info = Properties.objects.all()
+   context = {'all_info':all_info}
+   return render(request,"marketing_manager.html",context = context)
 

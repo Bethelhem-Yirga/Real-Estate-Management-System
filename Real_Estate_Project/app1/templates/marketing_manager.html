@@ -1,40 +1,88 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
-    <div class="navbar">
-        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
+  <div class="navbar">
+    <div class="logo">
+      <img src="{% static 'img/logo.png' %}" alt="Logo">
+    </div>
+  </div>
+
+  <div class="sidebar">
+
+    <div class="profile">
+      <img src="{% static 'img/sp3.jpg' %}" alt="Profile Photo" class="profile-photo">
+      <h3>Abebe Yilma</h3>
+      <p>abebe123@gmail.com</p>
     </div>
 
-    <div class="sidebar">
+    <div class="links">
+        <ul>
+            <li><a href="#"> <i class="fa-solid fa-bars" style="color: #fff;"></i>  Properties</a></li>
+            <li><a href="#"><i class="fa-solid fa-plus" style="color: #fff;"></i> Add Property</a></li>
+            <li><a href="#"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i> Update Property</a></li>
+            <li><a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i> Profie</a></li>
+            <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
+            <li><a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
+        </ul>
+    </div>
+  </div>
+
+  <div class="content">
+
+   <div class="table-class">
+    <table>
+      <thead>
+        <tr>
+          <th>Property Type</th>
+          <th>Address</th>
+          <th>Description</th>
+          <th>Size</th>
+          <th>Status</th>
+          <th>Number Of Rooms</th>
+          <th>Total Floor</th>
+          <th>Bedrooms</th>
+          <th>Bathrooms</th>
+          <th>Price</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in all_info %}
+        <tr>
+          
+          <td>{{ x.propertyType}}</td>
+          <td>{{ x.address}}</td>
+          <td>{{ x.description}}</td>
+          <td>{{ x.size}}</td>
+          <td>{{ x.status}}</td>
+          <td>{{ x.noOfRooms}}</td>
+          <td>{{ x.TotalFloor}}</td>
+          <td>{{ x.bedrooms}}</td>
+          <td>{{ x.bathrooms }}</td>
+          <td>{{ x.price }}</td>
+          {% if x.image %}
+          <td>
+            <img src="{{ x.image.url }}" alt="img" class="" style="height:80px; width:80px;">
+          </td>
+          {%else%}
+          <td>
+            <img src="{% static 'img/logo.png' %}" alt="img">
+          </td>
+          {% endif %}
+          <br>
+        </tr>
+        {% endfor %}
         
-        <div>
-            <img src="{% static 'img/sp3.jpg' %}" alt="Profile Photo" class="profile-photo">
-            <h3>Abebe Yilma</h3>
-            <p>abebe123@gmail.com</p>
-        </div>
+      </tbody>
+    </table>
+  </div>
+    
+  </div>
 
-        <div class="section">
-            
-            <ul>
-                <li><a href="#"> <i class="fa-solid fa-bars" style="color: #fff;"></i>  Properties</a></li>
-                <li><a href="#"><i class="fa-solid fa-plus" style="color: #fff;"></i> Add Property</a></li>
-                <li><a href="#"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i> Update Property</a></li>
-                <li><a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i> Profie</a></li>
-                <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
-                <li><a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
-            </ul>
-        </div>
-
- 
-    <div class="main-content">
-       
-    </div>
 </body>
 </html>

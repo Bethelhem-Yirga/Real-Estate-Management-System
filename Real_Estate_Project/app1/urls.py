@@ -10,11 +10,9 @@ urlpatterns = [
     path('adminn/', views.adminn, name='adminn'),
     path('custemer/', views.custemer, name='custemer'),
 
-    path('marketing_manager/', views.marketing_manager, name='marketing_manager'),
-
-    
-
-     path('manager/', views.custemer, name='manager'),
+    path('marketing_manager/', views.properties, name='marketing_manager'),
+    path('manager/', views.custemer, name='manager'),
 
  
 ]
+
