@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Employee</title>
+  <style>
+      /* Navigation Bar Styles */
+      .navbar {
+      background-color: #183611;
+     
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .navbar .profile-photo {
+        float: right;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      margin-left: 1180px;
+    }
+   
+
+   
+    .navbar .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+.navbar .logout-link  {
+  color: white;
+}
+    .form-container {
+      max-width: 400px;
+      margin: 20px auto;  
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group input[type="radio"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .form-group input[type="radio"] {
+      display: inline-block;
+      width: auto;
+      margin-right: 10px;
+    }
+
+    .form-group button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .form-group button.clear-button {
+      background-color: #FF0000;
+    }
+  </style>
+ 
+ 
+ <script>
+   document.addEventListener("DOMContentLoaded", function() {
+     var form = document.getElementById("employee-form");
+     var clearButton = document.querySelector(".clear-button");
+     var errorContainer = document.getElementById("error-container");
+   //submit button validation
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); 
+    var firstName = document.getElementById("first-name").value;
+    var lastName = document.getElementById("last-name").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var address = document.getElementById("address").value;
+    
+
+    if (!firstName || !lastName || !email || !phone || !address) {
+      alert("Please fill in all fields.");
+    } else {
+      // Add code here to submit the form data to the database
+     alert("Form submitted successfully");
+      form.reset(); 
+    }
+  });
+
+    
+     clearButton.addEventListener("click", function(event) {
+       event.preventDefault();
+       clearFormFields();
+       errorContainer.textContent = ""; 
+     });
+ 
+     function validateForm() {
+       var inputs = form.querySelectorAll("input[type='text'], input[type='email'], input[type='tel'], input[type='radio']");
+       var isValid = true;
+ 
+       for (var i = 0; i < inputs.length; i++) {
+         if (inputs[i].value.trim() === "") {
+           isValid = false;
+           inputs[i].classList.add("error");
+         } else {
+           inputs[i].classList.remove("error");
+         }
+       }
+ 
+       return isValid;
+     }
+ 
+     function clearFormFields() {
+       var inputs = form.querySelectorAll("input[type='text'], input[type='email'], input[type='tel'], input[type='radio']");
+       
+       for (var i = 0; i < inputs.length; i++) {
+         if (inputs[i].type === "radio") {
+           inputs[i].checked = false; 
+         } else {
+           inputs[i].value = ""; 
+         }
+       }
+     }
+   });
+ 
+   window.addEventListener("DOMContentLoaded", function() {
+ 
+     var logoutLink = document.querySelector(".logout-link");
+     logoutLink.addEventListener("click", function() {
+       window.location.href = "{% url 'home.html' %}"; 
+     });
+   //add hompagelink
+     var homeLink = document.querySelector(".home-link");
+     homeLink.addEventListener("click", function(event) {
+       event.preventDefault(); 
+       //addadmin page link
+       window.location.href = "{% url 'home.html' %}"; 
+     });
+   });
+ </script>
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="home-link">Home</a>
+        </div>
+        <div class="profile-photo">
+            <img src="{% static 'img/sp5.jpg' %}" alt="Profile Photo">
+          </div>
+          <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+      </div>
+    <div class="form-container">
+        <h2>Add Employee</h2>
+        <form id="employee-form">
+          <div class="form-group">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first-name" placeholder="Enter first name">
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last-name" placeholder="Enter last name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter phone number">
+          </div>
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" placeholder="Enter address">
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="text" id="role" name="role" placeholder="Enter role">
+          </div>
+          <div class="form-group">
+            <label>Gender:</label>
+        Male <input type="radio" id="male" name="gender" value="male">
+           
+          Female<input type="radio" id="female" name="gender" value="female">
+          
+          </div>
+          <div class="form-group">
+            <button type="submit">Submit</button>
+            <button type="button" id="clear-button" class="clear-button">Clear</button>
+          </div>
+          </form>
+          </div>
+
+</body>
+</html>
