@@ -11,10 +11,12 @@ urlpatterns = [
     path('custemer/', views.custemer, name='custemer'),
 
     path('marketing_manager/', views.properties, name='marketing_manager'),
+    path('add_property/', views.addProperty, name='add_property'),
     path('manager/', views.custemer, name='manager'),
 
   path('appform/', views.appform, name='appform'),
   path(' addemploy/', views.addemploy, name=' addemploy'),
+ 
   
 ]
 

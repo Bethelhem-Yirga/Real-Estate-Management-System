@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from pyexpat.errors import messages
+from django.shortcuts import redirect, render
+
+from app1.forms import PropertiesForm
 from .models import Properties, Registration
 
 from django.core.mail import send_mail
@@ -70,4 +73,32 @@ def properties(request):
    all_info = Properties.objects.all()
    context = {'all_info':all_info}
    return render(request,"marketing_manager.html",context = context)
+
+"""def addProperty(request):  
+    if request.method == "POST":  
+        form = PropertiesForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                form.save()
+                messages.success(request, 'Data added successfully.')  
+                return render(request, 'marketing_manager.html')  
+            except:  
+                pass  
+    else:  
+        form = PropertiesForm()  
+    return render(request,'add_property.html',{'form':form})  """
+
+def addProperty(request):
+    if request.method == "POST":
+        form = PropertiesForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, 'Data added successfully.')
+                #return render(request, 'marketing_manager.html')
+            except:
+                pass
+    else:
+        form = PropertiesForm()
+    return render(request, 'add_property.html', {'form': form})
 
