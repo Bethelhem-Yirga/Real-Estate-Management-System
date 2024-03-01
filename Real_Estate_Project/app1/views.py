@@ -1,12 +1,12 @@
-<<<<<<< HEAD
-from pyexpat.errors import messages
-from django.shortcuts import redirect, render
 
-from app1.forms import PropertiesForm
-=======
+from pyexpat.errors import messages
+from django.shortcuts import get_object_or_404, redirect, render
+
+from app1.forms import PropertyForm
+
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
->>>>>>> 86866671c684f85e0394afa1db96a340f12044bd
+
 from .models import Properties, Registration
 
 from django.core.mail import send_mail
@@ -114,11 +114,12 @@ def properties(request):
         form = PropertiesForm()  
     return render(request,'add_property.html',{'form':form})  """
 
-def addProperty(request):
+"""def addProperty(request):
     if request.method == "POST":
-        form = PropertiesForm(request.POST)
+        form = PropertiesForm(request.POST,request.FILES)
         if form.is_valid():
             try:
+                
                 form.save()
                 messages.success(request, 'Data added successfully.')
                 #return render(request, 'marketing_manager.html')
@@ -127,4 +128,31 @@ def addProperty(request):
     else:
         form = PropertiesForm()
     return render(request, 'add_property.html', {'form': form})
+"""
 
+
+from .forms import PropertyForm
+
+def add_property(request):
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data added successfully.')
+            #return redirect('property_list')
+    else:
+        form = PropertyForm()
+    return render(request, 'add_property.html', {'form': form})
+
+
+def update_property(request, property_id):
+    #property = Properties.objects.get(id=property_id)
+    property = get_object_or_404(Properties, id=property_id)
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES, instance=property)
+        if form.is_valid():
+            form.save()
+            return redirect('marketing_manager') 
+    else:
+        form = PropertyForm(instance=property)
+    return render(request, 'update_property.html', {'form': form})

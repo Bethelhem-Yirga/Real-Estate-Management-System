@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Property Form</title>
+    <title>Update Property</title>
 </head>
 <body>
-    <h1>Add a Property</h1>
+    <h1>Update Property</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Save Property">
+        <input type="submit" value="Update Property">
     </form>
 </body>
 </html>

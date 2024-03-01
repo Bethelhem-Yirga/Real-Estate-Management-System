@@ -11,7 +11,11 @@ urlpatterns = [
     path('custemer/', views.custemer, name='custemer'),
 
     path('marketing_manager/', views.properties, name='marketing_manager'),
-    path('add_property/', views.addProperty, name='add_property'),
+    path('add_property/', views.add_property, name='add_property'),
+    #path('update_property/', views.update_property, name='update_property'),
+    #path('update_property/<int:property_id>/', views.update_property, name='update_property'),
+    path('update_property/<int:property_id>/', views.update_property, name='update_property'),
+    
     path('manager/', views.custemer, name='manager'),
 
   path('appform/', views.appform, name='appform'),
