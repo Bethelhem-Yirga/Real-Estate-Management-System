@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Estate Management System -rent</title>
+  <style>
+    .navbar-container {
+      display: flex;
+      margin-top:5px ;
+    }
+    
+    .vertical-navbar {
+      width: 200px;
+      background-color:  #18361a ;
+      padding: 20px;
+    }
+   
+  
+    
+    .nav-links {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .nav-links li {
+      margin-bottom: 10px;
+    }
+    
+    .nav-links a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: whitesmoke;
+    }
+    
+    .nav-links a:hover {
+      background-color: #ccc;
+    }
+    
+    .form-container {
+      flex: 1;
+      padding: 20px;
+    }
+    
+    .form-content {
+      display: none;
+      max-width: 400px;
+      margin: 20px auto;  
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    .form-content.active {
+      display: block;
+    }
+    
+    .form-content h2 {
+      margin-bottom: 10px;
+    }
+    
+    .form-content form {
+      display: flex;
+      flex-direction: column;
+    }
+    .navbar {
+    overflow: hidden;
+    background-color: #18361a;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+  }
+
+  .navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    height: 40px;
+  }
+
+  .navbar .logo img {
+    height: 40px;
+  }
+
+  .navbar a:hover {
+    background-color: #c7c73a;
+  }
+
+  .navbar .logo {
+    float: left;
+  }
+
+  
+  .navbar .About, 
+  .navbar .Contact, 
+ 
+  .navbar .help
+
+  {
+    float: right;
+  }
+  footer {
+    margin-top: 800px;
+        background-color: #18361a;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height:40vh;
+        color:#CCCCCC;
+      }
+    
+      .footer-section {
+        display: inline-block;
+        text-align: left;
+        margin-bottom: 20px;
+      }
+    
+      .footer-section:last-child {
+        margin-right: 0;
+      }
+    
+      .footer-section h3 {
+        margin-top: 0;
+      }
+    
+      .footer-section p {
+        margin-bottom: 10px;
+      }
+    
+      .footer-section.opening-hours {
+        text-align: left;
+        margin-left:50px;
+      }
+    
+      .footer-section.address {
+        text-align: center;
+      }
+    
+      .footer-section.follow-us {
+        text-align: right;
+        margin-right:100px;
+      }
+    .form-content label {
+      margin-bottom: 5px;
+    }
+    
+    .form-content input,
+    .form-content select,
+    .form-content textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    
+    .form-content button {
+      margin-top: 10px;
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 50px;
+      margin-left: 50px;
+      margin-bottom: 10px;
+   
+    }
+    .rating {
+  display: inline-block;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  float: right;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.rating label:before {
+  content: '\2605';
+  font-size: 25px;
+}
+
+.rating input:checked ~ label {
+  color: #ffcc00;
+}
+    </style>
+    
+    <script>
+    function toggleForm(formId) {
+      var formContents = document.getElementsByClassName('form-content');
+      for (var i = 0; i < formContents.length; i++) {
+        formContents[i].classList.remove('active');
+      }
+      var form = document.getElementById(formId);
+      form.classList.add('active');
+    }
+    </script>
+</head>
+<body>
+  <div class="navbar">
+    <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+    <a href="/" class="home">Home</a>
+    <a href="/property_listing">Listing</a>
+    <a href="/salespersons">Sales Person</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="#about">About</a>
+    <a href="#help">Help</a>
+    <a href="{% url 'registration' %}"  class="login">Register</a>
+    <a href="#login" class="login">Login</a>
+  </div>
+  <div class="navbar-container">
+    <div class="vertical-navbar">
+      
+      <ul class="nav-links">
+        <li><a href="#" onclick="toggleForm('chatbot-form')">Application</a></li>
+        <li><a href="#" onclick="toggleForm('payment-form')">Payment</a></li>
+       
+        <li><a href="#" onclick="toggleForm('feedback-form')">Feedback</a></li>
+        <li><a href="#" onclick="toggleForm('chatbot-form')">Chatbot</a></li>
+      </ul>
+    </div>
+   
+    <div class="form-container">
+      <div id="payment-form" class="form-content">
+        <h2>Payment</h2>
+        <!-- Payment form content goes here -->
+      </div>
+      
+      
+      <div id="feedback-form" class="form-content">
+        <h2>Feedback</h2>
+        <form action="{% url 'feedback' %}" method="post">
+          {% csrf_token %}
+          <label for="feedback">Feedback:</label>
+          <textarea id="feedback" name="feedback" required></textarea>
+          <br>
+          <label for="rating">Rating:</label>
+          <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" required>
+            <label for="star5">5 stars</label>
+            <input type="radio" id="star4" name="rating" value="4" required>
+            <label for="star4">4 stars</label>
+            <input type="radio" id="star3" name="rating" value="3" required>
+            <label for="star3">3 stars</label>
+            <input type="radio" id="star2" name="rating" value="2" required>
+            <label for="star2">2 stars</label>
+            <input type="radio" id="star1" name="rating" value="1" required>
+            <label for="star1">1 star</label>
+          </div>
+          <br>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div id="chatbot-form" class="form-content">
+        <h2>Chatbot</h2>
+        <textarea id="chat" name="chat" required></textarea>
+        <br>
+        <button type="submit">Send</button>
+      </form>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-section opening-hours">
+      <h1>Opening Hours</h1>
+      <p>Monday - Friday: 8:00AM-5:00PM</p>
+      <p>Saturday: 8:00AM-12:00PM</p>
+    </div>
+    <div class="footer-section address">
+      <h1>Address</h1>
+      <p>Behar Building, 9th floor, Africa Avenue,</p>
+      <p>Addis Ababa, Ethiopia</p>
+      <p>Tel: +251-114670669</p>
+      <p>Fax: +251-114652154</p>
+    </div>
+    <div class="footer-section follow-us">
+      <h1>Follow Us</h1>
+      <div class="social-media-links">
+        <ul>
+        
+          <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a>    
+          <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a>   
+          <a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a> 
+          <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a> 
+        
+      </ul>
+      </div>
+    </div>
+    
+  </footer>
+</body>
+</html> 
+
+
