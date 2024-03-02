@@ -12,14 +12,13 @@ urlpatterns = [
 
     path('marketing_manager/', views.properties, name='marketing_manager'),
     path('add_property/', views.add_property, name='add_property'),
-    #path('update_property/', views.update_property, name='update_property'),
-    #path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
-    
+    path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
+
     path('manager/', views.custemer, name='manager'),
 
-  path('appform/', views.appform, name='appform'),
-  path(' addemploy/', views.addemploy, name=' addemploy'),
+    path('appform/', views.appform, name='appform'),
+    path(' addemploy/', views.addemploy, name=' addemploy'),
  
   
 ]

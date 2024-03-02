@@ -100,36 +100,6 @@ def properties(request):
    context = {'all_info':all_info}
    return render(request,"marketing_manager.html",context = context)
 
-"""def addProperty(request):  
-    if request.method == "POST":  
-        form = PropertiesForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()
-                messages.success(request, 'Data added successfully.')  
-                return render(request, 'marketing_manager.html')  
-            except:  
-                pass  
-    else:  
-        form = PropertiesForm()  
-    return render(request,'add_property.html',{'form':form})  """
-
-"""def addProperty(request):
-    if request.method == "POST":
-        form = PropertiesForm(request.POST,request.FILES)
-        if form.is_valid():
-            try:
-                
-                form.save()
-                messages.success(request, 'Data added successfully.')
-                #return render(request, 'marketing_manager.html')
-            except:
-                pass
-    else:
-        form = PropertiesForm()
-    return render(request, 'add_property.html', {'form': form})
-"""
-
 
 from .forms import PropertyForm
 
@@ -146,13 +116,18 @@ def add_property(request):
 
 
 def update_property(request, property_id):
-    #property = Properties.objects.get(id=property_id)
-    property = get_object_or_404(Properties, id=property_id)
+    property_obj = get_object_or_404(Properties, id=property_id)
     if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES, instance=property)
+        form = PropertyForm(request.POST, request.FILES, instance=property_obj)
         if form.is_valid():
             form.save()
             return redirect('marketing_manager') 
     else:
-        form = PropertyForm(instance=property)
+        form = PropertyForm(instance=property_obj)
     return render(request, 'update_property.html', {'form': form})
+
+
+
+def property_detail(request, property_id):
+    property_obj = get_object_or_404(Properties, id=property_id)
+    return render(request, 'property_detail.html', {'property': property_obj})

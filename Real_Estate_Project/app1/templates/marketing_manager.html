@@ -26,8 +26,8 @@
     <div class="links">
         <ul>
             <li><a href="#"><i class="fa-solid fa-bars" style="color: #fff;"></i>  Properties</a></li>
-            <li><a href="#"><i class="fa-solid fa-plus" style="color: #fff;"></i> Add Property</a></li>
-            <li><a href="#"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i> Update Property</a></li>
+            <li><a href="{% url 'add_property' %}"><i class="fa-solid fa-plus" style="color: #fff;"></i> Add Property</a></li>
+            
             <li><a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i> Profie</a></li>
             <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
             <li><a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
@@ -43,16 +43,13 @@
         <tr>
           <th style="padding:20px;">Property ID</th>
           <th style="padding:20px;">Property Type</th>
-          <th style="text-align: left;">Address</th>
-          <th style="text-align: left;"> Status</th>
-          <th style="text-align: left;">Property Size</th>
-          <th style="text-align: left;">Number Of Rooms</th>
-          <th style="text-align: left;">Total Floor</th>
-          <th style="text-align: left;">Bedrooms</th>
-          <th style="text-align: left;">Bathrooms</th>
-          <th style="text-align: left;">Price</th>
+         
+          <th style="text-align: left;"> Availablity</th>
+          <th style="text-align: left;">Date Added</th>
+          
           <th style="text-align: left;">Image</th>
           <th style="text-align: left;">Actions</th>
+           
         </tr>
       </thead>
       <tbody>
@@ -61,14 +58,10 @@
           
           <td style="text-align: left;height: 50px;">{{ x.id}}</td>
           <td style="text-align: left;">{{ x.propertyType}}</td>
-          <td style="text-align: left;">{{ x.address}}</td>
-          <td style="text-align: left;">{{ x.status}}</td>
-          <td style="text-align: left;">{{ x.size}} Sq mt</td>
-          <td style="text-align: left;">{{ x.noOfRooms}}</td>
-          <td style="text-align: left;">{{ x.TotalFloor}}</td>
-          <td style="text-align: left;">{{ x.bedrooms}}</td>
-          <td style="text-align: left;">{{ x.bathrooms }}</td>
-          <td style="text-align: left;">{{ x.price }}</td>
+          <td style="text-align: left;">  </td>
+          <td style="text-align: left;">{{ x.date_added }}</td>
+          
+            
           {% if x.image %}
           <td style="text-align: left;">
             <img src="{{ x.image.url }}" alt="img" class="" style="height:80px; width:80px;">
@@ -80,8 +73,8 @@
           {% endif %}
 
           <td>  
-            <a href="/update_property/{{ property.id }}"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>  
-            <a href="#"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>  
+            <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
+            <a href="{% url 'property_detail' property_id=x.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
         </td>  
           <br>
         </tr>

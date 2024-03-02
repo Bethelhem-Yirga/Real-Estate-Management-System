@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Property Detail</title>
+</head>
+<body>
+    <h1>Property Detail</h1>
+    <p>Property Type: {{ property.propertyType }}</p>
+    <p>Address: {{ property.address }}</p>
+    <p>Status: {{property.status}} </p>
+    <p>Size: {{ property.size}} Sq mt</p>
+    <p>Number Of Rooms: {{property.noOfRooms}}</p>
+    <p>Total Floor: {{ property.TotalFloor}}</p>
+    <p>Bedrooms: {{ property.bedrooms}}</p>
+    <p>Bathrooms: {{ property.bathrooms }}</p>
+    <p>Price: {{ property.price }}</p>
+    <p>Date Added: {{ property.date_added }}</p>
+    {% if property.image %}
+            <img src="{{ property.image.url }}" alt="img" class="" style="height:80px; width:80px;">
+
+          {%else%}
+            <img src="{% static 'img/logo.png' %}" alt="img">
+         
+    {% endif %}
+    
+
+</body>
+</html>
