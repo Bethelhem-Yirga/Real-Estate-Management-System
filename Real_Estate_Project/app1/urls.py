@@ -19,6 +19,10 @@ urlpatterns = [
 
     path('appform/', views.appform, name='appform'),
     path(' addemploy/', views.addemploy, name=' addemploy'),
+        path(' rent/', views.rent, name='rent'),
+            path('buy/', views.buy, name='buy'),
+
+
  
   
 ]

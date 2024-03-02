@@ -53,8 +53,12 @@ def appform(request):
     return render(request, 'appform.html')
 def addemploy(request):
     return render(request, 'addemploy.html')
-
+def rent(request):
+    return render(request, 'rent.html')
+def buy(request):
+    return render(request, 'buy.html')
 def custemer(request):
+    
     all_custemers = Registration.objects.all()  # Correct the variable name
     context = {'all_custemers': all_custemers}  # Correct the syntax for creating a dictionary
     return render(request, 'custemer.html', context)
