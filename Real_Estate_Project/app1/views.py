@@ -22,7 +22,7 @@ from django.contrib import messages
 def home_view(request):
     return render(request, 'home.html')
 
-def registration_view(request):
+"""def registration_view(request):
     if request.method == 'POST':
         # Extract form data from the request
         firstName = request.POST['firstName']
@@ -51,7 +51,7 @@ def registration_view(request):
 
     # Handle GET request or other request methods here
     # For example, you can render a registration form
-    return render(request, 'registration.html')
+    return render(request, 'registration.html')"""
 
 def property_listing(request):
     return render(request, 'property_listing.html')
@@ -65,8 +65,12 @@ def appform(request):
     return render(request, 'appform.html')
 def addemploy(request):
     return render(request, 'addemploy.html')
-
+def rent(request):
+    return render(request, 'rent.html')
+def buy(request):
+    return render(request, 'buy.html')
 def custemer(request):
+    
     all_custemers = Registration.objects.all()  # Correct the variable name
     context = {'all_custemers': all_custemers}  # Correct the syntax for creating a dictionary
     return render(request, 'custemer.html', context)
@@ -112,36 +116,6 @@ def properties(request):
    context = {'all_info':all_info}
    return render(request,"marketing_manager.html",context = context)
 
-"""def addProperty(request):  
-    if request.method == "POST":  
-        form = PropertiesForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()
-                messages.success(request, 'Data added successfully.')  
-                return render(request, 'marketing_manager.html')  
-            except:  
-                pass  
-    else:  
-        form = PropertiesForm()  
-    return render(request,'add_property.html',{'form':form})  """
-
-"""def addProperty(request):
-    if request.method == "POST":
-        form = PropertiesForm(request.POST,request.FILES)
-        if form.is_valid():
-            try:
-                
-                form.save()
-                messages.success(request, 'Data added successfully.')
-                #return render(request, 'marketing_manager.html')
-            except:
-                pass
-    else:
-        form = PropertiesForm()
-    return render(request, 'add_property.html', {'form': form})
-"""
-
 
 from .forms import PropertyForm
 
@@ -158,19 +132,23 @@ def add_property(request):
 
 
 def update_property(request, property_id):
-    #property = Properties.objects.get(id=property_id)
-    property = get_object_or_404(Properties, id=property_id)
+    property_obj = get_object_or_404(Properties, id=property_id)
     if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES, instance=property)
+        form = PropertyForm(request.POST, request.FILES, instance=property_obj)
         if form.is_valid():
             form.save()
             return redirect('marketing_manager') 
     else:
+
         form = PropertyForm(instance=property)
+
+        form = PropertyForm(instance=property_obj)
+
     return render(request, 'update_property.html', {'form': form})
 
 
 
+ 
 
 
 
@@ -185,3 +163,8 @@ def registration_view(request):
     else:
         form = RegistrationForm()
     return render(request, 'registration_view.html', {'form': form})
+
+def property_detail(request, property_id):
+    property_obj = get_object_or_404(Properties, id=property_id)
+    return render(request, 'property_detail.html', {'property': property_obj})
+

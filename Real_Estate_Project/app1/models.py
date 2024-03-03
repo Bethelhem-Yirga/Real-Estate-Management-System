@@ -1,5 +1,6 @@
+import datetime
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
 class Registration (models.Model):
      first_name = models.CharField(max_length=100)
@@ -54,5 +55,7 @@ class Properties(models.Model):
     TotalFloor = models.BigIntegerField()
     image = models.ImageField(upload_to='images', default='bg1.jpg')
 
+
+    date_added = models.DateTimeField(default=datetime.now, blank=True)
 
     
