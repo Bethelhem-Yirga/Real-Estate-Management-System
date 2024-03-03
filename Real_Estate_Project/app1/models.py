@@ -9,8 +9,8 @@ class Registration (models.Model):
      address = models.CharField(max_length=200)
 
 
-     def __str__(self):
-        return (self. first_name+ " "+ self. last_name)
+     """def __str__(self):
+        return (self. first_name+ " "+ self. last_name)"""
 
 
 """MY_CHOICES = [
@@ -53,3 +53,6 @@ class Properties(models.Model):
     roomFloor = models.BigIntegerField()
     TotalFloor = models.BigIntegerField()
     image = models.ImageField(upload_to='images', default='bg1.jpg')
+
+
+    

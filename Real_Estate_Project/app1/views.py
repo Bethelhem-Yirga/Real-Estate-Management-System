@@ -1,7 +1,10 @@
 
 from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, redirect, render
-
+from django.shortcuts import render
+from django.contrib import messages
+from .models import Registration
+from .forms import RegistrationForm
 from app1.forms import PropertyForm
 
 from django.shortcuts import render
@@ -21,6 +24,7 @@ def home_view(request):
 
 def registration_view(request):
     if request.method == 'POST':
+        # Extract form data from the request
         firstName = request.POST['firstName']
         lastName = request.POST['lastName']
         email = request.POST['email']
@@ -29,12 +33,20 @@ def registration_view(request):
         password = request.POST['password']
         confirmPassword = request.POST['confirmPassword']
         
+        # Create a new user using create_user method
         myuser = User.objects.create_user(username, email, password)
+        
+        # Assign additional fields to the user object
         myuser.first_name = firstName
         myuser.last_name = lastName
+        
+        # Save the user object to the database
         myuser.save()
+        
+        # Display success message
         messages.success(request, "Registration successful")
-
+        
+        # Redirect the user to the home page
         return redirect('home')
 
     # Handle GET request or other request methods here
@@ -156,3 +168,20 @@ def update_property(request, property_id):
     else:
         form = PropertyForm(instance=property)
     return render(request, 'update_property.html', {'form': form})
+
+
+
+
+
+
+
+
+def registration_view(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registered successfully.')
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration_view.html', {'form': form})
