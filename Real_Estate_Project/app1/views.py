@@ -6,6 +6,13 @@ from django.contrib import messages
 from .models import Registration
 from .forms import RegistrationForm
 from app1.forms import PropertyForm
+import stripe
+from django.conf import settings
+from django import forms  # Import the forms module
+from django.shortcuts import render
+
+
+import stripe
 
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
@@ -168,3 +175,60 @@ def property_detail(request, property_id):
     property_obj = get_object_or_404(Properties, id=property_id)
     return render(request, 'property_detail.html', {'property': property_obj})
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# views.py
+
+
+
+
+def payment_view(request):
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            session_id = form.process_payment()
+            return render(request, 'success.html', {'session_id': session_id})
+    else:
+        form = PaymentForm()
+    
+    return render(request, 'payment.html', {'form': form})
+
+def success_view(request):
+    return render(request, 'success.html')
+
+class PaymentForm(forms.Form):
+    # Define your form fields here
+
+    def process_payment(self):
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        # Create a Stripe session and return the session ID
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'unit_amount': 1000,
+                    'product_data': {
+                        'name': 'Product Name',
+                        'description': 'Product Description',
+                    },
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url='https://example.com/success/',
+            cancel_url='https://example.com/cancel/',
+        )
+        return session.id
