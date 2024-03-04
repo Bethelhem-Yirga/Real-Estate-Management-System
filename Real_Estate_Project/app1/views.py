@@ -3,8 +3,8 @@ from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
-from .models import Registration
-from .forms import RegistrationForm
+from .models import MarketingManager, Registration
+from .forms import ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
 
 from django.shortcuts import render
@@ -17,6 +17,8 @@ from Real_Estate_Project import settings
 from .models import Registration
 from django.contrib.auth.models import User  
 from django.contrib import messages
+
+from .models import MarketingManager
 
 
 def home_view(request):
@@ -103,8 +105,16 @@ def contact(request):
 
     return render(request, 'contact.html')
 
+
+
+
 def marketing_manager(request):
-    return render(request, 'marketing_manager.html')
+    profile = MarketingManager.objects.first()  
+    context = {
+        'profile': profile,
+    } 
+    return render(request, 'marketing_manager.html', context)
+
 
 def custemer(request):
     all_customers = Registration.objects.all()
@@ -139,10 +149,7 @@ def update_property(request, property_id):
             form.save()
             return redirect('marketing_manager') 
     else:
-
-        form = PropertyForm(instance=property)
-
-        form = PropertyForm(instance=property_obj)
+      form = PropertyForm(instance=property_obj)
 
     return render(request, 'update_property.html', {'form': form})
 
@@ -164,7 +171,23 @@ def registration_view(request):
         form = RegistrationForm()
     return render(request, 'registration_view.html', {'form': form})
 
+
 def property_detail(request, property_id):
     property_obj = get_object_or_404(Properties, id=property_id)
     return render(request, 'property_detail.html', {'property': property_obj})
 
+
+
+def profile_view(request):
+    profile = MarketingManager.objects.first() 
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()        
+    else:
+        form = ProfileForm(instance=profile)
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+    return render(request, 'profile.html', context)

@@ -8,7 +8,7 @@ class Registration (models.Model):
      email = models.EmailField()
      gender = models.CharField(max_length=10)
      address = models.CharField(max_length=200)
-
+     
 
      """def __str__(self):
         return (self. first_name+ " "+ self. last_name)"""
@@ -58,4 +58,10 @@ class Properties(models.Model):
 
     date_added = models.DateTimeField(default=datetime.now, blank=True)
 
+
+class MarketingManager(Registration):
+    employee_id = models.CharField(max_length=10)
+    image = models.ImageField(upload_to='images', default='avator.jpg')
+
+    
     

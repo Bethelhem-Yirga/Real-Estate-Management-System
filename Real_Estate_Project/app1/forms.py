@@ -1,5 +1,6 @@
+from cProfile import Profile
 from django import forms
-from .models import Properties,Registration
+from .models import MarketingManager, Properties,Registration
 
 from django import forms
 from .models import Registration
@@ -14,4 +15,8 @@ class PropertyForm(forms.ModelForm):
         model = Properties
         fields = '__all__'      
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = MarketingManager
+        fields = ['first_name', 'last_name', 'email', 'image', 'address']
 
