@@ -226,3 +226,30 @@ class PaymentForm(forms.Form):
         )
         return session.id
 
+
+
+
+
+
+
+
+from django.shortcuts import render
+from .models import Registration
+
+def login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        # Retrieve user from the database and validate credentials
+        try:
+            user = Registration.objects.get(email=email)
+            if user.password == password:
+                return render(request, 'success.html')
+            else:
+                return render(request, 'failure.html')
+        except Registration.DoesNotExist:
+            return render(request, 'failure.html')
+
+    return render(request, 'login.html')
+
