@@ -11,7 +11,7 @@ urlpatterns = [
     path('adminn/', views.adminn, name='adminn'),
     path('registration_view/', views.registration_view, name='registration_view'),
 
-    path('marketing_manager/', views.properties, name='marketing_manager'),
+    path('dashboard/', views.marketing_manager, name='marketing_manager_dashboard'),
     path('add_property/', views.add_property, name='add_property'),
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
@@ -22,8 +22,8 @@ urlpatterns = [
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
     path(' addemploy/', views.addemploy, name=' addemploy'),
-        path(' rent/', views.rent, name='rent'),
-            path('buy/', views.buy, name='buy'),
+    path(' rent/', views.rent, name='rent'),
+    path('buy/', views.buy, name='buy'),
 
 
  

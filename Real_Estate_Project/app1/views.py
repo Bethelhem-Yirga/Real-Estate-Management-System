@@ -1,4 +1,3 @@
-
 from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
@@ -8,7 +7,7 @@ from .forms import ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
 import stripe
 from django.conf import settings
-from django import forms  # Import the forms module
+from django import forms 
 from django.shortcuts import render
 
 
@@ -31,36 +30,6 @@ from .models import MarketingManager
 def home_view(request):
     return render(request, 'home.html')
 
-"""def registration_view(request):
-    if request.method == 'POST':
-        # Extract form data from the request
-        firstName = request.POST['firstName']
-        lastName = request.POST['lastName']
-        email = request.POST['email']
-        username = request.POST['username']
-        address = request.POST['address']
-        password = request.POST['password']
-        confirmPassword = request.POST['confirmPassword']
-        
-        # Create a new user using create_user method
-        myuser = User.objects.create_user(username, email, password)
-        
-        # Assign additional fields to the user object
-        myuser.first_name = firstName
-        myuser.last_name = lastName
-        
-        # Save the user object to the database
-        myuser.save()
-        
-        # Display success message
-        messages.success(request, "Registration successful")
-        
-        # Redirect the user to the home page
-        return redirect('home')
-
-    # Handle GET request or other request methods here
-    # For example, you can render a registration form
-    return render(request, 'registration.html')"""
 
 def property_listing(request):
     return render(request, 'property_listing.html')
@@ -78,10 +47,10 @@ def rent(request):
     return render(request, 'rent.html')
 def buy(request):
     return render(request, 'buy.html')
+
 def custemer(request):
-    
-    all_custemers = Registration.objects.all()  # Correct the variable name
-    context = {'all_custemers': all_custemers}  # Correct the syntax for creating a dictionary
+    all_custemers = Registration.objects.all()  
+    context = {'all_custemers': all_custemers}  
     return render(request, 'custemer.html', context)
 
 
@@ -116,10 +85,20 @@ def contact(request):
 
 
 def marketing_manager(request):
-    profile = MarketingManager.objects.first()  
+    profile = MarketingManager.objects.first()
+    all_info = Properties.objects.all()
+
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+
     context = {
+        'all_info': all_info,
         'profile': profile,
-    } 
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties
+    }
     return render(request, 'marketing_manager.html', context)
 
 
@@ -142,7 +121,7 @@ def add_property(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Data added successfully.')
-            #return redirect('property_list')
+            
     else:
         form = PropertyForm()
     return render(request, 'add_property.html', {'form': form})
@@ -183,9 +162,6 @@ def property_detail(request, property_id):
     property_obj = get_object_or_404(Properties, id=property_id)
     return render(request, 'property_detail.html', {'property': property_obj})
 
-
-
-<<<<<<< HEAD
 def profile_view(request):
     profile = MarketingManager.objects.first() 
     if request.method == 'POST':
@@ -199,8 +175,6 @@ def profile_view(request):
         'form': form,
     }
     return render(request, 'profile.html', context)
-=======
-
 
 
 
@@ -255,4 +229,4 @@ class PaymentForm(forms.Form):
             cancel_url='https://example.com/cancel/',
         )
         return session.id
->>>>>>> 657557c1e8e947f6979549af4e0a73b473587235
+

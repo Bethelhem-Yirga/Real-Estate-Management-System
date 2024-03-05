@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 from cProfile import Profile
 from django import forms
 from .models import MarketingManager, Properties,Registration
-=======
 from django.conf import settings
 from django import forms
 from .models import Properties,Registration
 import stripe
->>>>>>> 657557c1e8e947f6979549af4e0a73b473587235
+
 
 from django import forms
 from .models import Registration

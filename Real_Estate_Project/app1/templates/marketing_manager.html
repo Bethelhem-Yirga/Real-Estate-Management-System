@@ -6,7 +6,35 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/market.css' %}">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+  <style>
+    .dashboard-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    
+    }
+    
+    .dashboard-item {
+      text-align: center;
+      flex-basis: 30%;
+      padding: 10px;
+      background-color:#ffffff;
+      border-radius: 5px;
+      
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dashboard-item h4 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .dashboard-item p {
+      font-size: 20px;
+      color: #555555;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -17,10 +45,10 @@
       </div>
       
       <div class="profile">
-        <img src="{% static 'img/sp3.jpg' %}" alt="Profile Photo" class="profile-photo">
+        <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
         <div class="profile-info">
-          <span class="name">Abebe Yilma</span>
-          <span class="email">abebe123@gmail.com</span>
+          <span class="name">{{ profile.first_name }} {{ profile.last_name }}</span>
+          <span class="email">{{ profile.email }}</span>
         </div>
       </div>
     </nav>
@@ -29,10 +57,10 @@
   <div class="container">
     <div class="sidebar">
       <div class="profile">
-        <img src="{% static 'img/sp3.jpg' %}" alt="Profile Photo" class="profile-photo">
+        <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
         <div class="profile-info">
-          <h3 class="name">Abebe Yilma</h3>
-          <p class="email">abebe123@gmail.com</p>
+          <h3 class="name">{{ profile.first_name }} {{ profile.last_name }}</h3>
+          <p class="email">{{ profile.email }}</p>
         </div>
       </div>
 
@@ -49,6 +77,22 @@
 
     
     <div class="white-div">
+       
+      <div class="dashboard-info">
+        <div class="dashboard-item">
+            <h4>Total Properties</h4>
+            <p>{{ total_properties }}</p>
+        </div>
+        <div class="dashboard-item">
+            <h4>For Sale</h4>
+            <p>{{ sale_properties }}</p>
+        </div>
+        <div class="dashboard-item">
+            <h4>For Rent</h4>
+            <p>{{ rent_properties }}</p>
+        </div>
+    </div>
+
       <h3>Property Listing</h3>
       <form class="search-form">
         <input type="text" placeholder="Search..." class="search-input">
@@ -59,7 +103,7 @@
           <tr>
             <th>Property ID</th>
             <th>Property Type</th>
-            <th> Availablity</th>
+            <th>Status</th>
             <th>Date Added</th>
             <th>Image</th>
             <th>Actions</th>
@@ -71,7 +115,7 @@
           
           <td>{{ x.id}}</td>
           <td >{{ x.propertyType}}</td>
-          <td>  </td>
+          <td>{{ x.status}}</td>
           <td>{{ x.date_added }}</td>
           
             
