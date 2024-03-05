@@ -9,27 +9,20 @@ import stripe
 from django.conf import settings
 from django import forms 
 from django.shortcuts import render
-
-
 import stripe
-
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
-
 from .models import Properties, Registration
-
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
 from .models import Registration
 from django.contrib.auth.models import User  
 from django.contrib import messages
-
 from .models import MarketingManager
 
 
 def home_view(request):
     return render(request, 'home.html')
-
 
 def property_listing(request):
     return render(request, 'property_listing.html')
@@ -39,12 +32,16 @@ def salespersons(request):
 
 def adminn(request):
     return render(request, 'adminn.html')
+
 def appform(request):
     return render(request, 'appform.html')
+
 def addemploy(request):
     return render(request, 'addemploy.html')
+
 def rent(request):
     return render(request, 'rent.html')
+
 def buy(request):
     return render(request, 'buy.html')
 
@@ -87,7 +84,6 @@ def contact(request):
 def marketing_manager(request):
     profile = MarketingManager.objects.first()
     all_info = Properties.objects.all()
-
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
