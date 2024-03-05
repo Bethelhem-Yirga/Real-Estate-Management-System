@@ -24,61 +24,60 @@
    
     <div class="property-card">
         <div class="property-image">
-            <img src="{% static 'img/card3.jfif' %}" alt="Card 1" >
+            <img src="{{ properties.0.image.url }}" alt="Card 1" >
         </div>
         <div class="property-description">
-            <h2>22 Mazoriya Site Two BEDROOM</h2>
-            <p>Location:Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-            <p>Price: 1,000,000 birr</p>
-            <p>Bedrooms: 2</p>
-            <p>Bathrooms: 2</p>
-            <p>Area: 120 sq. mt.</p>
+            <h2>{{ properties.0.area }} {{ properties.0.bedrooms }} Bedrooms</h2>
+            <p>Location:{{ properties.0.area }} , {{ properties.0.city }}, {{ properties.0.country }} </p>
+            <p>Price: {{ properties.0.price }} birr</p>
+            <p>Bedrooms:{{ properties.0.bedrooms }}</p>
+            <p>Bathrooms:{{ properties.0.bathrooms }}</p>
+            <p>Area: {{ properties.0.size }} Sq.mt</p>
             <a href="#" class="detail-btn">Details</a>
         </div>
     </div>
 
     <div class="property-card">
         <div class="property-image">
-            <img src="{% static 'img/cmc.jpg' %}" alt="Card 1" >
+            <img src="{{ properties.1.image.url }}" alt="Card 1" >
         </div>
         <div class="property-description">
-            <h2>CMC Site TWO BED ROOM</h2>
-            <p>Location:Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 2</p>
-            <p>Bathrooms: 2</p>
-            <p>Area:2144.37 Sq.mt</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/card3.jfif' %}" alt="Card 1" >
-        </div>
-        <div class="property-description">
-            <h2>22 Mazoriya Site Three BEDROOM</h2>
-            <p>Location:Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 3</p>
-            <p>Bathrooms: 3</p>
-            <p>Area:215.61 Sq.mt</p>
+            <h2>{{ properties.1.area }} {{ properties.1.bedrooms }} Bedrooms</h2>
+            <p>Location:{{ properties.1.area }} , {{ properties.1.city }}, {{ properties.1.country }} </p>
+            <p>Price: {{ properties.1.price }} birr</p>
+            <p>Bedrooms:{{ properties.1.bedrooms }}</p>
+            <p>Bathrooms:{{ properties.1.bathrooms }}</p>
+            <p>Area: {{ properties.1.size }} Sq.mt</p>
             <a href="#" class="detail-btn">Details</a>
         </div>
     </div>
 
     <div class="property-card">
         <div class="property-image">
-            <img src="{% static 'img/card-two.jpg' %}" alt="Card 1" style="height:310px">
+            <img src="{{ properties.2.image.url }}" alt="Card 1" >
         </div>
         <div class="property-description">
-            <h2>Bole Atlas Two Bedroom</h2>
-            <p>Location: Mike Leyland Street, Addis Ababa, Ethiopia</p>
-            <p>Price: 800,000 birr</p>
-            <p>Bedrooms: 2</p>
-            <p>Bathrooms: 2</p>
-            <p>Area: 166.97 sq. mt.</p>
+            <h2>{{ properties.2.area }} {{ properties..bedrooms }} Bedrooms</h2>
+            <p>Location:{{ properties.2.area }} , {{ properties.2.city }}, {{ properties.2.country }} </p>
+            <p>Price: {{ properties.2.price }} birr</p>
+            <p>Bedrooms:{{ properties.2.bedrooms }}</p>
+            <p>Bathrooms:{{ properties.2.bathrooms }}</p>
+            <p>Area: {{ properties.2.size }} Sq.mt</p>
+            <a href="#" class="detail-btn">Details</a>
+        </div>
+    </div>
+
+    <div class="property-card">
+        <div class="property-image">
+            <img src="{{ properties.3.image.url }}" alt="Card 1" >
+        </div>
+        <div class="property-description">
+            <h2>{{ properties.3.area }} {{ properties.3.bedrooms }} Bedrooms</h2>
+            <p>Location:{{ properties.3.area }} , {{ properties.3.city }}, {{ properties.3.country }} </p>
+            <p>Price: {{ properties.3.price }} birr</p>
+            <p>Bedrooms:{{ properties.3.bedrooms }}</p>
+            <p>Bathrooms:{{ properties.3.bathrooms }}</p>
+            <p>Area: {{ properties.3.size }} Sq.mt</p>
             <a href="#" class="detail-btn">Details</a>
         </div>
     </div>
@@ -86,31 +85,30 @@
     
     <div class="property-card">
         <div class="property-image">
-            <img src="{% static 'img/card-three.jpg' %}" alt="Property 3">
+            <img src="{{ properties.4.image.url }}" alt="Card 1" >
         </div>
         <div class="property-description">
-            <h2>Mixed Use Apartment Three Bed Room CMC Site</h2>
-            <p>Location: CMC Square | ሲኤምሲ አደባባይ 2VC2+8WP, Addis Ababa</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 3</p>
-            <p>Bathrooms: 4</p>
-            <p>Area: 250 sq. mt.</p>
+            <h2>{{ properties.4.area }} {{ properties.4.bedrooms }} Bedrooms</h2>
+            <p>Location:{{ properties.4.area }} , {{ properties.4.city }}, {{ properties.4.country }} </p>
+            <p>Price: {{ properties.4.price }} birr</p>
+            <p>Bedrooms:{{ properties.4.bedrooms }}</p>
+            <p>Bathrooms:{{ properties.4.bathrooms }}</p>
+            <p>Area: {{ properties.4.size }} Sq.mt</p>
             <a href="#" class="detail-btn">Details</a>
         </div>
     </div>
 
-
     <div class="property-card">
         <div class="property-image">
-            <img src="{% static 'img/card-four.jpg' %}" alt="Property 3">
+            <img src="{{ properties.5.image.url }}" alt="Card 1" >
         </div>
         <div class="property-description">
-            <h2>Duplex Apartment</h2>
-            <p>Location: Gift real estate, Ayat 05</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 3</p>
-            <p>Bathrooms: 4</p>
-            <p>Area: 150.52 sq. mt.</p>
+            <h2>{{ properties.5.area }} {{ properties.5.bedrooms }} Bedrooms</h2>
+            <p>Location:{{ properties.5.area }} , {{ properties.5.city }}, {{ properties.5.country }} </p>
+            <p>Price: {{ properties.5.price }} birr</p>
+            <p>Bedrooms:{{ properties.5.bedrooms }}</p>
+            <p>Bathrooms:{{ properties.5.bathrooms }}</p>
+            <p>Area: {{ properties.5.size }} Sq.mt</p>
             <a href="#" class="detail-btn">Details</a>
         </div>
     </div>

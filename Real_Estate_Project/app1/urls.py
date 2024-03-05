@@ -2,10 +2,14 @@ from django.urls import path
 from . import views
 from .views import payment_view
 
+
+
+    
+
 urlpatterns = [
-    path('', views.home_view, name='index'),
+    path('', views.property_listing, name='index'),
     path('register/', views.registration_view  , name='registration'),
-    path('property_listing/', views.property_listing, name='property_listing'),
+    path('property_listing/', views.property_listing_page, name='property_listing'),
     path('salespersons/', views.salespersons, name='salespersons'),
     path('contact/', views.contact, name='contact'),
     path('adminn/', views.adminn, name='adminn'),
@@ -16,7 +20,7 @@ urlpatterns = [
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
-
+    
 
     path('manager/', views.custemer, name='manager'),
     path('payment/', payment_view, name='payment'),

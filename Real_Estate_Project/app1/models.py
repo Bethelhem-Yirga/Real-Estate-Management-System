@@ -32,7 +32,9 @@ MY_CHOICES = [
 
 class Properties(models.Model):
     propertyType = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
+    country = models.CharField(max_length=100, default='Default Country')
+    city = models.CharField(max_length=100, default='Default City')
+    area = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     size = models.FloatField()
     price = models.FloatField()

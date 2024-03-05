@@ -2,13 +2,7 @@ from cProfile import Profile
 from django import forms
 from .models import MarketingManager, Properties,Registration
 from django.conf import settings
-from django import forms
-from .models import Properties,Registration
 import stripe
-
-
-from django import forms
-from .models import Registration
 
 class RegistrationForm(forms.ModelForm):
     class Meta:
@@ -23,7 +17,7 @@ class PropertyForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = MarketingManager
-        fields = ['first_name', 'last_name', 'email', 'image', 'address']
+        fields = ['first_name', 'last_name', 'email', 'address','gender','phone_number','password','image']
 
 
 

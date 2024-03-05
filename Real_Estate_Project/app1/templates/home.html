@@ -37,38 +37,38 @@
 
   <div class="section">
     <div class="section2">
-  <div class="card">
-    <img src="{% static 'img/card3.jfif' %}" alt="Card 1">
-    <div class="description">
-      <h2>22 Mazoriya Site Three BEDROOM</h2>
-      <p>Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-      <a href="#" class="btn">details</a>
-    </div>
+      <div class="card">
+        <img src="{{ properties.0.image.url }}" alt="Card 1" style="height:310px">
+        <div class="description">
+          <h2>{{ properties.0.area }} {{ properties.0.bedrooms }} Bedrooms {{ properties.0.propertyType }}</h2>
+          <p>Bedrooms:{{ properties.0.bedrooms }}  Bathrooms:{{ properties.0.bathrooms }}  Area: {{ properties.0.size }} Sq.mt</p>
+          <a href="#" class="btn">details</a>
+        </div>
+      </div>
+ <div class="card">
+  <img src="{{ properties.1.image.url }}" alt="Card 1" style="height:310px">
+  <div class="description">
+    <h2>{{ properties.1.area }} {{ properties.1.bedrooms }} Bedrooms {{ properties.1.propertyType }}</h2>
+    <p>Bedrooms:{{ properties.1.bedrooms }}  Bathrooms:{{ properties.1.bathrooms }}  Area: {{ properties.1.size }} Sq.mt</p>
+    <a href="#" class="btn">details</a>
   </div>
-  <div class="card">
-    <img src="{% static 'img/card-two.jpg' %}" alt="Card 1" style="height:310px">
-    <div class="description">
-      <h2>Bole Atlas Two Bedroom</h2>
-      <p>Mike Leyland Street, Addis Ababa, Ethiopia</p>
-      <a href="#" class="btn">details</a>
-    </div>
+</div>
+<div class="card">
+  <img src="{{ properties.2.image.url }}" alt="Card 1" style="height:310px">
+  <div class="description">
+    <h2>{{ properties.2.area }} {{ properties.2.bedrooms }} Bedrooms {{ properties.2.propertyType }}</h2>
+    <p>Bedrooms:{{ properties.2.bedrooms }}  Bathrooms:{{ properties.2.bathrooms }}  Area: {{ properties.2.size }} Sq.mt</p>
+    <a href="#" class="btn">details</a>
   </div>
-  <div class="card">
-    <img src="{% static 'img/card-three.jpg' %}" alt="Card 1" style="height:310px">
-    <div class="description">
-      <h2>Mixed Use Apartment Three Bed Room CMC Site</h2>
-      <p>CMC Square | ሲኤምሲ አደባባይ 2VC2+8WP, Addis Ababa</p>
-      <a href="#" class="btn">details</a>
-    </div>
+</div>
+<div class="card">
+  <img src="{{ properties.3.image.url }}" alt="Card 1" style="height:310px">
+  <div class="description">
+    <h2>{{ properties.3.area }} {{ properties.3.bedrooms }} Bedrooms {{ properties.3.propertyType }}</h2>
+    <p>Bedrooms:{{ properties.3.bedrooms }}  Bathrooms:{{ properties.3.bathrooms }}  Area: {{ properties.3.size }} Sq.mt</p>
+    <a href="#" class="btn">details</a>
   </div>
-  <div class="card">
-    <img src="{% static 'img/card-four.jpg' %}" alt="Card 1" style="height:310px">
-    <div class="description">
-      <h2>Duplex Apartment</h2>
-      <p>Gift real estate, Ayat 05</p>
-      <a href="#" class="btn">details</a>
-    </div>
-  </div>
+</div>
   </div>
 
 

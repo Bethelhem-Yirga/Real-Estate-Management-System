@@ -19,13 +19,22 @@ from .models import Registration
 from django.contrib.auth.models import User  
 from django.contrib import messages
 from .models import MarketingManager
+from .forms import PropertyForm
 
 
 def home_view(request):
-    return render(request, 'home.html')
+    return render(request,'home.html')
 
 def property_listing(request):
-    return render(request, 'property_listing.html')
+    properties = Properties.objects.all()
+    context = {'properties': properties}
+    return render(request, 'home.html', context)
+
+def property_listing_page(request):
+    properties = Properties.objects.all()
+    context = {'properties': properties}
+    return render(request, 'property_listing.html', context)
+    
 
 def salespersons(request):
     return render(request, 'salespersons.html')
@@ -98,18 +107,11 @@ def marketing_manager(request):
     return render(request, 'marketing_manager.html', context)
 
 
-def custemer(request):
-    all_customers = Registration.objects.all()
-    context = {'all_customers': all_customers}
-    return render(request, 'custemer.html', context)
-
 def properties(request):
    all_info = Properties.objects.all()
    context = {'all_info':all_info}
    return render(request,"marketing_manager.html",context = context)
 
-
-from .forms import PropertyForm
 
 def add_property(request):
     if request.method == 'POST':
@@ -117,10 +119,12 @@ def add_property(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Data added successfully.')
-            
+                   
     else:
         form = PropertyForm()
     return render(request, 'add_property.html', {'form': form})
+
+
 
 
 def update_property(request, property_id):
@@ -129,7 +133,8 @@ def update_property(request, property_id):
         form = PropertyForm(request.POST, request.FILES, instance=property_obj)
         if form.is_valid():
             form.save()
-            return redirect('marketing_manager') 
+            messages.success(request, 'Data updated successfully.') 
+            #return redirect('marketing_manager')
     else:
       form = PropertyForm(instance=property_obj)
 
@@ -137,9 +142,16 @@ def update_property(request, property_id):
 
 
 
- 
+def property_detail(request, property_id):
+    property_obj = get_object_or_404(Properties, id=property_id)
+    return render(request, 'property_detail.html', {'property': property_obj})
 
 
+
+def custemer(request):
+    all_customers = Registration.objects.all()
+    context = {'all_customers': all_customers}
+    return render(request, 'custemer.html', context)
 
 
 
@@ -154,16 +166,15 @@ def registration_view(request):
     return render(request, 'registration_view.html', {'form': form})
 
 
-def property_detail(request, property_id):
-    property_obj = get_object_or_404(Properties, id=property_id)
-    return render(request, 'property_detail.html', {'property': property_obj})
+
 
 def profile_view(request):
     profile = MarketingManager.objects.first() 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()        
+            form.save()
+            messages.success(request, 'Profile updated successfully.')         
     else:
         form = ProfileForm(instance=profile)
     context = {
@@ -171,18 +182,6 @@ def profile_view(request):
         'form': form,
     }
     return render(request, 'profile.html', context)
-
-
-
-
-
-
-
-
-
-
-
-# views.py
 
 
 
@@ -229,10 +228,6 @@ class PaymentForm(forms.Form):
 
 
 
-
-
-
-
 from django.shortcuts import render
 from .models import Registration
 
@@ -252,4 +247,5 @@ def login(request):
             return render(request, 'failure.html')
 
     return render(request, 'login.html')
+
 
