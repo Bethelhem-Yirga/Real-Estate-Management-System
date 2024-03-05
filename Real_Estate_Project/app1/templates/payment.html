@@ -1,7 +1,9 @@
+<!-- payment.html -->
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Pay</button>
+    <button type="submit">Pay now </button>
 </form>
 
 <script src="https://js.stripe.com/v3/"></script>

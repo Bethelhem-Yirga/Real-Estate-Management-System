@@ -25,7 +25,7 @@ urlpatterns = [
     path(' rent/', views.rent, name='rent'),
     path('buy/', views.buy, name='buy'),
 
-
+    path('login/', views.login, name='login'),
  
   
 ]
