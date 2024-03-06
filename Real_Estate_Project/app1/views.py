@@ -249,3 +249,5 @@ def login(request):
     return render(request, 'login.html')
 
 
+def system_admin(request):
+    return render(request, 'system_admin.html')

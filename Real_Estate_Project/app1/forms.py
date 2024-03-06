@@ -17,7 +17,7 @@ class PropertyForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = MarketingManager
-        fields = ['first_name', 'last_name', 'email', 'address','gender','phone_number','password','image']
+        fields = ['first_name', 'last_name','image']
 
 
 

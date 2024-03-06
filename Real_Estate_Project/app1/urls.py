@@ -21,7 +21,6 @@ urlpatterns = [
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
     
-
     path('manager/', views.custemer, name='manager'),
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
@@ -30,6 +29,9 @@ urlpatterns = [
     path('buy/', views.buy, name='buy'),
 
     path('login/', views.login, name='login'),
+
+    path('system_admin/', views.system_admin, name='system_admin'),
+
  
   
 ]
