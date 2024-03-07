@@ -8,25 +8,60 @@ import re
 from django.core.validators import RegexValidator
 from django.core.validators import MinValueValidator
 
-# Create your models here.
-class Registration (models.Model):
-     first_name = models.CharField(max_length=100)
-     last_name = models.CharField(max_length=100)
-     email = models.EmailField()
-     gender = models.CharField(max_length=10)
-     address = models.CharField(max_length=200)
-     phone_number = models.CharField(max_length=20)
-     password = models.CharField(
+from django.db import models
+from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator
+
+class Registration(models.Model):
+    ROLE_CHOICES = [
+        ('manager', 'Manager'),
+        ('customer', 'Customer'),
+        ('admin', 'Admin'),
+        ('salesperson', 'Salesperson'),
+        ('marketing_manager', 'Marketing Manager'),
+        ('maintenance_staff', 'Maintenance Staff'),
+    ]
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    address = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=20)
+    password = models.CharField(
         max_length=100,
         validators=[
             MinLengthValidator(8, message="Password must be at least 8 characters long.")
         ]
     )
-     confirm_password = models.CharField(max_length=100)
+    confirm_password = models.CharField(max_length=100)
+    role = models.CharField(max_length=20, default='customer', choices=ROLE_CHOICES)
 
-     def clean(self):
+    def clean(self):
+        # Check if the first name contains only alphabetic characters without spaces
+        if not self.first_name.replace(" ", "").isalpha():
+            raise ValidationError("First name can only contain alphabetic characters without spaces.")
+
+        # Check if the last name contains only alphabetic characters without spaces
+        if not self.last_name.replace(" ", "").isalpha():
+            raise ValidationError("Last name can only contain alphabetic characters without spaces.")
+
+        # Check if the phone number contains only numeric characters without spaces
+        if not self.phone_number.replace(" ", "").isdigit():
+            raise ValidationError("Phone number can only contain numeric characters without spaces.")
+
+        # Check if the email is already used
+        if Registration.objects.filter(email=self.email).exists():
+            raise ValidationError("Email is already in use.")
+
+        # Check if the passwords match
         if self.password != self.confirm_password:
             raise ValidationError("Passwords do not match.")
+     
      
 
 MY_CHOICES = [

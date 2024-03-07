@@ -231,23 +231,40 @@ class PaymentForm(forms.Form):
 from django.shortcuts import render
 from .models import Registration
 
+from django.shortcuts import render, redirect
+
+from django.shortcuts import render, redirect
+
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
+        role = request.POST['role']
 
         # Retrieve user from the database and validate credentials
         try:
             user = Registration.objects.get(email=email)
             if user.password == password:
-                return render(request, 'success.html')
+                if role == 'admin':
+                    return redirect('system_admin')  # Redirect to admin page
+                elif role == 'manager':
+                    return redirect('manager_page')  # Redirect to manager page
+                elif role == 'customer':
+                    return redirect('customer_page')  # Redirect to customer page
+                elif role == 'salesperson':
+                    return redirect('salesperson_page')  # Redirect to salesperson page
+                elif role == 'marketing_manager':
+                    return redirect('dashboard')  # Redirect to marketing manager page
+                elif role == 'maintenance_staff':
+                    return redirect('maintenance_staff_page')  # Redirect to maintenance staff page
+                else:
+                    return render(request, 'failure.html')
             else:
                 return render(request, 'failure.html')
         except Registration.DoesNotExist:
             return render(request, 'failure.html')
 
     return render(request, 'login.html')
-
 
 def system_admin(request):
     return render(request, 'system_admin.html')
