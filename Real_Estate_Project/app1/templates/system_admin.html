@@ -2,12 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Marketing Manager Dashboard</title>
+  <title>System Admin Dashboard</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/system_admin.css' %}">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  
 </head>
 <body>
+
+  
   <header>
     <nav class="navbar">
         <div class="logo">
@@ -38,11 +42,21 @@
         <li><a href="#" class="active"><i class="fa-solid fa-gauge" style="color: #ffffff;"></i> Dashboard</a></li>
         <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Employees</a></li>
         <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Customers</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Add Employees</a></li>
+       
+        <li class="dropdown">
+          <a href="#">
+            <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Add Employees <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Salesperson</a></li>
+            <li><a class="dropdown-item" href="#">Maintenance Staff</a></li>
+          </ul>
+        </li>
+
         <li><a href="#"><i class="fa-regular fa-address-card" style="color: #ffffff;"></i> About</a></li>
         <li><a href="#"><i class="fa-regular fa-user" style="color: #ffffff;"></i> Profile</a></li>
-        <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i>Change Password</a></li>
-        <li><a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
+        <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
+        <li><a href="/"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
       </ul>
     </aside>
 
@@ -74,7 +88,10 @@
                 <td>Salesperson</td>
                 <td><a href="#">Active</a></td>
                 <td>Photo</td>
-                <td><a href="#">View</a> <a href="#">Update</a></td>
+                <td>
+                  <a href="#"><i class="fa-solid fa-eye" style="color: #000000;"></i></a> 
+                  <a href="#"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
+                </td>
               </tr>
           
           
@@ -83,5 +100,9 @@
       <button class="add-property-btn">Add Employees</button>
     </div>
   </div>
+
+  
+  
+  
 </body>
 </html>
