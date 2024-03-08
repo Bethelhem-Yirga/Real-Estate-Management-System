@@ -246,11 +246,11 @@ def login(request):
             user = Registration.objects.get(email=email)
             if user.password == password:
                 if role == 'admin':
-                    return redirect('system_admin')  # Redirect to admin page
+                    return redirect('add')  # Redirect to admin page
                 elif role == 'manager':
                     return redirect('manager_page')  # Redirect to manager page
                 elif role == 'customer':
-                    return redirect('customer_page')  # Redirect to customer page
+                    return redirect('home')  # Redirect to customer page
                 elif role == 'salesperson':
                     return redirect('salesperson_page')  # Redirect to salesperson page
                 elif role == 'marketing_manager':
