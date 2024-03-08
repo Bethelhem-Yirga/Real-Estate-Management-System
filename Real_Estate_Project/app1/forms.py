@@ -14,4 +14,3 @@ class PropertyForm(forms.ModelForm):
         model = Properties
         fields = '__all__'      
 
-

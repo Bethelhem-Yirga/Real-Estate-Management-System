@@ -15,12 +15,12 @@ urlpatterns = [
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
 
-    path('manager/', views.custemer, name='manager'),
+    path('manager/', views.manager, name='manager'),
 
     path('appform/', views.appform, name='appform'),
-    path(' addemploy/', views.addemploy, name=' addemploy'),
-        path(' rent/', views.rent, name='rent'),
-            path('buy/', views.buy, name='buy'),
+    path('addemploy/', views.addemploy, name=' addemploy'),
+    path('rent/', views.rent, name='rent'),
+    path('buy/', views.buy, name='buy'),
 
 
  

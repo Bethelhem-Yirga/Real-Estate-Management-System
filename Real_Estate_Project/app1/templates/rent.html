@@ -248,7 +248,7 @@
       </div>
       <div id="Application_rent" class="form-content">
         <h2>rental_Application</h2>
-        <form action="{% url 'Application_rent' %}" method="post">
+        <form >
           {% csrf_token %}
     
               <div class="form-content">
@@ -289,7 +289,7 @@
             </div>
       <div id="feedback-form" class="form-content">
         <h2>Feedback</h2>
-        <form action="{% url 'feedback' %}" method="post">
+        <form >
           {% csrf_token %}
           <label for="feedback">Feedback:</label>
           <textarea id="feedback" name="feedback" required></textarea>

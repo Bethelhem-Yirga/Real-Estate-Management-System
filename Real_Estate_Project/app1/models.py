@@ -58,4 +58,21 @@ class Properties(models.Model):
 
     date_added = models.DateTimeField(default=datetime.now, blank=True)
 
+class Application(models.Model):
+
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    age = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=150)
+    nationality = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    gender = models.CharField(max_length=10)
+    role = models.CharField(max_length=100)
     
+    marital_status = models.CharField(max_length=100)
+    partner_first_name = models.CharField(max_length=100, blank=True, null=True)
+    partner_last_name = models.CharField(max_length=100, blank=True, null=True)
+    partner_phone_number = models.CharField(max_length=150, blank=True, null=True)
+    partner_work_status = models.CharField(max_length=100, blank=True, null=True)

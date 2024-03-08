@@ -10,7 +10,7 @@ from app1.forms import PropertyForm
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
 
-from .models import Properties, Registration
+from .models import Properties, Registration,Application
 
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
@@ -61,8 +61,54 @@ def salespersons(request):
 
 def adminn(request):
     return render(request, 'adminn.html')
+
+def manager(request):
+    data = Application.objects.all()
+    return render(request, 'manager.html', {'data': data})
+
 def appform(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        age = request.POST.get('age')
+        phone_number = request.POST.get('phone_number')
+        nationality = request.POST.get('nationality')
+        address = request.POST.get('address')
+        gender = request.POST.get('gender')
+        role = request.POST.get('role')
+    
+        marital_status = request.POST.get('marriage_status')
+        partner_first_name = request.POST.get('partner_first_name')
+        partner_last_name = request.POST.get('partner_last_name')
+        partner_phone_number = request.POST.get('partner_phone_number')
+        partner_work_status = request.POST.get('partner_work_status') 
+        
+        # Create a new instance of the Application model and assign the form data
+        application = Application(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            age=age,
+            phone_number=phone_number,
+            nationality=nationality,
+            address=address,
+            gender=gender,
+            role=role,
+            marital_status=marital_status,
+            partner_first_name=partner_first_name,
+            partner_last_name=partner_last_name,
+            partner_phone_number=partner_phone_number,
+            partner_work_status=partner_work_status
+        )
+        
+        # Save the application instance to the database
+        application.save()
+    
     return render(request, 'appform.html')
+        
+        # Save the application instance to the database
+    
 def addemploy(request):
     return render(request, 'addemploy.html')
 def rent(request):
@@ -167,4 +213,6 @@ def registration_view(request):
 def property_detail(request, property_id):
     property_obj = get_object_or_404(Properties, id=property_id)
     return render(request, 'property_detail.html', {'property': property_obj})
+
+
 
