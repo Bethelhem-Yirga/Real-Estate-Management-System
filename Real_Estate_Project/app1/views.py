@@ -12,13 +12,13 @@ from django.shortcuts import render
 import stripe
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
-<<<<<<< HEAD
+
 
 from .models import Properties, Registration,Application
 
-=======
+
 from .models import Properties, Registration
->>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
+
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
 from .models import Registration
@@ -48,13 +48,12 @@ def salespersons(request):
 def adminn(request):
     return render(request, 'adminn.html')
 
-<<<<<<< HEAD
+
 def manager(request):
     data = Application.objects.all()
     return render(request, 'manager.html', {'data': data})
 
-=======
->>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
+
 def appform(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -95,13 +94,11 @@ def appform(request):
         application.save()
     
     return render(request, 'appform.html')
-<<<<<<< HEAD
+
         
         # Save the application instance to the database
     
-=======
 
->>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
 def addemploy(request):
     return render(request, 'addemploy.html')
 
@@ -225,8 +222,8 @@ def registration_view(request):
 
 
 
-<<<<<<< HEAD
-=======
+
+
 def profile_view(request):
     profile = MarketingManager.objects.first() 
     if request.method == 'POST':
@@ -333,4 +330,4 @@ def login(request):
 
 def system_admin(request):
     return render(request, 'system_admin.html')
->>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
+

@@ -19,14 +19,6 @@ urlpatterns = [
     path('add_property/', views.add_property, name='add_property'),
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
-<<<<<<< HEAD
-
-    path('manager/', views.manager, name='manager'),
-
-    path('appform/', views.appform, name='appform'),
-    path('addemploy/', views.addemploy, name=' addemploy'),
-    path('rent/', views.rent, name='rent'),
-=======
     path('profile_view/', views.profile_view, name='profile_view'),
     
     path('manager/', views.custemer, name='manager'),
@@ -34,7 +26,6 @@ urlpatterns = [
     path('appform/', views.appform, name='appform'),
     path(' addemploy/', views.addemploy, name=' addemploy'),
     path(' rent/', views.rent, name='rent'),
->>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
     path('buy/', views.buy, name='buy'),
 
     path('login/', views.login, name='login'),
