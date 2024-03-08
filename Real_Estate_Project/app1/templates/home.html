@@ -4,19 +4,24 @@
 <html>
 <head>
       <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+      <style>
+  .navbar a.active {
+    background-color: #c7c73a;
+  }
+</style>
 </head>
 
 <body>
   <div class="navbar">
-    <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="#home" class="home">Home</a>
-    <a href="/property_listing">Listing</a>
+    <a href="#home" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+    <a href="#home" class="active" >Home</a>
+    <a href="/property_listing" >Listing</a>
     <a href="/salespersons">Sales Person</a>
     <a href="{% url 'contact' %}">Contact</a>
     <a href="#about">About</a>
     <a href="#help">Help</a>
-    <a href="{% url 'registration' %}"  class="login">Register</a>
-    <a href="#login" class="login">Login</a>
+    <a href="{% url 'registration_view' %}"  class="login">Register</a>
+    <a href="{% url 'login' %}"  class="login">Login</a>
   </div>
   
   
@@ -29,7 +34,7 @@
       {% endblock content %}
       </div>
     </div>
-    
+    <div class="right" style="background-image: url('{% static "img/bg1.jpg" %}');"></div>
   </div>
 
 
@@ -37,41 +42,18 @@
 
   <div class="section">
     <div class="section2">
-  <div class="card">
-    <img src="{% static 'img/card3.jfif' %}" alt="Card 1">
-    <div class="description">
-      <h2>22 Mazoriya Site Three BEDROOM</h2>
-      <p>Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-      <a href="#" class="btn">details</a>
+      {% for property in properties|slice:":4" %}
+        <div class="card">
+          <img src="{{ property.image.url }}" alt="Card" style="height: 310px">
+          <div class="description">
+            <h2>{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }}</h2>
+            <p>Bedrooms: {{ property.bedrooms }} Bathrooms: {{ property.bathrooms }} Area: {{ property.size }} Sq.mt</p>
+            <a href="{% url 'property_detail' property.id %}" class="btn">details</a>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
-  <div class="card">
-    <img src="{% static 'img/card-two.jpg' %}" alt="Card 1" style="height:310px">
-    <div class="description">
-      <h2>Bole Atlas Two Bedroom</h2>
-      <p>Mike Leyland Street, Addis Ababa, Ethiopia</p>
-      <a href="#" class="btn">details</a>
-    </div>
-  </div>
-  <div class="card">
-    <img src="{% static 'img/card-three.jpg' %}" alt="Card 1" style="height:310px">
-    <div class="description">
-      <h2>Mixed Use Apartment Three Bed Room CMC Site</h2>
-      <p>CMC Square | ሲኤምሲ አደባባይ 2VC2+8WP, Addis Ababa</p>
-      <a href="#" class="btn">details</a>
-    </div>
-  </div>
-  <div class="card">
-    <img src="{% static 'img/card-four.jpg' %}" alt="Card 1" style="height:310px">
-    <div class="description">
-      <h2>Duplex Apartment</h2>
-      <p>Gift real estate, Ayat 05</p>
-      <a href="#" class="btn">details</a>
-    </div>
-  </div>
-  </div>
-
-
 
 
   
@@ -118,7 +100,6 @@
       </div>
     </div>
   </div>
-
 
   <footer>
     <div class="footer-section opening-hours">

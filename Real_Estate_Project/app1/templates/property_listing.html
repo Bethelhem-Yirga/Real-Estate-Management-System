@@ -4,13 +4,19 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
+
+    <style>
+        .navbar a.active {
+          background-color: #c7c73a;
+        }
+    </style>
 </head>
 
 <body>
 <div class="navbar">
     <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
     <a href="/" class="home">Home</a>
-    <a href="{% url 'property_listing' %}">Listing</a>
+    <a href="{% url 'property_listing' %}" class="active">Listing</a>
     <a href="/salespersons">Sales Person</a>
     <a href="{% url 'contact' %}">Contact</a>
     <a href="#about">About</a>
@@ -21,104 +27,23 @@
 
 <!-- Property Listings -->
 <div class="property-listings">
-   
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/card3.jfif' %}" alt="Card 1" >
-        </div>
-        <div class="property-description">
-            <h2>22 Mazoriya Site Two BEDROOM</h2>
-            <p>Location:Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-            <p>Price: 1,000,000 birr</p>
-            <p>Bedrooms: 2</p>
-            <p>Bathrooms: 2</p>
-            <p>Area: 120 sq. mt.</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/cmc.jpg' %}" alt="Card 1" >
-        </div>
-        <div class="property-description">
-            <h2>CMC Site TWO BED ROOM</h2>
-            <p>Location:Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 2</p>
-            <p>Bathrooms: 2</p>
-            <p>Area:2144.37 Sq.mt</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/card3.jfif' %}" alt="Card 1" >
-        </div>
-        <div class="property-description">
-            <h2>22 Mazoriya Site Three BEDROOM</h2>
-            <p>Location:Meklit Building, 2Q8R+C8G, Addis Ababa</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 3</p>
-            <p>Bathrooms: 3</p>
-            <p>Area:215.61 Sq.mt</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/card-two.jpg' %}" alt="Card 1" style="height:310px">
-        </div>
-        <div class="property-description">
-            <h2>Bole Atlas Two Bedroom</h2>
-            <p>Location: Mike Leyland Street, Addis Ababa, Ethiopia</p>
-            <p>Price: 800,000 birr</p>
-            <p>Bedrooms: 2</p>
-            <p>Bathrooms: 2</p>
-            <p>Area: 166.97 sq. mt.</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-    
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/card-three.jpg' %}" alt="Property 3">
-        </div>
-        <div class="property-description">
-            <h2>Mixed Use Apartment Three Bed Room CMC Site</h2>
-            <p>Location: CMC Square | ሲኤምሲ አደባባይ 2VC2+8WP, Addis Ababa</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 3</p>
-            <p>Bathrooms: 4</p>
-            <p>Area: 250 sq. mt.</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-
-    <div class="property-card">
-        <div class="property-image">
-            <img src="{% static 'img/card-four.jpg' %}" alt="Property 3">
-        </div>
-        <div class="property-description">
-            <h2>Duplex Apartment</h2>
-            <p>Location: Gift real estate, Ayat 05</p>
-            <p>Price: 1,500,000 birr</p>
-            <p>Bedrooms: 3</p>
-            <p>Bathrooms: 4</p>
-            <p>Area: 150.52 sq. mt.</p>
-            <a href="#" class="detail-btn">Details</a>
-        </div>
-    </div>
-
-   
-
-
-</div>
+    {% for property in properties %}
+     <div class="property-card">
+         <div class="property-image">
+             <img src="{{ property.image.url }}" alt="Card 1" >
+         </div>
+         <div class="property-description">
+             <h2>{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }}</h2>
+             <p>Location: {{ property.area }}, {{ property.city }}, {{ property.country }}</p>
+             <p>Price: {{ property.price }} birr</p>
+             <p>Bedrooms: {{ property.bedrooms }}</p>
+             <p>Bathrooms: {{ property.bathrooms }}</p>
+             <p>Area: {{ property.size }} Sq.mt</p>
+             <a href="{% url 'property_detail' property.id %}" class="detail-btn">Details</a>
+         </div>
+     </div>
+     {% endfor %}
+ </div>
 
 <footer>
     <div class="footer-section opening-hours">

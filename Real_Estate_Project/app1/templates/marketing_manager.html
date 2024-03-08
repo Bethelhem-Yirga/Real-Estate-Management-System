@@ -3,71 +3,128 @@
 <html>
 <head>
   
-  <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/market.css' %}">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+  <style>
+    .dashboard-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    
+    }
+    
+    .dashboard-item {
+      text-align: center;
+      flex-basis: 30%;
+      padding: 10px;
+      background-color:#ffffff;
+      border-radius: 5px;
+      
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dashboard-item h4 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .dashboard-item p {
+      font-size: 20px;
+      color: #555555;
+    }
+  </style>
 </head>
 <body>
-  <div class="navbar" style="background-color: #18361a;left: 0; ">
-    <div class="logo">
-      <img src="{% static 'img/logo.png' %}" alt="Logo">
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="{% static 'img/logo.png' %}" alt="Logo">
+        <span class="logo-name">Gift Real Estate</span>
+      </div>
+      
+      <div class="profile">
+        <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
+        <div class="profile-info">
+          <span class="name">{{ profile.first_name }} {{ profile.last_name }}</span>
+          <span class="email">{{ profile.email }}</span>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile">
+        <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
+        <div class="profile-info">
+          <h3 class="name">{{ profile.first_name }} {{ profile.last_name }}</h3>
+          <p class="email">{{ profile.email }}</p>
+        </div>
+      </div>
+
+      <ul>
+        <li><a href="#" class="active">Dashboard</a></li>
+        <li><a href="#"><i class="fa-solid fa-bars" style="color: #fff;"></i>  Properties</a></li>
+        <li><a href="{% url 'add_property' %}"><i class="fa-solid fa-plus" style="color: #fff;"></i> Add Property</a></li>
+        <li><a href="{% url 'profile_view' %}"><i class="fa-solid fa-user" style="color: #ffffff;"></i> Profie</a></li>
+        <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
+        <li><a href="/"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
+      </ul>
     </div>
-  </div>
 
-  <div class="sidebar" style="margin-top:30px; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
 
-    <div class="profile">
-      <img src="{% static 'img/sp3.jpg' %}" alt="Profile Photo" class="profile-photo">
-      <h3>Abebe Yilma</h3>
-      <p>abebe123@gmail.com</p>
+    
+    <div class="white-div">
+       
+      <div class="dashboard-info">
+        <div class="dashboard-item">
+            <h4>Total Properties</h4>
+            <p>{{ total_properties }}</p>
+        </div>
+        <div class="dashboard-item">
+            <h4>For Sale</h4>
+            <p>{{ sale_properties }}</p>
+        </div>
+        <div class="dashboard-item">
+            <h4>For Rent</h4>
+            <p>{{ rent_properties }}</p>
+        </div>
     </div>
 
-    <div class="links">
-        <ul>
-            <li><a href="#"><i class="fa-solid fa-bars" style="color: #fff;"></i>  Properties</a></li>
-            <li><a href="{% url 'add_property' %}"><i class="fa-solid fa-plus" style="color: #fff;"></i> Add Property</a></li>
-            
-            <li><a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i> Profie</a></li>
-            <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
-            <li><a href="#"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
-        </ul>
-    </div>
-  </div>
-
-  <div class="content">
-
-   <div class="table-class" style="margin-left:2nv0px;">
-    <table style=" width: 98%;">
-      <thead>
-        <tr>
-          <th style="padding:20px;">Property ID</th>
-          <th style="padding:20px;">Property Type</th>
-         
-          <th style="text-align: left;"> Availablity</th>
-          <th style="text-align: left;">Date Added</th>
-          
-          <th style="text-align: left;">Image</th>
-          <th style="text-align: left;">Actions</th>
-           
-        </tr>
-      </thead>
+      <h3>Property Listing</h3>
+      <form class="search-form">
+        <input type="text" placeholder="Search..." class="search-input">
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+      <table class="listing-table">
+        <thead>
+          <tr>
+            <th>Property ID</th>
+            <th>Property Type</th>
+            <th>Status</th>
+            <th>Date Added</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
       <tbody>
         {% for x in all_info %}
         <tr>
           
-          <td style="text-align: left;height: 50px;">{{ x.id}}</td>
-          <td style="text-align: left;">{{ x.propertyType}}</td>
-          <td style="text-align: left;">  </td>
-          <td style="text-align: left;">{{ x.date_added }}</td>
+          <td>{{ x.id}}</td>
+          <td >{{ x.propertyType}}</td>
+          <td>{{ x.status}}</td>
+          <td>{{ x.date_added }}</td>
           
             
           {% if x.image %}
-          <td style="text-align: left;">
+          <td>
             <img src="{{ x.image.url }}" alt="img" class="" style="height:80px; width:80px;">
           </td>
           {%else%}
-          <td style="text-align: left;">
+          <td>
             <img src="{% static 'img/logo.png' %}" alt="img">
           </td>
           {% endif %}
@@ -82,9 +139,8 @@
         
       </tbody>
     </table>
+   <button class="add-property-btn" onclick="window.location.href='{% url 'add_property' %}'">Add Property</button>
   </div>
-    
-  </div>
-
+</div>
 </body>
 </html>

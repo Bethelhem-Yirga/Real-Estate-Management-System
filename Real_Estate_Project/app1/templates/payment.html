@@ -1,0 +1,22 @@
+<!-- payment.html -->
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Pay now </button>
+</form>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ settings.STRIPE_PUBLIC_KEY }}');
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.redirectToCheckout({
+            sessionId: '{{ session_id }}'
+        }).then(function(result) {
+            // Handle any errors
+        });
+    });
+</script>
