@@ -110,6 +110,26 @@ class Properties(models.Model):
     image = models.ImageField(upload_to='images', default='bg1.jpg')
     date_added = models.DateTimeField(default=datetime.now, blank=True)
 
+<<<<<<< HEAD
+class Application(models.Model):
+
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    age = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=150)
+    nationality = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    gender = models.CharField(max_length=10)
+    role = models.CharField(max_length=100)
+    
+    marital_status = models.CharField(max_length=100)
+    partner_first_name = models.CharField(max_length=100, blank=True, null=True)
+    partner_last_name = models.CharField(max_length=100, blank=True, null=True)
+    partner_phone_number = models.CharField(max_length=150, blank=True, null=True)
+    partner_work_status = models.CharField(max_length=100, blank=True, null=True)
+=======
 
 class MarketingManager(Registration):
     employee_id = models.CharField(max_length=10)
@@ -117,3 +137,4 @@ class MarketingManager(Registration):
 
     
     
+>>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491

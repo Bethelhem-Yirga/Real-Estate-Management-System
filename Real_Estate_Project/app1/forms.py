@@ -14,6 +14,8 @@ class PropertyForm(forms.ModelForm):
         model = Properties
         fields = '__all__'      
 
+<<<<<<< HEAD
+=======
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = MarketingManager
@@ -42,3 +44,4 @@ class PaymentForm(forms.Form):
         return session.id
 
 
+>>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491

@@ -12,7 +12,13 @@ from django.shortcuts import render
 import stripe
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
+<<<<<<< HEAD
+
+from .models import Properties, Registration,Application
+
+=======
 from .models import Properties, Registration
+>>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
 from .models import Registration
@@ -42,9 +48,60 @@ def salespersons(request):
 def adminn(request):
     return render(request, 'adminn.html')
 
-def appform(request):
-    return render(request, 'appform.html')
+<<<<<<< HEAD
+def manager(request):
+    data = Application.objects.all()
+    return render(request, 'manager.html', {'data': data})
 
+=======
+>>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
+def appform(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        age = request.POST.get('age')
+        phone_number = request.POST.get('phone_number')
+        nationality = request.POST.get('nationality')
+        address = request.POST.get('address')
+        gender = request.POST.get('gender')
+        role = request.POST.get('role')
+    
+        marital_status = request.POST.get('marriage_status')
+        partner_first_name = request.POST.get('partner_first_name')
+        partner_last_name = request.POST.get('partner_last_name')
+        partner_phone_number = request.POST.get('partner_phone_number')
+        partner_work_status = request.POST.get('partner_work_status') 
+        
+        # Create a new instance of the Application model and assign the form data
+        application = Application(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            age=age,
+            phone_number=phone_number,
+            nationality=nationality,
+            address=address,
+            gender=gender,
+            role=role,
+            marital_status=marital_status,
+            partner_first_name=partner_first_name,
+            partner_last_name=partner_last_name,
+            partner_phone_number=partner_phone_number,
+            partner_work_status=partner_work_status
+        )
+        
+        # Save the application instance to the database
+        application.save()
+    
+    return render(request, 'appform.html')
+<<<<<<< HEAD
+        
+        # Save the application instance to the database
+    
+=======
+
+>>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491
 def addemploy(request):
     return render(request, 'addemploy.html')
 
@@ -168,6 +225,8 @@ def registration_view(request):
 
 
 
+<<<<<<< HEAD
+=======
 def profile_view(request):
     profile = MarketingManager.objects.first() 
     if request.method == 'POST':
@@ -274,3 +333,4 @@ def login(request):
 
 def system_admin(request):
     return render(request, 'system_admin.html')
+>>>>>>> 7e405ff17dd3a8d398c443d103eb5a07ff092491

@@ -4,13 +4,18 @@
 <html>
 <head>
       <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+      <style>
+  .navbar a.active {
+    background-color: #c7c73a;
+  }
+</style>
 </head>
 
 <body>
   <div class="navbar">
-    <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="#home" class="home">Home</a>
-    <a href="/property_listing">Listing</a>
+    <a href="#home" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+    <a href="#home" class="active" >Home</a>
+    <a href="/property_listing" >Listing</a>
     <a href="/salespersons">Sales Person</a>
     <a href="{% url 'contact' %}">Contact</a>
     <a href="#about">About</a>
@@ -37,41 +42,18 @@
 
   <div class="section">
     <div class="section2">
-      <div class="card">
-        <img src="{{ properties.0.image.url }}" alt="Card 1" style="height:310px">
-        <div class="description">
-          <h2>{{ properties.0.area }} {{ properties.0.bedrooms }} Bedrooms {{ properties.0.propertyType }}</h2>
-          <p>Bedrooms:{{ properties.0.bedrooms }}  Bathrooms:{{ properties.0.bathrooms }}  Area: {{ properties.0.size }} Sq.mt</p>
-          <a href="#" class="btn">details</a>
+      {% for property in properties|slice:":4" %}
+        <div class="card">
+          <img src="{{ property.image.url }}" alt="Card" style="height: 310px">
+          <div class="description">
+            <h2>{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }}</h2>
+            <p>Bedrooms: {{ property.bedrooms }} Bathrooms: {{ property.bathrooms }} Area: {{ property.size }} Sq.mt</p>
+            <a href="{% url 'property_detail' property.id %}" class="btn">details</a>
+          </div>
         </div>
-      </div>
- <div class="card">
-  <img src="{{ properties.1.image.url }}" alt="Card 1" style="height:310px">
-  <div class="description">
-    <h2>{{ properties.1.area }} {{ properties.1.bedrooms }} Bedrooms {{ properties.1.propertyType }}</h2>
-    <p>Bedrooms:{{ properties.1.bedrooms }}  Bathrooms:{{ properties.1.bathrooms }}  Area: {{ properties.1.size }} Sq.mt</p>
-    <a href="#" class="btn">details</a>
+      {% endfor %}
+    </div>
   </div>
-</div>
-<div class="card">
-  <img src="{{ properties.2.image.url }}" alt="Card 1" style="height:310px">
-  <div class="description">
-    <h2>{{ properties.2.area }} {{ properties.2.bedrooms }} Bedrooms {{ properties.2.propertyType }}</h2>
-    <p>Bedrooms:{{ properties.2.bedrooms }}  Bathrooms:{{ properties.2.bathrooms }}  Area: {{ properties.2.size }} Sq.mt</p>
-    <a href="#" class="btn">details</a>
-  </div>
-</div>
-<div class="card">
-  <img src="{{ properties.3.image.url }}" alt="Card 1" style="height:310px">
-  <div class="description">
-    <h2>{{ properties.3.area }} {{ properties.3.bedrooms }} Bedrooms {{ properties.3.propertyType }}</h2>
-    <p>Bedrooms:{{ properties.3.bedrooms }}  Bathrooms:{{ properties.3.bathrooms }}  Area: {{ properties.3.size }} Sq.mt</p>
-    <a href="#" class="btn">details</a>
-  </div>
-</div>
-  </div>
-
-
 
 
   

@@ -232,4 +232,6 @@ body {
         font-size: 18px;
       }
     
-     
+      .navbar a.active {
+        background-color: #c7c73a;
+      }
