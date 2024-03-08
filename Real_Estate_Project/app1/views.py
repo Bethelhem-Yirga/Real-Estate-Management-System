@@ -233,7 +233,8 @@ from .models import Registration
 
 from django.shortcuts import render, redirect
 
-from django.shortcuts import render, redirect
+from django.urls import reverse
+from .models import Registration
 
 def login(request):
     if request.method == 'POST':
@@ -245,23 +246,28 @@ def login(request):
         try:
             user = Registration.objects.get(email=email)
             if user.password == password:
-                if role == 'admin':
-                    return redirect('add')  # Redirect to admin page
-                elif role == 'manager':
-                    return redirect('manager_page')  # Redirect to manager page
-                elif role == 'customer':
-                    return redirect('home')  # Redirect to customer page
-                elif role == 'salesperson':
-                    return redirect('salesperson_page')  # Redirect to salesperson page
-                elif role == 'marketing_manager':
-                    return redirect('dashboard')  # Redirect to marketing manager page
-                elif role == 'maintenance_staff':
-                    return redirect('maintenance_staff_page')  # Redirect to maintenance staff page
+                if user.role == role:
+                    # Email, password, and role match
+                    if role == 'admin':
+                        return redirect('system_admin')  # Redirect to admin page
+                    elif role == 'manager':
+                        return redirect('manager_page')  # Redirect to manager page
+                    elif role == 'customer':
+                        return redirect(' ')  # Redirect to customer page
+                    elif role == 'salesperson':
+                        return redirect('salespersons')  # Redirect to salesperson page
+                    elif role == 'marketing_manager':
+                        return redirect('dashboard')  # Redirect to marketing manager page
+                    elif role == 'maintenance_staff':
+                        return redirect('maintenance_staff_page')  # Redirect to maintenance staff page
                 else:
-                    return render(request, 'failure.html')
+                    # Role does not match
+                    return render(request, 'login.html')
             else:
+                # Password does not match
                 return render(request, 'failure.html')
         except Registration.DoesNotExist:
+            # User does not exist
             return render(request, 'failure.html')
 
     return render(request, 'login.html')
