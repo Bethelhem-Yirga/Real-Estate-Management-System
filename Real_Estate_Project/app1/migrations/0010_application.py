@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app1', '0009_properties_date_added'),
+        ('app1', '0005_registration_role_alter_registration_gender'),
     ]
 
     operations = [

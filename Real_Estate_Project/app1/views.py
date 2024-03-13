@@ -215,6 +215,7 @@ def registration_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Registered successfully.')
+            return redirect('login')  # Redirect to the success page
     else:
         form = RegistrationForm()
     return render(request, 'registration_view.html', {'form': form})
@@ -309,7 +310,7 @@ def login(request):
                     elif role == 'manager':
                         return redirect('manager_page')  # Redirect to manager page
                     elif role == 'customer':
-                        return redirect(' ')  # Redirect to customer page
+                        return redirect('manager')  # Redirect to customer page
                     elif role == 'salesperson':
                         return redirect('salespersons')  # Redirect to salesperson page
                     elif role == 'marketing_manager':
