@@ -7,12 +7,14 @@ import stripe
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration
-        fields = "__all__"
+        fields =['first_name','last_name','email','gender','address','phone_number','password','confirm_password']
 
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Properties
         fields = '__all__'      
+
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -43,6 +45,7 @@ class PaymentForm(forms.Form):
 
 
 
+<<<<<<< HEAD
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
@@ -54,3 +57,5 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 class ChangePasswordForm(PasswordChangeForm):
     pass
+=======
+>>>>>>> de79c0d65a6817f3badb78b8cfa0ccc4d028b3e6

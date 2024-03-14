@@ -12,7 +12,13 @@ from django.shortcuts import render
 import stripe
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
+
+
+from .models import Properties, Registration,Application
+
+
 from .models import Properties, Registration
+
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
 from .models import Registration
@@ -44,8 +50,56 @@ def salespersons(request):
 def adminn(request):
     return render(request, 'adminn.html')
 
+
+def manager(request):
+    data = Application.objects.all()
+    return render(request, 'manager.html', {'data': data})
+
+
 def appform(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        age = request.POST.get('age')
+        phone_number = request.POST.get('phone_number')
+        nationality = request.POST.get('nationality')
+        address = request.POST.get('address')
+        gender = request.POST.get('gender')
+        role = request.POST.get('role')
+    
+        marital_status = request.POST.get('marriage_status')
+        partner_first_name = request.POST.get('partner_first_name')
+        partner_last_name = request.POST.get('partner_last_name')
+        partner_phone_number = request.POST.get('partner_phone_number')
+        partner_work_status = request.POST.get('partner_work_status') 
+        
+        # Create a new instance of the Application model and assign the form data
+        application = Application(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            age=age,
+            phone_number=phone_number,
+            nationality=nationality,
+            address=address,
+            gender=gender,
+            role=role,
+            marital_status=marital_status,
+            partner_first_name=partner_first_name,
+            partner_last_name=partner_last_name,
+            partner_phone_number=partner_phone_number,
+            partner_work_status=partner_work_status
+        )
+        
+        # Save the application instance to the database
+        application.save()
+    
     return render(request, 'appform.html')
+
+        
+        # Save the application instance to the database
+    
 
 def addemploy(request):
     return render(request, 'addemploy.html')
@@ -163,9 +217,12 @@ def registration_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Registered successfully.')
+            return redirect('login')  # Redirect to the success page
     else:
         form = RegistrationForm()
     return render(request, 'registration_view.html', {'form': form})
+
+
 
 
 
@@ -235,7 +292,8 @@ from .models import Registration
 
 from django.shortcuts import render, redirect
 
-from django.shortcuts import render, redirect
+from django.urls import reverse
+from .models import Registration
 
 def login(request):
     if request.method == 'POST':
@@ -247,23 +305,28 @@ def login(request):
         try:
             user = Registration.objects.get(email=email)
             if user.password == password:
-                if role == 'admin':
-                    return redirect('add')  # Redirect to admin page
-                elif role == 'manager':
-                    return redirect('manager_page')  # Redirect to manager page
-                elif role == 'customer':
-                    return redirect('home')  # Redirect to customer page
-                elif role == 'salesperson':
-                    return redirect('salesperson_page')  # Redirect to salesperson page
-                elif role == 'marketing_manager':
-                    return redirect('dashboard')  # Redirect to marketing manager page
-                elif role == 'maintenance_staff':
-                    return redirect('maintenance_staff_page')  # Redirect to maintenance staff page
+                if user.role == role:
+                    # Email, password, and role match
+                    if role == 'admin':
+                        return redirect('system_admin')  # Redirect to admin page
+                    elif role == 'manager':
+                        return redirect('manager_page')  # Redirect to manager page
+                    elif role == 'customer':
+                        return redirect('manager')  # Redirect to customer page
+                    elif role == 'salesperson':
+                        return redirect('salespersons')  # Redirect to salesperson page
+                    elif role == 'marketing_manager':
+                        return redirect('dashboard')  # Redirect to marketing manager page
+                    elif role == 'maintenance_staff':
+                        return redirect('maintenance_staff_page')  # Redirect to maintenance staff page
                 else:
-                    return render(request, 'failure.html')
+                    # Role does not match
+                    return render(request, 'login.html')
             else:
+                # Password does not match
                 return render(request, 'failure.html')
         except Registration.DoesNotExist:
+            # User does not exist
             return render(request, 'failure.html')
 
     return render(request, 'login.html')
@@ -272,6 +335,7 @@ def login(request):
 
 
 def system_admin(request):
+<<<<<<< HEAD
     employees = Employee.objects.all()
     if request.user.is_superuser:
         admin_profile = Employee.objects.filter(role='admin').first()
@@ -332,3 +396,7 @@ def change_password_view(request):
         form = ChangePasswordForm(request.user)
     
     return render(request, 'change_password.html', {'form': form})
+=======
+    return render(request, 'system_admin.html')
+
+>>>>>>> de79c0d65a6817f3badb78b8cfa0ccc4d028b3e6
