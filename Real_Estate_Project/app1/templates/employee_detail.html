@@ -1,0 +1,26 @@
+<!-- employee_detail.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Property Detail</title>
+</head>
+<body>
+<h1>Employee Detail</h1>
+<p>Name: {{ employee.first_name }} </p>
+<p>Email: {{ employee.email }}</p>
+<p>Address: {{ employee.address }}</p>
+<p>Role: {{ employee.role }}</p>
+<p>Gender: {{ employee.gender }}</p>
+<p>Phone_number: {{ employee.phone_number }}</p>
+<p>Role: {{ employee.role }}</p>
+  {% if employee.img %}
+            <img src="{{ employee.img.url }}" alt="img" class="" style="height:80px; width:80px;">
+
+          {%else%}
+            <img src="{% static 'img/logo.png' %}" alt="img">
+         
+    {% endif %}
+
+</body>
+</html>

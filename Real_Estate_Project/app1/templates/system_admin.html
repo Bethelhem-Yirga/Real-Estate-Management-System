@@ -6,7 +6,16 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/system_admin.css' %}">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <style>
+    .active {
+      color: green;
+      font-weight: bold;
+    }
+    .inactive {
+      color: red;
+      text-decoration: line-through;
+    }
+  </style>
   
 </head>
 <body>
@@ -19,44 +28,38 @@
             <span class="logo-name">Gift Real Estate</span>
         </div>
 
-      <div class="profile">
-        <img src="profile-photo.png" alt="Profile Photo">
-        <div class="profile-info">
-          <span class="name">John Doe</span>
-          <span class="email">john.doe@example.com</span>
+        {% if admin_profile %}
+        <div class="profile">
+          
+          <img src="{{ admin_profile.img.url }}" alt="Profile Photo" class="profile-photo">
+          <div class="profile-info">
+            <span class="name">{{ admin_profile.first_name }} {{ admin_profile.last_name }}</span>
+            <span class="email">{{ admin_profile.email }}</span>
+          </div>
         </div>
-      </div>
+        {% endif %}
     </nav>
   </header>
   
   <div class="container">
     <aside class="sidebar">
-        <div class="profile">
-            <img src="profile-photo.png" alt="Profile Photo">
-            <div class="profile-info">
-              <span class="name">John Doe</span>
-              <span class="email">john.doe@example.com</span>
-            </div>
+      <div class="profile">
+        {% if admin_profile %}
+        <img src="{{ admin_profile.img.url }}" alt="Profile Photo">
+        <div class="profile-info">
+          <span class="name">{{ admin_profile.first_name }} {{ admin_profile.last_name }}</span>
+          <span class="email">{{ admin_profile.email }}</span>
         </div>
+        {% endif %}
+      </div>
       <ul>
         <li><a href="#" class="active"><i class="fa-solid fa-gauge" style="color: #ffffff;"></i> Dashboard</a></li>
         <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Employees</a></li>
         <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Customers</a></li>
-       
-        <li class="dropdown">
-          <a href="#">
-            <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Add Employees <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Salesperson</a></li>
-            <li><a class="dropdown-item" href="#">Maintenance Staff</a></li>
-          </ul>
-        </li>
-
+        <li><a href="{% url 'add_employee' %}"><i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Add Employees</a></li>
         <li><a href="#"><i class="fa-regular fa-address-card" style="color: #ffffff;"></i> About</a></li>
-        <li><a href="#"><i class="fa-regular fa-user" style="color: #ffffff;"></i> Profile</a></li>
-        <li><a href="#"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>
-        <li><a href="/"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
+        <li><a href="{% url 'system_admin_profile' %}"><i class="fa-regular fa-user" style="color: #ffffff;"></i> Profile</a></li>
+        <li><a href="{% url 'change_password' %}"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>        <li><a href="/"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
       </ul>
     </aside>
 
@@ -81,23 +84,46 @@
           </tr>
         </thead>
         <tbody>
+          {% for employee in employees %}
             <tr>
-                <td>Solemon Abebe</td>
-                <td>sole@gmail.com</td>
-                <td>Addise Ababa, Ethiopia</td>
-                <td>Salesperson</td>
-                <td><a href="#">Active</a></td>
-                <td>Photo</td>
+                <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.address }}</td>
+                <td>{{ employee.role }}</td>
                 <td>
-                  <a href="#"><i class="fa-solid fa-eye" style="color: #000000;"></i></a> 
-                  <a href="#"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
+                  <a href="{% url 'update_employee_active_status' employee.id %}">
+                    {% if employee.is_active %}
+                       <span class="active">Active</span>
+                    {% else %}
+                       <span class="inactive">Inactive</span>
+                    {% endif %}
+                  </a>
+                  
+                  </td>
+                
+                {% if employee.img %}
+               <td>
+                 <img src="{{ employee.img.url }}" alt="img" class="" style="height:80px; width:80px;">
+               </td>
+                {%else%}
+              <td>
+                <img src="{% static 'img/logo.png' %}" alt="img">
+              </td>
+                {% endif %}
+                
+                <td>
+                  <a href="{% url 'employee_detail' employee.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
                 </td>
               </tr>
-          
-          
+              {% empty %}
+              <tr>
+                <td colspan="7">No employees found.</td>
+              </tr>
+              {% endfor %}
         </tbody>
       </table>
-      <button class="add-property-btn">Add Employees</button>
+      <button class="add-property-btn" onclick="window.location.href='{% url 'add_employee' %}'">Add Employees</button>
+     
     </div>
   </div>
 

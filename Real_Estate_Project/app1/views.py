@@ -2,7 +2,7 @@ from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
-from .models import MarketingManager, Registration
+from .models import Employee, MarketingManager, Registration
 from .forms import ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
 import stripe
@@ -20,6 +20,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import MarketingManager
 from .forms import PropertyForm
+from .forms import EmployeeForm
+
 
 
 def home_view(request):
@@ -266,5 +268,67 @@ def login(request):
 
     return render(request, 'login.html')
 
+
+
+
 def system_admin(request):
-    return render(request, 'system_admin.html')
+    employees = Employee.objects.all()
+    if request.user.is_superuser:
+        admin_profile = Employee.objects.filter(role='admin').first()
+    else:
+        admin_profile = None
+    return render(request, 'system_admin.html', {'employees': employees, 'admin_profile': admin_profile})
+
+
+def add_employee(request):
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('system_admin')  
+    else:
+        form = EmployeeForm()
+    return render(request, 'add_employee.html', {'form': form})
+
+
+
+def update_employee_active_status(request, employee_id):
+    employee = get_object_or_404(Employee, id=employee_id)
+
+    if request.method == 'POST':
+        is_active = request.POST.get('is_active', False)
+        if is_active == 'true':  # Check if the checkbox is included in the form data
+            employee.is_active = True
+        else:
+            employee.is_active = False
+        employee.save()
+        return redirect('system_admin')
+
+    return render(request, 'update_employee_active_status.html', {'employee': employee})
+
+def employee_detail(request, employee_id):
+    employee = get_object_or_404(Employee, id=employee_id)
+    return render(request, 'employee_detail.html', {'employee': employee})
+
+def system_admin_profile(request):
+    admin_profile = Registration.objects.filter(role='admin').first()
+    return render(request, 'system_admin_profile.html', {'admin_profile': admin_profile})
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import ChangePasswordForm
+
+@login_required
+def change_password_view(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Your password has been changed successfully.')
+            return redirect('system_admin_profile')  
+    else:
+        form = ChangePasswordForm(request.user)
+    
+    return render(request, 'change_password.html', {'form': form})

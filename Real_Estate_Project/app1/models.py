@@ -112,8 +112,9 @@ class Properties(models.Model):
 
 
 class MarketingManager(Registration):
-    employee_id = models.CharField(max_length=10)
     image = models.ImageField(upload_to='images', default='avator.jpg')
 
-    
+class Employee(Registration):
+    img = models.ImageField(upload_to='images')
+    is_active = models.BooleanField(default=True)
     

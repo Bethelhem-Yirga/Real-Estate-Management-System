@@ -1,0 +1,9 @@
+<!-- update_employee_active_status.html -->
+<h1>Update Employee Active Status</h1>
+<form method="post">
+  {% csrf_token %}
+  <label for="is_active">Active:</label>
+  <input type="checkbox" name="is_active" {% if employee.is_active %}checked{% endif %} value="true">
+  <br>
+  <input type="submit" value="Save">
+</form>

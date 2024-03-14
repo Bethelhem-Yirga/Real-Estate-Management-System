@@ -1,6 +1,6 @@
 from cProfile import Profile
 from django import forms
-from .models import MarketingManager, Properties,Registration
+from .models import Employee, MarketingManager, Properties,Registration
 from django.conf import settings
 import stripe
 
@@ -42,3 +42,15 @@ class PaymentForm(forms.Form):
         return session.id
 
 
+
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__' 
+
+
+
+from django.contrib.auth.forms import PasswordChangeForm
+
+class ChangePasswordForm(PasswordChangeForm):
+    pass
