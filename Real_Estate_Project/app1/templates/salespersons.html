@@ -28,68 +28,20 @@
 
 
 <div class="salesperson-listings">
-   
+    {% for salesperson in salespersons %}
     <div class="salesperson-card">
         <div class="salesperson-image">
-            <img src="{% static 'img/sp1.jpg' %}" alt="Card 1" >
+            <img src="{{ salesperson.img.url }}" alt="{{ salesperson.first_name }}">
         </div>
         <div class="salesperson-description">
-            <h3>Yeabsera</h3>
-            <p class="address">Adress:Blue Moon bldg, Cameroon St, Addis Ababa</p>
-            <p>Mobile Phone: +251000000</p>
-            <p>Email: yabu@email.com</p>
-            <a href="#" class="profile-btn">view profile</a>
+            <h3>{{ salesperson.first_name }} {{ salesperson.last_name }}</h3>
+            <p class="address">{{ salesperson.adress }}</p>
+            <p>Mobile Phone: {{ salesperson.phone_number }}</p>
+            <p>Email:{{ salesperson.email }}</p>
+            <a href="{% url 'salesperson_profile' salesperson.id %}" class="profile-btn">view profile</a>
         </div>
     </div>
-
-    <div class="salesperson-card">
-        <div class="salesperson-image">
-            <img src="{% static 'img/sp6.jpg' %}" alt="Card 2">
-        </div>
-        <div class="salesperson-description">
-            <h3>Efrata</h3>
-            <p class="address">Adress:Blue Moon bldg, Cameroon St, Addis Ababa</p>
-            <p>Mobile Phone: +251000000</p>
-            <p>Email: efrata@email.com</p>
-            <a href="#" class="profile-btn">view profile</a>
-        </div>
-    </div>
-
-
-    <div class="salesperson-card">
-        <div class="salesperson-image">
-            <img src="{% static 'img/sp2.jpg' %}" alt="Card 3">
-        </div>
-        <div class="salesperson-description">
-            <h3>Liya</h3>
-            <p class="address">Adress:Blue Moon bldg, Cameroon St, Addis Ababa</p>
-            <p>Mobile Phone: +251000000</p>
-            <p>Email: liya@email.com</p>
-            <a href="#" class="profile-btn">view profile</a>
-        </div>
-    </div>
-
-    <div class="salesperson-card">
-        <div class="salesperson-image">
-            <img src="{% static 'img/sp5.jpg' %}" alt="Card 4">
-        </div>
-        <div class="salesperson-description">
-            <h3>Mohamed</h3>
-            <p class="address">Adress:Blue Moon bldg, Cameroon St, Addis Ababa</p>
-            <p>Mobile Phone: +251000000</p>
-            <p>Email: mohamed@email.com</p>
-            <a href="#" class="profile-btn">view profile</a>
-        </div>
-    </div>
-
-    
-    
-
-
-   
-
-   
-
+    {% endfor %}
     
 </div>
 

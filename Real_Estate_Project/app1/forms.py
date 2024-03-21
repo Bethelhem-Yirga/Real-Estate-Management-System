@@ -45,7 +45,6 @@ class PaymentForm(forms.Form):
 
 
 
-<<<<<<< HEAD
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
@@ -57,5 +56,4 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 class ChangePasswordForm(PasswordChangeForm):
     pass
-=======
->>>>>>> de79c0d65a6817f3badb78b8cfa0ccc4d028b3e6
+

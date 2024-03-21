@@ -35,8 +35,10 @@ def home_view(request):
 
 def property_listing(request):
     properties = Properties.objects.all()
-    context = {'properties': properties}
+    salespersons = Employee.objects.filter(role='salesperson')
+    context = {'properties': properties, 'salespersons': salespersons}
     return render(request, 'home.html', context)
+
 
 def property_listing_page(request):
     properties = Properties.objects.all()
@@ -45,7 +47,9 @@ def property_listing_page(request):
     
 
 def salespersons(request):
-    return render(request, 'salespersons.html')
+    salespersons = Employee.objects.filter(role='salesperson')
+    context = {'salespersons': salespersons}
+    return render(request, 'salespersons.html', context)
 
 def adminn(request):
     return render(request, 'adminn.html')
@@ -204,6 +208,8 @@ def property_detail(request, property_id):
 
 
 
+
+
 def custemer(request):
     all_customers = Registration.objects.all()
     context = {'all_customers': all_customers}
@@ -335,10 +341,12 @@ def login(request):
 
 
 def system_admin(request):
-<<<<<<< HEAD
+
     employees = Employee.objects.all()
-    if request.user.is_superuser:
+    
+    if True:
         admin_profile = Employee.objects.filter(role='admin').first()
+        
     else:
         admin_profile = None
     return render(request, 'system_admin.html', {'employees': employees, 'admin_profile': admin_profile})
@@ -396,7 +404,10 @@ def change_password_view(request):
         form = ChangePasswordForm(request.user)
     
     return render(request, 'change_password.html', {'form': form})
-=======
-    return render(request, 'system_admin.html')
 
->>>>>>> de79c0d65a6817f3badb78b8cfa0ccc4d028b3e6
+
+def salesperson_profile(request, employee_id):
+    salesperson = get_object_or_404(Employee, id=employee_id)
+    context = {'salesperson': salesperson}
+    return render(request, 'salesperson_profile.html', context)
+

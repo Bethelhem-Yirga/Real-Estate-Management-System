@@ -133,13 +133,8 @@ class Application(models.Model):
 class MarketingManager(Registration):
     image = models.ImageField(upload_to='images', default='avator.jpg')
 
-<<<<<<< HEAD
+
 class Employee(Registration):
     img = models.ImageField(upload_to='images')
     is_active = models.BooleanField(default=True)
-    
-=======
-    
-    
 
->>>>>>> de79c0d65a6817f3badb78b8cfa0ccc4d028b3e6

@@ -35,7 +35,9 @@ urlpatterns = [
     path('<int:employee_id>/active_status/', update_employee_active_status, name='update_employee_active_status'),
     path('<int:employee_id>/detail/', views.employee_detail, name='employee_detail'),
     path('system_admin_profile/', views.system_admin_profile, name='system_admin_profile'),
-        path('change_password/', views.change_password_view, name='change_password'),
+    path('change_password/', views.change_password_view, name='change_password'),
+
+    path('salesperson/<int:employee_id>/', views.salesperson_profile, name='salesperson_profile'),
 
   
 ]

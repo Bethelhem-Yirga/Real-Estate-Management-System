@@ -1,0 +1,11 @@
+<div class="salesperson-profile">
+    <h2>{{ salesperson.first_name }}'s Profile</h2>
+    <div class="profile-image">
+        <img src="{{ salesperson.img.url }}" alt="{{ salesperson.first_name }}">
+    </div>
+    <div class="profile-details">
+        <p>Address: {{ salesperson.address }}</p>
+        <p>Mobile Phone: {{ salesperson.phone_number }}</p>
+        <p>Email: {{ salesperson.email }}</p>
+    </div>
+</div>

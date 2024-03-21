@@ -69,33 +69,20 @@
     <div class="section3">
       <h1 style="text-align: center;">Meet Our Salesperson</h1>
       <div class="card-container">
-        <div class="card">
-          <img src="{% static 'img/sp1.jpg' %}" alt="Card 1" >
-          <div class="description">
-            <h2>Yeabsera </h2>
-            <p><a href="#">view profile</a></p>
-          </div>
+       
+
+        {% for salesperson in salespersons|slice:":4" %}
+    <div class="card">
+        <img src="{{ salesperson.img.url }}" alt="{{ salesperson.first_name }}" style="height:430px">
+        <div class="description">
+            <h2>{{ salesperson.first_name }} {{ salesperson.last_name }}</h2>
+            <p><a href="{% url 'salesperson_profile' salesperson.id %}" class="profile-btn">View Profile</a></p>
         </div>
-        <div class="card">
-          <img src="{% static 'img/sp6.jpg' %}" alt="Card 2" style="height:430px">
-          <div class="description">
-            <h2>Efrata</h2>
-            <p><a href="#">view profile</a></p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="{% static 'img/sp2.jpg' %}" alt="Card 3">
-          <div class="description">
-            <h2>Liya</h2>
-            <p><a href="#">view profile</a></p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="{% static 'img/sp5.jpg' %}" alt="Card 4" style="height:430px">
-          <div class="description">
-            <h2>Mohamed</h2>
-            <p><a href="#">view profile</a></p>
-          </div>
+    </div>
+        {% endfor %}
+
+
+
         </div>
       </div>
     </div>
