@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <style>
+        .my-custom-success-class {
+        color: green; 
+        font-weight: bold; 
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px; 
+        margin-top: 50px; 
+        }
+        
+        .success-message {
+        opacity: 0;
+        animation: fade-in 0.5s ease-in forwards;
+        margin-left: 35%;
+        background-color: #dff0d8;
+        color: #3c763d;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        width: 27%;
+        }
+         li {
+            list-style: none; 
+      
+        }
+    
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f2f2f2;
+            padding: 20px; /* Padding on all sides */
+            padding-right: 50px; /* Customize the right padding value */
+            border-radius: 8px; 
+            margin-top:50px;
+            margin-bottom:100px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc; /* Add a 2px solid border */
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 5px #4caf50;
+        }
+        
+        .btn-submit {
+            display: block;
+            width: 105%;
+            background-color: #18361a;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+        
+        .errorlist {
+            color: red;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .errorlist li {
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            text-align: center; /* Align the heading text to the center */
+            font-size: 24px; /* Set the font size */
+            margin-top: 10px; /* Adjust the top margin as needed */
+            margin-bottom: 10px; /* Adjust the bottom margin as needed */
+            color: #18361a; /* Set the text color */
+            font-weight: bold; /* Add bold font weight */
+        }
+    </style>
+</head>
+<body>
+
+
+   
+  <div class="navbar">
+    <a href="/" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+    <a href="/"  >Home</a>
+    <a href="/property_listing" >Listing</a>
+    <a href="/salespersons">Sales Person</a>
+    <a href="{% url 'contact_us' %}" class="active">Contact</a>
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'registration_view' %}"  class="login">Register</a>
+    <a href="{% url 'login' %}"  class="login">Login</a>
+  </div>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="my-custom-success-class success-message">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post">
+        <h3 style="text_align:center">Contact Us</h3>
+        {% csrf_token %}
+        
+        <div class="form-field">
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <ul class="errorlist">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
+        <div class="form-field">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <ul class="errorlist">
+                    {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.subject.id_for_label }}">Subject:</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+                <ul class="errorlist">
+                    {% for error in form.subject.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
+        <div class="form-field">
+            <label for="{{ form.message.id_for_label }}">Message:</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+                <ul class="errorlist">
+                    {% for error in form.message.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+
+
+    <footer>
+        <div class="footer-section opening-hours">
+          <h1>Opening Hours</h1>
+          <p>Monday - Friday: 8:00AM-5:00PM</p>
+          <p>Saturday: 8:00AM-12:00PM</p>
+        </div>
+        <div class="footer-section address">
+          <h1>Address</h1>
+          <p>Behar Building, 9th floor, Africa Avenue,</p>
+          <p>Addis Ababa, Ethiopia</p>
+          <p>Tel: +251-114670669</p>
+          <p>Fax: +251-114652154</p>
+        </div>
+        <div class="footer-section follow-us">
+          <h1>Follow Us</h1>
+          <div class="social-media-links">
+            <ul>
+            
+              <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a>    
+              <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a>   
+              <a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a> 
+              <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a> 
+            
+          </ul>
+          </div>
+        </div>
+        
+      </footer>
+</body>
+</html>

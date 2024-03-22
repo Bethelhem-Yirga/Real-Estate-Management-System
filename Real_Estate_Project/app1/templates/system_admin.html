@@ -15,6 +15,47 @@
       color: red;
       text-decoration: line-through;
     }
+
+
+  
+      .dashboard-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+      
+      }
+      
+      .dashboard-item {
+        text-align: center;
+        flex-basis: 30%;
+        padding: 10px;
+        background-color:#ffffff;
+        border-radius: 5px;
+        
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      
+      .dashboard-item h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      
+      .dashboard-item p {
+        font-size: 20px;
+        color: #555555;
+      }
+      .sidebar {
+        width: 200px;
+        background: #18361a;
+        padding: 20px;
+        height: 120vh;
+        color: #ffffff;
+      }
+      .table-container {
+        overflow: auto;
+        max-height: 500px; /* Adjust the value as needed */
+      }
   </style>
   
 </head>
@@ -55,21 +96,43 @@
       <ul>
         <li><a href="#" class="active"><i class="fa-solid fa-gauge" style="color: #ffffff;"></i> Dashboard</a></li>
         <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Employees</a></li>
-        <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Customers</a></li>
+       
         <li><a href="{% url 'add_employee' %}"><i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Add Employees</a></li>
-        <li><a href="#"><i class="fa-regular fa-address-card" style="color: #ffffff;"></i> About</a></li>
+        
         <li><a href="{% url 'system_admin_profile' %}"><i class="fa-regular fa-user" style="color: #ffffff;"></i> Profile</a></li>
         <li><a href="{% url 'change_password' %}"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>        <li><a href="/"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
       </ul>
     </aside>
 
     
+ 
+   
+    
     <div class="white-div">
+
+      <div class="dashboard-info">
+        <div class="dashboard-item">
+            <h4>Total Employees</h4>
+            <p>{{total_employees}}</p>
+        </div>
+        <div class="dashboard-item">
+            <h4>salespersons</h4>
+            <p>{{salespersons}}</p>
+        </div>
+        <div class="dashboard-item">
+            <h4>Maintenance Staff</h4>
+            <p>{{maintenance_staff}}</p>
+        </div>
+    </div>
+
+
       <h3>Employees</h3>
       <form class="search-form">
         <input type="text" placeholder="Search..." class="search-input">
         <button type="submit" class="search-btn">Search</button>
       </form>
+
+      <div class="table-container">
       <table class="listing-table">
         <thead>
           <tr>
@@ -121,6 +184,7 @@
               {% endfor %}
         </tbody>
       </table>
+    </div>
       <button class="add-property-btn" onclick="window.location.href='{% url 'add_employee' %}'">Add Employees</button>
      
     </div>

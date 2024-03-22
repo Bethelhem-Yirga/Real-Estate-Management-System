@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
 from .models import Employee, MarketingManager, Registration
-from .forms import ProfileForm, RegistrationForm
+from .forms import ContactForm, ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
 import stripe
 from django.conf import settings
@@ -340,17 +340,47 @@ def login(request):
 
 
 
-def system_admin(request):
+"""def system_admin(request):
 
     employees = Employee.objects.all()
+    total_employees = Employee.objects.count()
+    salespersons = Employee.objects.filter(role='salesperson').count()
+    maintenance_staff = Employee.objects.filter(role='maintenance_staff').count()
     
+    context = {
+        'employees': employees, 
+        'admin_profile': admin_profile,
+        'total_employees': total_employees,
+        'salespersons': salespersons,
+        'maintenance_staff': maintenance_staff
+
+   }
+
     if True:
         admin_profile = Employee.objects.filter(role='admin').first()
         
     else:
         admin_profile = None
-    return render(request, 'system_admin.html', {'employees': employees, 'admin_profile': admin_profile})
+    return render(request, 'system_admin.html', context)
+"""
 
+def system_admin(request):
+    employees = Employee.objects.all()
+    total_employees = Employee.objects.count()
+    salespersons = Employee.objects.filter(role='salesperson').count()
+    maintenance_staff = Employee.objects.filter(role='maintenance_staff').count()
+  
+    admin_profile = Employee.objects.filter(role='admin').first()
+  
+    context = {
+        'employees': employees, 
+        'admin_profile': admin_profile,
+        'total_employees': total_employees,
+        'salespersons': salespersons,
+        'maintenance_staff': maintenance_staff
+    }
+
+    return render(request, 'system_admin.html', context)
 
 def add_employee(request):
     if request.method == 'POST':
@@ -411,3 +441,18 @@ def salesperson_profile(request, employee_id):
     context = {'salesperson': salesperson}
     return render(request, 'salesperson_profile.html', context)
 
+def about(request):
+    return render(request, 'about.html')
+
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your message has been sent successfully!')
+            #return redirect('success')  # Redirect to a success page
+    else:
+        form = ContactForm()
+    return render(request, 'contact_us.html', {'form': form})

@@ -1,8 +1,10 @@
 from cProfile import Profile
+import re
 from django import forms
-from .models import Employee, MarketingManager, Properties,Registration
+from .models import Employee, MarketingManager, Properties,Registration,ContactMessage
 from django.conf import settings
 import stripe
+
 
 class RegistrationForm(forms.ModelForm):
     class Meta:
@@ -57,3 +59,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 class ChangePasswordForm(PasswordChangeForm):
     pass
 
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'subject', 'message']
