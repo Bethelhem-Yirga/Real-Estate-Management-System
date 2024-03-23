@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
 from .models import Employee, MarketingManager, Registration
-from .forms import ProfileForm, RegistrationForm
+from .forms import ProfileForm, RegistrationForm 
 from app1.forms import PropertyForm
 import stripe
 from django.conf import settings
@@ -13,8 +13,9 @@ import stripe
 from django.shortcuts import render
 from django.shortcuts import redirect, HttpResponse
 
+from datetime import datetime
 
-from .models import Properties, Registration,Application
+from .models import Properties, Registration,Application,Maintenance
 
 
 from .models import Properties, Registration
@@ -27,8 +28,42 @@ from django.contrib import messages
 from .models import MarketingManager
 from .forms import PropertyForm
 from .forms import EmployeeForm
+from django.shortcuts import render
+from django.core.mail import send_mail
+from .models import Application
 
 
+
+from django.shortcuts import render
+from django.core.mail import send_mail
+from .models import Application
+def email_notification(request, application_id, action):
+    application = Application.objects.get(pk=application_id)
+    email_subject = ''
+    email_message = ''
+
+    if action == 'accept':
+        email_subject = 'Application Accepted'
+        email_message = f'Dear {application.first_name},\n\nYour application has been accepted.'
+
+    elif action == 'reject':
+        email_subject = 'Application Rejected'
+        email_message = f'Dear {application.first_name},\n\nWe regret to inform you that your application has been rejected.'
+
+    send_mail(
+        email_subject,
+        email_message,
+        'asterbelete022@gmail.com',  # Sender's email address
+        [application.email],  # Recipient's email address from the application
+        fail_silently=False,
+    )
+
+    # Optional: Update the application status in the database
+    application.status = action.capitalize()  # Update status based on the action (accept/reject)
+    application.save()
+
+    # Redirect or render a response as needed
+    # ...
 
 def home_view(request):
     return render(request,'home.html')
@@ -65,35 +100,39 @@ def appform(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
-        age = request.POST.get('age')
         phone_number = request.POST.get('phone_number')
         nationality = request.POST.get('nationality')
         address = request.POST.get('address')
+        work_status = request.POST.get('work_status')
         gender = request.POST.get('gender')
         role = request.POST.get('role')
-    
         marital_status = request.POST.get('marriage_status')
         partner_first_name = request.POST.get('partner_first_name')
         partner_last_name = request.POST.get('partner_last_name')
         partner_phone_number = request.POST.get('partner_phone_number')
         partner_work_status = request.POST.get('partner_work_status') 
-        
+                
+
         # Create a new instance of the Application model and assign the form data
         application = Application(
             first_name=first_name,
             last_name=last_name,
             email=email,
-            age=age,
             phone_number=phone_number,
             nationality=nationality,
             address=address,
+            work_status=work_status,
             gender=gender,
             role=role,
             marital_status=marital_status,
             partner_first_name=partner_first_name,
             partner_last_name=partner_last_name,
             partner_phone_number=partner_phone_number,
-            partner_work_status=partner_work_status
+            partner_work_status=partner_work_status,
+            date_added=datetime.now()  # Set the current date and time
+    
+
+
         )
         
         # Save the application instance to the database
@@ -101,9 +140,24 @@ def appform(request):
     
     return render(request, 'appform.html')
 
-        
         # Save the application instance to the database
-    
+def rent(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        building_number = request.POST.get('building_number')
+        floor_number = request.POST.get('floor_number')
+        room_number = request.POST.get('room_number')
+        type_of_maintenance = request.POST.get('type_of_maintenance')
+
+        maintenance =Maintenance(
+            email=email,
+            building_number=building_number,
+            floor_number=floor_number,
+            room_number=room_number,
+            type_of_maintenance=type_of_maintenance
+        )
+        maintenance.save()  # Redirect to a success page
+    return render(request, 'rent.html')
 
 def addemploy(request):
     return render(request, 'addemploy.html')
@@ -120,8 +174,11 @@ def custemer(request):
     return render(request, 'custemer.html', context)
 
 
-def manage(request):
-    return render(request, 'manage.html')
+
+def manager(request):
+    applications = Application.objects.all()
+    maintenance = Maintenance.objects.all()
+    return render(request, 'manager.html', {'applications': applications, 'maintenance': maintenance})
 
 def contact(request):
     if request.method == 'POST':

@@ -1,50 +1,258 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  
+  <link rel="stylesheet" type="text/css" href="{% static 'css/market.css' %}">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .dashboard-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    
+    }
+    
+    .dashboard-item {
+      text-align: center;
+      flex-basis: 30%;
+      padding: 10px;
+      background-color:#ffffff;
+      border-radius: 5px;
+      
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dashboard-item h4 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .dashboard-item p {
+      font-size: 20px;
+      color: #555555;
+    }  .navbar-container {
+      display: flex;
+      margin-top:5px ;
+    }
+    
+    
+  
+    
+    .nav-links {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .nav-links li {
+      margin-bottom: 10px;
+    }
+    
+    .nav-links a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: whitesmoke;
+    }
+    
+    .nav-links a:hover {
+      background-color: #ccc;
+    }
+    
+    .form-container {
+      flex:0.4;
+      padding: 20px;
+    }
+    
+    .form-content {
+      display: none;
+      max-width: 400px;
+      margin: 20px auto;  
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .navbar .lo{
+float: right;
+    }
+    
+    .form-content.active {
+      display: block;
+    }
+    
+    .form-content h2 {
+      margin-bottom: 10px;
+    }
+    
+    .form-content form {
+      display: flex;
+      flex-direction: column;
+    }
+   
+    .maintenance-table,
+    .application-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+  
+    .maintenance-table th,
+    .maintenance-table td,
+    .application-table th,
+    .application-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    
+    .maintenance-table th,
+    .application-table th {
+        background-color: #030303;
+        color: white;
+    }
+
+  </style>
+  <script>
+    function toggleForm(formId) {
+      var formContents = document.getElementsByClassName('form-content');
+      for (var i = 0; i < formContents.length; i++) {
+        formContents[i].classList.remove('active');
+      }
+      var form = document.getElementById(formId);
+      form.classList.add('active');
+    }
+    
+    </script>
 </head>
 <body>
-    <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Phone Number</th>
-            <th>Nationality</th>
-            <th>Address</th>
-            <th>Gender</th>
-            <th>Role</th>
-            <th>Marital Status</th>
-            <th>Partner First Name</th>
-            <th>Partner Last Name</th>
-            <th>Partner Phone Number</th>
-            <th>Partner Work Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for application in data %}
-          <tr>
-            <td>{{ application.first_name }}</td>
-            <td>{{ application.last_name }}</td>
-            <td>{{ application.email }}</td>
-            <td>{{ application.age }}</td>
-            <td>{{ application.phone_number }}</td>
-            <td>{{ application.nationality }}</td>
-            <td>{{ application.address }}</td>
-            <td>{{ application.gender }}</td>
-            <td>{{ application.role }}</td>
-            <td>{{ application.marriage_status}}</td>
-            <td>{{ application.partner_first_name }}</td>
-            <td>{{ application.partner_last_name }}</td>
-            <td>{{ application.partner_phone_number }}</td>
-            <td>{{ application.partner_work_status }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>  
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="{% static 'img/logo.png' %}" alt="Logo">
+        <span class="logo-name">Gift Real Estate</span>
+      </div>
+      
+      <div class="profile">
+        <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
+        <div class="profile-info">
+          <span class="name">{{ profile.first_name }} {{ profile.last_name }}</span>
+          <span class="email">{{ profile.email }}</span>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile">
+        <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
+        <div class="profile-info">
+          <h3 class="name">{{ profile.first_name }} {{ profile.last_name }}</h3>
+          <p class="email">{{ profile.email }}</p>
+        </div>
+      </div>
+
+      <ul>
+        <li><a href="#" class="active">Dashboard</a></li>
+        <li><a href="#" onclick="toggleForm('profile')">Profile</a></li>
+        <li><a href="#" onclick="toggleForm('maintenance-form')">Maintenance Request</a></li>
+        <li><a href="#" onclick="toggleForm('application_rent')">Application</a></li>
+        <li><a href="#" onclick="toggleForm('maintenance-report')">Maintenance Report</a></li>
+        <li> <a href="#" onclick="toggleForm('financial-report')">Financial Report</a> </li>  
+        <li> <a href="#" onclick="toggleForm('salesperson-report')">Salesperson Report</a></li>  
+        <li> <a href="#" onclick="toggleForm('chatbot-form')">Chatbot</a></li>
+      </ul>
+    </div>
+    <div class="form-container">
+      <div id="maintenance-form" class="form-content">
+          <table class="maintenance-table">
+              <thead>
+                  <tr>
+                      <th>Email</th>
+                      <th>Building Number</th>
+                      <th>Room Number</th>
+                      <th>Floor Number</th> 
+                      <th>Type of Maintenance</th>  
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for maintenance_obj in maintenance %}
+                  <tr>
+                      <td>{{ maintenance_obj.email }}</td>
+                      <td>{{ maintenance_obj.building_number }}</td>
+                      <td>{{ maintenance_obj.room_number }}</td>
+                      <td>{{ maintenance_obj.floor_number }}</td>
+                      <td>{{ maintenance_obj.type_of_maintenance }}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      
+      <div id="application_rent" class="form-content">
+          <h2>Application</h2>
+          <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Nationality</th>
+                    <th>Address</th>
+                    <th>Work Status</th>
+                    <th>Gender</th>
+                    <th>Role</th>
+                    <th>Marital Status</th>
+                    <th>Partner First Name</th>
+                    <th>Partner Last Name</th>
+                    <th>Partner Phone Number</th>
+                    <th>Partner Work Status</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application_obj in applications %}
+                <tr>
+                    <td>{{ application_obj.first_name }}</td>
+                    <td>{{ application_obj.last_name }}</td>
+                    <td>{{ application_obj.email }}</td>
+                    <td>{{ application_obj.phone_number }}</td>
+                    <td>{{ application_obj.nationality }}</td>
+                    <td>{{ application_obj.address }}</td>
+                    <td>{{ application_obj.work_status }}</td>
+                    <td>{{ application_obj.gender }}</td>
+                    <td>{{ application_obj.role }}</td>
+                    <td>{{ application_obj.marital_status }}</td>
+                    <td>{{ application_obj.partner_first_name }}</td>
+                    <td>{{ application_obj.partner_last_name }}</td>
+                    <td>{{ application_obj.partner_phone_number }}</td>
+                    <td>{{ application_obj.partner_work_status }}</td>
+                    <td>{{ application_obj.date_added }}</td>
+                    <td>
+                      <button class="accept-button" onclick="sendEmail('{{ application_obj.id }}', 'accept')">Accept</button>
+                      <button class="reject-button" onclick="sendEmail('{{ application_obj.id }}', 'reject')">Reject</button>
+
+                      </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+         
+      </div>
+  </div>
+        
+      
+      <div id="chatbot-form" class="form-content">
+        <h2>Chatbot</h2>
+        <textarea id="chat" name="chat" required></textarea>
+        <br>
+        <button type="submit">Send</button>
+      </form>
+      </div>
+    </div>
+  </div>
+ 
 </body>
 </html>

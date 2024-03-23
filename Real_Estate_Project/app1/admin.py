@@ -9,9 +9,10 @@ admin.site.register(Registration)
 admin.site.register(Properties)
 admin.site.register(Application)
 
-from .models import MarketingManager, Properties, Registration
+from .models import MarketingManager, Properties, Registration,Maintenance
 
 admin.site.register(MarketingManager)
+admin.site.register(Maintenance)
 
 admin.site.register(Employee)
 
