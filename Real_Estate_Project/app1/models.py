@@ -142,3 +142,41 @@ class Employee(Registration):
     img = models.ImageField(upload_to='images')
     is_active = models.BooleanField(default=True)
 
+
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        # Call custom validation methods for specific fields
+        self.validate_email()
+        self.validate_name()
+        self.validate_subject()
+        self.validate_message()
+
+    def validate_email(self):
+        try:
+            validate_email(self.email)
+        except ValidationError:
+            raise ValidationError("Please enter a valid email address.")
+
+    def validate_name(self):
+        if len(self.name) < 2:
+            raise ValidationError("Name must be at least 2 characters long.")
+
+    def validate_subject(self):
+        if len(self.subject) < 5:
+            raise ValidationError("Subject must be at least 5 characters long.")
+
+    def validate_message(self):
+        if len(self.message) < 10:
+            raise ValidationError("Message must be at least 10 characters long.")
+
+    def __str__(self):
+        return self.subject

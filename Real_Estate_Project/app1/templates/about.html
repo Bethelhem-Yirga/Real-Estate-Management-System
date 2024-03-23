@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+        background-color: #f1f1f1;
+        padding: 20px;
+        text-align: center;
+        background-image: url('{% static "img/abt2.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        color:white;
+        height:120px;
+      }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .abt-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      color: #333;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  
+      
+  }
+
+  .abt-section h2 {
+      color: #333;
+      text-transform: uppercase;
+      font-size: 24px;
+      margin-bottom: 10px;
+  }
+
+  .abt-section p {
+      color: #666;
+      line-height: 1.5;
+  }
+
+
+  .abt-section {
+    margin-bottom: 20px;
+}
+
+.abt-section:first-child {
+    margin-top: 20px;
+}
+
+.abt-section:last-child {
+    margin-bottom: 0;
+}
+
+.abt-section .highlight {
+    background-color: yellow;
+}
+
+    .social-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .social-links li {
+        margin-right: 10px;
+      }
+      
+      .social-links li:last-child {
+        margin-right: 0;
+      }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+    }
+    .navbar a.active {
+        background-color: #c7c73a;
+      }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="/" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+    <a href="/"  >Home</a>
+    <a href="/property_listing" >Listing</a>
+    <a href="/salespersons">Sales Person</a>
+    <a href="{% url 'contact_us' %}">Contact</a>
+    <a href="{% url 'about' %}" class="active">About</a>
+    <a href="{% url 'registration_view' %}"  class="login">Register</a>
+    <a href="{% url 'login' %}"  class="login">Login</a>
+  </div>
+
+  <div class="header">
+    <h1>About Gift Real Estate</h1>
+  </div>
+
+  <div class="container">
+    <div class="abt-section">
+      <h2>Our Story</h2>
+      <p>
+        GIFT Real Estate P.L.C. is one of the core businesses of the GIFT Business Group. and it  is one of the pioneering real estate companies in Ethiopia. It was established in 2005. It has established a solid reputation as a result of its substantial contributions throughout the years to the growth of Ethiopia’s real estate market. Its ambitious goal is to provide services to several cities in Ethiopia and other African nations.
+       <br> <br>
+       GIFT Real Estate is renowned for producing a broad variety of homes that cater to various target market segments. Its offerings to the Addis Ababa market comprise, but are not restricted to, opulent villas, villa apartments, row houses, and apartments that are renowned for being diverse, exquisitely designed, and equipped with all the amenities one could want. Its renown and popularity are mostly due to its emphasis on creating designs for lifestyles and future generations, as well as to fulfilling its promise to build dream homes in the most desirable and practical parts of the city, such the CMC and its environs.  
+       <br> <br>
+       Today, GIFT Real Estate is growing its business throughout the city, with locations in Bole around Olympia, Bole Medhanialem, Teklehaymanot, Atlas Urael, at the nearby Meklit building around 22, Figa, and Siddist Killo. 
+    </p>
+    </div>
+
+    <div class="abt-section">
+      <h2>Our Mission</h2>
+      <p>
+        GRE’s mission is to provide cutting-edge residential and commercial properties that are designed and built specifically to meet the needs of customers, transforming their lifestyle to a higher standard 21st-century lifestyle
+      </p>
+    </div>
+
+    <div class="abt-section">
+      <h2>Our Vision</h2>
+      <p>
+        Gift Real Estate aspires to be one of the leading real estate companies in East Africa’s real estate industry in the next 20 years, known for delivering functionally versatile, esthetically desirable, offering high value for money, modern residential and commercial properties for top, middle, and lower class segments of society in the urban markets in which it will operate.
+      </p>
+    </div>
+
+    <div class="abt-section">
+      <h2>Contact Us</h2>
+      <p>
+        If you have any questions or would like to learn more about our services, please feel free to contact us. We would be delighted to assist you and discuss how Gift Real Estate can help you achieve your real estate goals.
+      </p>
+    </div>
+    
+    <div class="abt-section">
+        
+        <ul class="social-links">
+          <li> <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a>  </li>  
+          <li> <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a> </li>  
+          <li><a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a> </li>
+          <li> <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a> </li>
+        </ul>
+      </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-section opening-hours">
+      <h1>Opening Hours</h1>
+      <p>Monday - Friday: 8:00AM-5:00PM</p>
+      <p>Saturday: 8:00AM-12:00PM</p>
+    </div>
+    <div class="footer-section address">
+      <h1>Address</h1>
+      <p>Behar Building, 9th floor, Africa Avenue,</p>
+      <p>Addis Ababa, Ethiopia</p>
+      <p>Tel: +251-114670669</p>
+      <p>Fax: +251-114652154</p>
+    </div>
+    <div class="footer-section follow-us">
+      <h1>Follow Us</h1>
+      <div class="social-media-links">
+        <ul>
+        
+          <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a>    
+          <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a>   
+          <a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a> 
+          <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a> 
+        
+      </ul>
+      </div>
+    </div>
+    
+  </footer>
+</body>
+</html>

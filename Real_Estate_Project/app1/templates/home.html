@@ -13,13 +13,12 @@
 
 <body>
   <div class="navbar">
-    <a href="#home" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="#home" class="active" >Home</a>
+    <a href="/" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+    <a href="/" class="active" >Home</a>
     <a href="/property_listing" >Listing</a>
     <a href="/salespersons">Sales Person</a>
-    <a href="{% url 'contact' %}">Contact</a>
-    <a href="#about">About</a>
-    <a href="#help">Help</a>
+    <a href="{% url 'contact_us' %}">Contact</a>
+    <a href="{% url 'about' %}">About</a>
     <a href="{% url 'registration_view' %}"  class="login">Register</a>
     <a href="{% url 'login' %}"  class="login">Login</a>
   </div>

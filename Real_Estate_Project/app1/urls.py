@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import payment_view
+from .views import contact_view, payment_view
 from .views import add_employee
 from .views import update_employee_active_status
 from .views import email_notification
@@ -42,7 +42,8 @@ urlpatterns = [
     path('change_password/', views.change_password_view, name='change_password'),
 
     path('salesperson/<int:employee_id>/', views.salesperson_profile, name='salesperson_profile'),
-
+    path('about/', views.about, name='about'),
+    path('contact_us/', contact_view, name='contact_us'),
   
 ]
 
