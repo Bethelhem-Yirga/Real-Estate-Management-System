@@ -64,4 +64,4 @@ class ChangePasswordForm(PasswordChangeForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
-        fields = ['name', 'email', 'subject', 'message']
+        fields = ['name','last_name', 'email', 'subject', 'message']

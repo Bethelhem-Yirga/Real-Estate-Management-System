@@ -37,59 +37,28 @@
                 opacity: 1;
             }
         }
-        
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            background-color: #f2f2f2;
-            padding: 20px; /* Padding on all sides */
-            padding-right: 50px; /* Customize the right padding value */
-            border-radius: 8px; 
-            margin-top:50px;
-            margin-bottom:100px;
-        }
-        
-        .form-field label {
-            display: block;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ccc; /* Add a 2px solid border */
-            border-radius: 4px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-            margin-bottom: 20px;
-        }
-        
+
         input[type="text"]:focus,
         input[type="email"]:focus,
         textarea:focus {
             border-color: #4caf50;
             box-shadow: 0 0 5px #4caf50;
         }
-        
-        .btn-submit {
-            display: block;
-            width: 105%;
-            background-color: #18361a;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+         
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            border: 1.5px solid #8f8a8a;
+            border-radius: 5px;
+            padding: 0.7rem;
+            margin: 0.6rem 0;
+            font-family: sans-serif;
+            font-size: 1rem;
+            outline: 0;
         }
+
         
-        .btn-submit:hover {
-            background-color: #45a049;
-        }
         
         .errorlist {
             color: red;
@@ -103,30 +72,199 @@
             margin-bottom: 5px;
         }
 
-        h3 {
-            text-align: center; /* Align the heading text to the center */
-            font-size: 24px; /* Set the font size */
-            margin-top: 10px; /* Adjust the top margin as needed */
-            margin-bottom: 10px; /* Adjust the bottom margin as needed */
-            color: #18361a; /* Set the text color */
-            font-weight: bold; /* Add bold font weight */
+       
+         *{
+            box-sizing: border-box;
+            padding: 0%;
+            margin: 0%;
+         }
+         body{
+            font-family: sans-serif;
+            line-height: 1.5;
+         }
+        .contact-bg {
+            height: 48vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('{% static "img/abt2.jpg" %}');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            background-size: 100% 100%;
+           
+            background-position: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
         }
+
+        .contact-bg h3{
+            font-size: 3rem;
+            font-weight: 400;
+        }
+        .contact-bg h2{
+            font-size: 3rem;
+            text-transform: uppercase;
+            padding: 0.4rem 0;
+            letter-spacing: 4px;
+        }
+        .line div{
+            margin: 0 0.2re;
+        }
+        .line div:nth-child(1),
+        .line div:nth-child(3){
+            height: 3px;
+            width: 70px;
+            background: #c7c73a;
+            border-radius: 5px;
+        }
+        .line{
+            display: flex;
+            align-items: center;
+        }
+        .line div:nth-child(2){
+            width: 10px;
+            height: 10px;
+            background: #c7c73a;
+            border-radius: 50%;
+        }
+        .txt a {
+        color: #fff;
+        text-decoration: none;
+              }
+
+      .txt a:hover {
+        text-decoration: underline;
+             }
+        .text{
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        .contact-bg .text{
+            margin: 1.6rem 0;
+        }
+        .contact-body{
+            max-width: 1320px;
+            margin: 0  auto;
+            padding: 0 1rem;
+    
+        }
+        
+  
+        .contact-form form{
+            padding-bottom: 1rem;
+        }
+        .form-control{
+            width: 100%;
+            border: 1.5px solid #8f8a8a;
+            border-radius: 5px;
+            padding: 0.7rem;
+            margin: 0.6rem 0;
+            font-family: sans-serif;
+            font-size: 1rem;
+            outline: 0;
+        }
+        .contact-form form div{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            column-gap: 0.6rem;
+        }
+        .send-btn{
+            font-family: sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #c7c73a;
+            border: none;
+            border-radius: 5px;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+
+        }
+        .send-btn:hover{
+            opacity:0.8 ;
+        }
+
+        .contact-form > div img{
+             width: 85%;
+        }
+        .contact-form > div{
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-footer{
+            padding: 2rem 0;
+            background: black;
+        }
+
+        .contact-footer h3{
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .social-links a{
+            text-decoration: none;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0.4rem;
+            transition: all 0.4s ease;
+        }
+        .social-links a:hover{
+            color: #a6df5b;
+            border-color: #a6df5b;
+        }
+        @media screen and (min-width:768px) {
+            .contact-bg .text{
+                width: 70%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .contact-info{
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media screen and (min-width:992px) {
+            .contact-bg .text{
+                width: 50%;
+            }
+            .contact-form{
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+       
     </style>
 </head>
 <body>
 
 
-   
-  <div class="navbar">
-    <a href="/" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="/"  >Home</a>
-    <a href="/property_listing" >Listing</a>
-    <a href="/salespersons">Sales Person</a>
-    <a href="{% url 'contact_us' %}" class="active">Contact</a>
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'registration_view' %}"  class="login">Register</a>
-    <a href="{% url 'login' %}"  class="login">Login</a>
-  </div>
+  <section class="contact-section">
+       
+    <div class="contact-bg">
+        <h3>Get in Touch With Us</h3>
+        <h2>contact us</h2>
+    
+        <div class="line">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p class="txt">
+            <a href="/" >Home</a> / contact_us
+        </p>
+    </div>
 
     {% if messages %}
         <ul class="messages">
@@ -136,62 +274,46 @@
         </ul>
     {% endif %}
 
-    <form method="post">
-        <h3 style="text_align:center">Contact Us</h3>
-        {% csrf_token %}
-        
-        <div class="form-field">
-            <label for="{{ form.name.id_for_label }}">Name:</label>
-            {{ form.name }}
-            {% if form.name.errors %}
-                <ul class="errorlist">
-                    {% for error in form.name.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        
-        <div class="form-field">
-            <label for="{{ form.email.id_for_label }}">Email:</label>
-            {{ form.email }}
-            {% if form.email.errors %}
-                <ul class="errorlist">
-                    {% for error in form.email.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
+    <div class="contact-body">
 
-        <div class="form-field">
-            <label for="{{ form.subject.id_for_label }}">Subject:</label>
-            {{ form.subject }}
-            {% if form.subject.errors %}
-                <ul class="errorlist">
-                    {% for error in form.subject.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        
-        <div class="form-field">
-            <label for="{{ form.message.id_for_label }}">Message:</label>
-            {{ form.message }}
-            {% if form.message.errors %}
-                <ul class="errorlist">
-                    {% for error in form.message.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        
-        <button type="submit" class="btn-submit">Submit</button>
-    </form>
+        <div class="contact-form">
 
+    
+            <form method="post">
+                
+                 {% csrf_token %}
+                 
+                 <div >
+                   
+                    <input type="text" name="name" placeholder="First_Name">
+                    <input type="text" name="last_name" placeholder="Last_Name">
+                   
+                 </div>
+                 
+                 <div >
+                    
+                     <input type="email" name="email" placeholder="Your Email">
+                     <input type="text" name="subject" placeholder="Subject">
+                    
+                 </div>
 
+                     <textarea name="message" rows="4" placeholder="Message"></textarea>
+                     <button type="submit" class="send-btn">SEND MESSAGE</button>
+             </form>
+
+    <div>
+        <img src="{% static 'img/contact.avif' %}" alt="img">
+    </div>
+</div>
+ 
+</div>
+
+<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.7333154223743!2d38.78476567386739!3d8.996668989496554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85b54a03c7a9%3A0xc072e6b877772a7a!2zR2lmdCBSZWFsIEVzdGF0ZSAo4YyK4Y2N4Ym1IOGIquGIjSDhiLXhibThibUp!5e0!3m2!1sen!2set!4v1711282344650!5m2!1sen!2set" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+</div>
+
+</section>
     <footer>
         <div class="footer-section opening-hours">
           <h1>Opening Hours</h1>

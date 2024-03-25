@@ -148,9 +148,11 @@ from django.core.validators import validate_email
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     email = models.EmailField()
     subject = models.CharField(max_length=200)
     message = models.TextField()
+   
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
