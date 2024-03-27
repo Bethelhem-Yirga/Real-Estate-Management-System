@@ -32,40 +32,31 @@ from .forms import PropertyForm
 from .forms import EmployeeForm
 from django.shortcuts import render
 from django.core.mail import send_mail
-from .models import Application
-
-
-
-from django.shortcuts import render
+from .models import ContactMessage
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Application
-def email_notification(request, application_id, action):
-    application = Application.objects.get(pk=application_id)
-    email_subject = ''
-    email_message = ''
+from django.core.mail import send_mail
+from .models import Application
+from .models import Maintenance, WorkOrder
 
-    if action == 'accept':
-        email_subject = 'Application Accepted'
-        email_message = f'Dear {application.first_name},\n\nYour application has been accepted.'
+def accept_or_reject_application(request, application_id, decision):
+    application = Application.objects.get(id=application_id)
+    if decision == 'accept':
+        # Process acceptance logic here
+        send_email(application.id, application.email, application.first_name, decision)
+    elif decision == 'reject':
+        # Process rejection logic here
+        send_email(application.id, application.email, application.first_name, decision)
+    return redirect('manager')
 
-    elif action == 'reject':
-        email_subject = 'Application Rejected'
-        email_message = f'Dear {application.first_name},\n\nWe regret to inform you that your application has been rejected.'
+def send_email(application_id, email, first_name, decision):
+    subject = 'Application Status'
+    message = f"Dear {first_name},\n\nYour application has been {decision}ed."
+    sender = 'bethelyg909@gmail.com'  # Change to your email
+    recipient = [email]
+    send_mail(subject, message, sender, recipient)
 
-    send_mail(
-        email_subject,
-        email_message,
-        'asterbelete022@gmail.com',  # Sender's email address
-        [application.email],  # Recipient's email address from the application
-        fail_silently=False,
-    )
-
-    # Optional: Update the application status in the database
-    application.status = action.capitalize()  # Update status based on the action (accept/reject)
-    application.save()
-
-    # Redirect or render a response as needed
-    # ...
 
 def home_view(request):
     return render(request,'home.html')
@@ -95,6 +86,21 @@ def adminn(request):
 def manager(request):
     data = Application.objects.all()
     return render(request, 'manager.html', {'data': data})
+# views.py
+
+
+def maintenance(request):
+    work_orders = WorkOrder.objects.all()
+    return render(request, 'maintenance.html', { 'work_orders': work_orders})
+
+def send_to_work_order(request, maintenance_id):
+    maintenance_obj = Maintenance.objects.get(id=maintenance_id)
+    work_order = WorkOrder.objects.create(
+        maintenance=maintenance_obj,
+        status='notstart'
+    )
+    maintenance_obj.delete()
+    return redirect('maintenance')
 
 
 def appform(request):
@@ -107,7 +113,6 @@ def appform(request):
         address = request.POST.get('address')
         work_status = request.POST.get('work_status')
         gender = request.POST.get('gender')
-        role = request.POST.get('role')
         marital_status = request.POST.get('marriage_status')
         partner_first_name = request.POST.get('partner_first_name')
         partner_last_name = request.POST.get('partner_last_name')
@@ -125,7 +130,6 @@ def appform(request):
             address=address,
             work_status=work_status,
             gender=gender,
-            role=role,
             marital_status=marital_status,
             partner_first_name=partner_first_name,
             partner_last_name=partner_last_name,
@@ -180,7 +184,8 @@ def custemer(request):
 def manager(request):
     applications = Application.objects.all()
     maintenance = Maintenance.objects.all()
-    return render(request, 'manager.html', {'applications': applications, 'maintenance': maintenance})
+    contact=ContactMessage.objects.all()
+    return render(request, 'manager.html', {'applications': applications,'maintenance': maintenance})
 
 def contact(request):
     if request.method == 'POST':

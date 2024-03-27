@@ -1,31 +1,26 @@
 from django.urls import path
 from . import views
-from .views import contact_view, payment_view
-from .views import add_employee
-from .views import update_employee_active_status
-from .views import email_notification
-
-    # ... other URL patterns
-
+from .views import contact_view, payment_view, add_employee, update_employee_active_status, accept_or_reject_application
 
 urlpatterns = [
     path('', views.property_listing, name='index'),
-    path('register/', views.registration_view  , name='registration'),
+    path('register/', views.registration_view, name='registration'),
     path('property_listing/', views.property_listing_page, name='property_listing'),
     path('salespersons/', views.salespersons, name='salespersons'),
     path('contact/', views.contact, name='contact'),
+
+    path('accept/<int:application_id>/', accept_or_reject_application, {'decision': 'accept'}, name='accept_application'),
+    path('reject/<int:application_id>/', accept_or_reject_application, {'decision': 'reject'}, name='reject_application'),
+
     path('adminn/', views.adminn, name='adminn'),
     path('registration_view/', views.registration_view, name='registration_view'),
-    path('email-notification/<int:application_id>/<str:action>/', email_notification, name='email_notification'),
     path('dashboard/', views.marketing_manager, name='marketing_manager_dashboard'),
     path('add_property/', views.add_property, name='add_property'),
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
     
-    # ... other URL patterns
-    #    #
-
+    
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
@@ -33,7 +28,9 @@ urlpatterns = [
     path('rent/', views.rent, name='rent'),
     path('buy/', views.buy, name='buy'),
     path('login/', views.login, name='login'),
-
+    path('maintenance/', views.maintenance, name='maintenance'),
+    path('manager/', views.maintenance, name='maintenance'),
+    path('send_to_work_order/<int:maintenance_id>/', views.send_to_work_order, name='send_to_work_order'),
     path('system_admin/', views.system_admin, name='system_admin'),
     path('add-employee/', add_employee, name='add_employee'),
     path('<int:employee_id>/active_status/', update_employee_active_status, name='update_employee_active_status'),
@@ -44,6 +41,4 @@ urlpatterns = [
     path('salesperson/<int:employee_id>/', views.salesperson_profile, name='salesperson_profile'),
     path('about/', views.about, name='about'),
     path('contact_us/', contact_view, name='contact_us'),
-  
 ]
-

@@ -119,7 +119,6 @@ class Application(models.Model):
     address = models.CharField(max_length=200)
     work_status= models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
-    role = models.CharField(max_length=100)
     marital_status = models.CharField(max_length=100)
     partner_first_name = models.CharField(max_length=100, blank=True, null=True)
     partner_last_name = models.CharField(max_length=100, blank=True, null=True)
@@ -182,3 +181,25 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.subject
+class WorkOrder(models.Model):
+    STATUS_CHOICES = (
+        ('notstart', 'Not Started'),
+        ('inprogress', 'In Progress'),
+        ('complete', 'Complete'),
+    )
+
+    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='notstart')
+    created_at = models.DateTimeField(auto_now_add=True)
+class WorkOrder(models.Model):
+    STATUS_CHOICES = (
+        ('notstart', 'Not Started'),
+        ('inprogress', 'In Progress'),
+        ('complete', 'Complete'),
+    )
+
+    email = models.EmailField()
+    building_number = models.CharField(max_length=100)
+    room_number = models.IntegerField()
+    floor_number = models.IntegerField()
+    type_of_maintenance = models.CharField(max_length=20)

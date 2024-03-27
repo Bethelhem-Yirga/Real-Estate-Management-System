@@ -98,16 +98,41 @@ float: right;
 
   
     .maintenance-table th,
-    .maintenance-table td,
-    .application-table th,
-    .application-table td {
+    .maintenance-table td
+    {
         border: 1px solid #ddd;
         padding: 8px;
     }
-    
-    .maintenance-table th,
-    .application-table th {
-        background-color: #030303;
+    #application-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#application-table th,
+#application-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+#application-table th {
+  background-color: black;
+  color: white;
+}
+
+#application-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#application-table tr:hover {
+  background-color: #ddd;
+}
+
+    .maintenance-table th{
+      background-color: #030303;
+        color: white;
+    }
+    .application-table th{
+        background-color: #080404;
         color: white;
     }
 
@@ -121,7 +146,51 @@ float: right;
       var form = document.getElementById(formId);
       form.classList.add('active');
     }
-    
+    function sendToWorkOrder(maintenanceId) {
+            fetch(`/send_to_work_order/${maintenanceId}`)
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.location.reload(); 
+            });
+        }
+
+        function updateStatus(workOrderId, newStatus) {
+            fetch(`/update_work_order_status/${workOrderId}/${newStatus}`)
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.location.reload(); 
+            });
+        }
+        document.querySelectorAll('.status-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const workOrderId = this.dataset.workOrderId;
+            const newStatus = this.dataset.newStatus;
+            fetch(`/update_status/${workOrderId}/${newStatus}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Update the status in the UI
+                this.textContent = data.status;
+                this.dataset.newStatus = data.newStatus;
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+    }); 
     </script>
 </head>
 <body>
@@ -156,11 +225,11 @@ float: right;
         <li><a href="#" class="active">Dashboard</a></li>
         <li><a href="#" onclick="toggleForm('profile')">Profile</a></li>
         <li><a href="#" onclick="toggleForm('maintenance-form')">Maintenance Request</a></li>
-        <li><a href="#" onclick="toggleForm('application_rent')">Application</a></li>
+        <li><a href="#" onclick="toggleForm('application-table')">Application</a></li>
         <li><a href="#" onclick="toggleForm('maintenance-report')">Maintenance Report</a></li>
         <li> <a href="#" onclick="toggleForm('financial-report')">Financial Report</a> </li>  
         <li> <a href="#" onclick="toggleForm('salesperson-report')">Salesperson Report</a></li>  
-        <li> <a href="#" onclick="toggleForm('chatbot-form')">Chatbot</a></li>
+        <li> <a href="#" onclick="toggleForm('chatbot-form')">Message</a></li>
       </ul>
     </div>
     <div class="form-container">
@@ -172,7 +241,8 @@ float: right;
                       <th>Building Number</th>
                       <th>Room Number</th>
                       <th>Floor Number</th> 
-                      <th>Type of Maintenance</th>  
+                      <th>Type of Maintenance</th> 
+                      <th>Action</th> 
                   </tr>
               </thead>
               <tbody>
@@ -183,13 +253,15 @@ float: right;
                       <td>{{ maintenance_obj.room_number }}</td>
                       <td>{{ maintenance_obj.floor_number }}</td>
                       <td>{{ maintenance_obj.type_of_maintenance }}</td>
+                      <td><a href="{% url 'send_to_work_order' maintenance_obj.id %}">Send</a></td>
+
                   </tr>
                   {% endfor %}
               </tbody>
           </table>
       </div>
       
-      <div id="application_rent" class="form-content">
+      <div id="application-table" class="form-content">
           <h2>Application</h2>
           <table>
             <thead>
@@ -202,13 +274,8 @@ float: right;
                     <th>Address</th>
                     <th>Work Status</th>
                     <th>Gender</th>
-                    <th>Role</th>
                     <th>Marital Status</th>
-                    <th>Partner First Name</th>
-                    <th>Partner Last Name</th>
-                    <th>Partner Phone Number</th>
-                    <th>Partner Work Status</th>
-                    <th>Date Added</th>
+                    <th>DateAdded</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -223,16 +290,13 @@ float: right;
                     <td>{{ application_obj.address }}</td>
                     <td>{{ application_obj.work_status }}</td>
                     <td>{{ application_obj.gender }}</td>
-                    <td>{{ application_obj.role }}</td>
                     <td>{{ application_obj.marital_status }}</td>
-                    <td>{{ application_obj.partner_first_name }}</td>
-                    <td>{{ application_obj.partner_last_name }}</td>
-                    <td>{{ application_obj.partner_phone_number }}</td>
-                    <td>{{ application_obj.partner_work_status }}</td>
                     <td>{{ application_obj.date_added }}</td>
                     <td>
-                      <button class="accept-button" onclick="sendEmail('{{ application_obj.id }}', 'accept')">Accept</button>
-                      <button class="reject-button" onclick="sendEmail('{{ application_obj.id }}', 'reject')">Reject</button>
+                      
+                      <a href="{% url 'accept_application' application_obj.id %}">Accept</a>
+                      <a href="{% url 'reject_application' application_obj.id %}">Reject</a>
+                              
 
                       </td>
                 </tr>

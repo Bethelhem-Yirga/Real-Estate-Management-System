@@ -1,0 +1,39 @@
+<!-- maintenance_staff_page.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Staff Page</title>
+    <script> 
+</script>
+</head>
+<body>
+    <h1>Work Orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Building Number</th>
+                <th>Room Number</th>
+                <th>Floor Number</th>
+                <th>Type of Maintenance</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for work_order in work_orders %}
+            <tr>
+                <td>{{ work_order.maintenance.email }}</td>
+                <td>{{ work_order.maintenance.building_number }}</td>
+                <td>{{ work_order.maintenance.room_number }}</td>
+                <td>{{ work_order.maintenance.floor_number }}</td>
+                <td>{{ work_order.maintenance.type_of_maintenance }}</td>
+                <td>{{ work_order.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
