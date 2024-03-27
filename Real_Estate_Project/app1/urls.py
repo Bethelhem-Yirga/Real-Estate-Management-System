@@ -24,6 +24,7 @@ urlpatterns = [
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
+    path('apptorent/', views.apptorent, name='apptorent'),
     path('addemploy/', views.addemploy, name='addemploy'),
     path('rent/', views.rent, name='rent'),
     path('buy/', views.buy, name='buy'),

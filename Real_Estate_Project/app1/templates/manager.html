@@ -89,7 +89,7 @@ float: right;
       display: flex;
       flex-direction: column;
     }
-   
+    .rent_table,
     .maintenance-table,
     .application-table {
         border-collapse: collapse;
@@ -103,26 +103,28 @@ float: right;
         border: 1px solid #ddd;
         padding: 8px;
     }
+    #rent_table ,
     #application-table {
   width: 100%;
   border-collapse: collapse;
 }
-
+#rent_table th,
+#rent_table td,
 #application-table th,
 #application-table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
-
+#rent_table th,
 #application-table th {
   background-color: black;
   color: white;
 }
-
+#rent_table tr:nth-child(even),
 #application-table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-
+#rent_table tr:hover,
 #application-table tr:hover {
   background-color: #ddd;
 }
@@ -131,6 +133,7 @@ float: right;
       background-color: #030303;
         color: white;
     }
+
     .application-table th{
         background-color: #080404;
         color: white;
@@ -224,8 +227,9 @@ float: right;
       <ul>
         <li><a href="#" class="active">Dashboard</a></li>
         <li><a href="#" onclick="toggleForm('profile')">Profile</a></li>
+        <li><a href="#" onclick="toggleForm('application-table')">ApplicationForBuyer</a></li>
+        <li><a href="#" onclick="toggleForm('rent_table')">ApplicationForRent</a></li>
         <li><a href="#" onclick="toggleForm('maintenance-form')">Maintenance Request</a></li>
-        <li><a href="#" onclick="toggleForm('application-table')">Application</a></li>
         <li><a href="#" onclick="toggleForm('maintenance-report')">Maintenance Report</a></li>
         <li> <a href="#" onclick="toggleForm('financial-report')">Financial Report</a> </li>  
         <li> <a href="#" onclick="toggleForm('salesperson-report')">Salesperson Report</a></li>  
@@ -234,6 +238,8 @@ float: right;
     </div>
     <div class="form-container">
       <div id="maintenance-form" class="form-content">
+        <h2>MaintenanceRequest</h2>
+
           <table class="maintenance-table">
               <thead>
                   <tr>
@@ -305,8 +311,52 @@ float: right;
         </table>
          
       </div>
+  
+        <div id="rent_table" class="form-content">
+          <h2>ApplicationForRent</h2>
+          <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Nationality</th>
+                    <th>Address</th>
+                    <th>Work Status</th>
+                    <th>Gender</th>
+                    <th>DateAdded</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for applicationrent in applicationrent%}
+                <tr>
+                    <td>{{ applicationrent.first_name }}</td>
+                    <td>{{ applicationrent.last_name }}</td>
+                    <td>{{ applicationrent.email }}</td>
+                    <td>{{ applicationrent.phone_number }}</td>
+                    <td>{{ applicationrent.nationality }}</td>
+                    <td>{{ applicationrent.address }}</td>
+                    <td>{{ applicationrent.work_status }}</td>
+                    <td>{{ applicationrent.gender }}</td>
+                    <td>{{ applicationrent.date_added }}</td>
+                    <td>
+                      
+                      <a href="#">Accept</a>
+                              
+
+                      </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+         
+      </div>
   </div>
         
+      
+    
       
       <div id="chatbot-form" class="form-content">
         <h2>Chatbot</h2>

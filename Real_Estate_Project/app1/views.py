@@ -20,7 +20,7 @@ from datetime import datetime
 from .models import Properties, Registration,Application,Maintenance
 
 
-from .models import Properties, Registration
+from .models import Properties, Registration,Applicationrent
 
 from django.core.mail import send_mail
 from Real_Estate_Project import settings
@@ -145,6 +145,36 @@ def appform(request):
         application.save()
     
     return render(request, 'appform.html')
+def apptorent(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        nationality = request.POST.get('nationality')
+        address = request.POST.get('address')
+        work_status = request.POST.get('work_status')
+        gender=request.POST.get('gender')
+        
+        # Create a new instance of the Application model and assign the form data
+        applicationrent= Applicationrent (
+             first_name=first_name,
+             last_name=last_name,
+             email=email,
+             phone_number=phone_number,
+             nationality=nationality,
+             address=address,
+             work_status=work_status,
+             gender=gender,
+             date_added=datetime.now()  # Set the current date and time
+
+
+        )
+        
+        # Save the application instance to the database
+        applicationrent.save()
+    
+    return render(request, 'apptorent.html')
 
         # Save the application instance to the database
 def rent(request):
@@ -185,7 +215,8 @@ def manager(request):
     applications = Application.objects.all()
     maintenance = Maintenance.objects.all()
     contact=ContactMessage.objects.all()
-    return render(request, 'manager.html', {'applications': applications,'maintenance': maintenance})
+    applicationrent =Applicationrent.objects.all()
+    return render(request, 'manager.html', {'applications': applications,'applicationrent':applicationrent,'maintenance': maintenance})
 
 def contact(request):
     if request.method == 'POST':

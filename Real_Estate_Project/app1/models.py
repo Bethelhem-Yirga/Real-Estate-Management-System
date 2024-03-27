@@ -203,3 +203,13 @@ class WorkOrder(models.Model):
     room_number = models.IntegerField()
     floor_number = models.IntegerField()
     type_of_maintenance = models.CharField(max_length=20)
+class Applicationrent(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=150)
+    nationality = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    work_status= models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    date_added = models.DateTimeField(default=datetime.now, blank=True)

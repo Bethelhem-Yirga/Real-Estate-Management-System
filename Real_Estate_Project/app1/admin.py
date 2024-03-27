@@ -9,12 +9,13 @@ admin.site.register(Registration)
 admin.site.register(Properties)
 admin.site.register(Application)
 
-from .models import MarketingManager, Properties, Registration,Maintenance
+from .models import MarketingManager, Properties, Registration,Maintenance,Applicationrent
 
 admin.site.register(Maintenance)
 
 admin.site.register(MarketingManager)
 admin.site.register(Employee)
 admin.site.register(ContactMessage)
+admin.site.register(Applicationrent)
 
 # Register your models here.

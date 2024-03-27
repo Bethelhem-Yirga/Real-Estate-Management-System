@@ -16,8 +16,6 @@ class PropertyForm(forms.ModelForm):
         model = Properties
         fields = '__all__'      
 
-
-
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = MarketingManager

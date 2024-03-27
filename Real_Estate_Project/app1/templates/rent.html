@@ -233,10 +233,9 @@
     <div class="vertical-navbar">
       
       <ul class="nav-links">
-        <li><a href="/appform" >Application</a></li>
+        <li><a href="/apptorent" >Application</a></li>
         <li><a href="#" onclick="toggleForm('payment-form')">Payment</a></li>
         <li><a href="#" onclick="toggleForm('maintenance-form')">Maintenance Request</a></li>
-        <li><a href="#" onclick="toggleForm('feedback-form')">Feedback</a></li>
         <li><a href="#" onclick="toggleForm('chatbot-form')">Chatbot</a></li>
       </ul>
     </div>
@@ -268,37 +267,6 @@
         </form>
     </div>
     
-      <div id="feedback-form" class="form-content">
-        <h2>Feedback</h2>
-        <form >
-          {% csrf_token %}
-          <label for="feedback">Feedback:</label>
-          <textarea id="feedback" name="feedback" required></textarea>
-          <br>
-          <div class="rating">
-            Rating:<input type="radio" id="star5" name="rating" value="5" required>
-            <input type="radio" id="star5" name="rating" value="5" required>
-            <label for="star5">5 stars</label>
-            <input type="radio" id="star4" name="rating" value="4" required>
-            <label for="star4">4 stars</label>
-            <input type="radio" id="star3" name="rating" value="3" required>
-            <label for="star3">3 stars</label>
-            <input type="radio" id="star2" name="rating" value="2" required>
-            <label for="star2">2 stars</label>
-            <input type="radio" id="star1" name="rating" value="1" required>
-            <label for="star1">1 star</label>
-          </div>
-          <br>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <div id="chatbot-form" class="form-content">
-        <h2>Chatbot</h2>
-        <textarea id="chat" name="chat" required></textarea>
-        <br>
-        <button type="submit">Send</button>
-      </form>
-      </div>
     </div>
   </div>
   <footer>
