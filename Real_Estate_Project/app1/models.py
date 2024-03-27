@@ -12,6 +12,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 
+
 class Registration(models.Model):
     ROLE_CHOICES = [
         ('manager', 'Manager'),
@@ -70,8 +71,8 @@ MY_CHOICES = [
 ]
 
 PROPERTY_CHOICES = [
-        ('Villa', 'Villa'),
-        ('Apartment', 'Apartment'),
+        ('Commercial', 'Commercial'),
+        ('Residential Apartment', 'Residential Apartment'),
     ]
 PROPERTY_AREA = [
         ('22 Mazoria', '22 Mazoria'),
@@ -109,7 +110,18 @@ class Properties(models.Model):
     TotalFloor = models.BigIntegerField(validators=[MinValueValidator(0)])
     image = models.ImageField(upload_to='images', default='bg1.jpg')
     date_added = models.DateTimeField(default=datetime.now, blank=True)
+    year_built = models.IntegerField(blank=True, null=True)
+    payment_link = models.URLField(max_length=200, blank=True, null=True)
 
+    air_conditioning = models.BooleanField(default=False)
+    gym = models.BooleanField(default=False)
+    laundry = models.BooleanField(default=False)
+    lawn = models.BooleanField(default=False)
+    swimming_pool = models.BooleanField(default=False)
+    wifi = models.BooleanField(default=False)
+
+   # add_map = models.URLField(max_length=200, blank=True, null=True)
+    
 class Application(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -119,7 +131,6 @@ class Application(models.Model):
     address = models.CharField(max_length=200)
     work_status= models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
-    role = models.CharField(max_length=100)
     marital_status = models.CharField(max_length=100)
     partner_first_name = models.CharField(max_length=100, blank=True, null=True)
     partner_last_name = models.CharField(max_length=100, blank=True, null=True)
@@ -182,3 +193,35 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.subject
+class WorkOrder(models.Model):
+    STATUS_CHOICES = (
+        ('notstart', 'Not Started'),
+        ('inprogress', 'In Progress'),
+        ('complete', 'Complete'),
+    )
+
+    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='notstart')
+    created_at = models.DateTimeField(auto_now_add=True)
+class WorkOrder(models.Model):
+    STATUS_CHOICES = (
+        ('notstart', 'Not Started'),
+        ('inprogress', 'In Progress'),
+        ('complete', 'Complete'),
+    )
+
+    email = models.EmailField()
+    building_number = models.CharField(max_length=100)
+    room_number = models.IntegerField()
+    floor_number = models.IntegerField()
+    type_of_maintenance = models.CharField(max_length=20)
+class Applicationrent(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=150)
+    nationality = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    work_status= models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    date_added = models.DateTimeField(default=datetime.now, blank=True)

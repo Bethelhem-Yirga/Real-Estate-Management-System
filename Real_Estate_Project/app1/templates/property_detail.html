@@ -3,29 +3,144 @@
 <html>
 <head>
     <title>Property Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/property_detail.css' %}">
+    <style>
+      .contact-bg {
+        height: 48vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('{% static "img/abt2.jpg" %}');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        text-align: center;
+        color: #fff;
+        display: flex;
+        background-size: 100% 100%;
+        background-position: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+    }
+  </style>
 </head>
 <body>
-    <h1>Property Detail</h1>
-    <p>Property Type: {{ property.propertyType }}</p>
-    <p>Country: {{ property.country}}</p>
-    <p>City: {{ property.city}}</p>
-    <p>area: {{ property.area }}</p>
-    <p>Status: {{property.status}} </p>
-    <p>Size: {{ property.size}} Sq mt</p>
-    <p>Number Of Rooms: {{property.noOfRooms}}</p>
-    <p>Total Floor: {{ property.TotalFloor}}</p>
-    <p>Bedrooms: {{ property.bedrooms}}</p>
-    <p>Bathrooms: {{ property.bathrooms }}</p>
-    <p>Price: {{ property.price }}</p>
-    <p>Date Added: {{ property.date_added }}</p>
-    {% if property.image %}
-            <img src="{{ property.image.url }}" alt="img" class="" style="height:80px; width:80px;">
 
-          {%else%}
-            <img src="{% static 'img/logo.png' %}" alt="img">
-         
-    {% endif %}
+  <div class="contact-bg">
+    <h1>Property Detail</h1>
+
+    <div class="line">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <p class="txt">
+        <a href="/" >Home</a> / property_detail
+    </p>
+</div>
+
+  
+<div class="responsive-div gallery" style="width: 100%; max-width:120%;">
+
+  {% if property.image %}
+    <div class="gallery-item">
+      <h3 class="property-title">{{ property.area }} {{ property.bedrooms}} Bedrooms {{ property.propertyType }} Apartment</h3>
+      <h3 class="property-status">{{ property.status}}</h3>
+      <h3 class="property-location"><i class="fa-solid fa-location-dot" style="color: #b0b0b0;"></i> {{ property.area }}, {{ property.city}} </h3>
+      <img src="{{ property.image.url }}" alt="img">
+    </div>
+  {% else %}
+    <p>No image available</p>
+  {% endif %}
+  
+  <p>
+    Property Type: <span> {{ property.propertyType }} </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa-solid fa-bed" style="color: #000000;"></i><span> Bedrooms: {{ property.bedrooms}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa-solid fa-bath" style="color: #000000;"></i><span> Bathrooms: {{ property.bathrooms }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa-solid fa-chart-area" style="color: #000000;"></i> <span>Size: {{ property.size}} Sq mt</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa-regular fa-calendar-days" style="color: #050505;"></i> <span>Year Built: {{ property.year_built }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  </p>
+
+</div>
+
+<div class="responsive-div description">
+  <h3>Description</h3>
+  <p>Property Description: {{ property.description }}</p>
+</div>
+   
+    <div class="responsive-div detail">
+      <div class="column-1">
+        <h3>Property Details</h3>
+      </div>
+      <div class="column-2">
+        <p><span>Property ID: </span>{{ property.id }}</p>
+        <p><span>Property Type: </span>{{ property.propertyType }}</p>
+        <p><span>Size: </span>{{ property.size}} Sq mt</p>
+      </div>
+      <div class="column-3">
+        <p><span>Number Of Rooms: </span>{{property.noOfRooms}}</p>
+        <p><span>Total Floor: </span>{{ property.TotalFloor}}</p>
+        <p><span>Bedrooms: </span>{{ property.bedrooms}}</p>
+      </div>
+      <div class="column-4">
+        <p><span>Bathrooms: </span>{{ property.bathrooms }}</p>
+        <p><span>Price: </span>{{ property.price }}</p>
+        <p><span>Year Built: </span>{{ property.year_built }}</p>
+      </div>
+    </div>
+    
+    <div class="responsive-div address">
+      <h3>Address</h3>
+      <div class="column-1">
+        <p><span>Country: </span>{{ property.country}}</p>
+        <p><span>City: </span>{{ property.city}}</p>
+      </div>
+      <div class="column-2">
+        <p><span>Area: </span>{{ property.area }}</p>
+      </div>
+    </div>
+    
+    
+  
+    <div class="responsive-div features">
+      <div class="column-1">
+        <h3>Features</h3>
+      </div>
+      <div class="column-2">
+        <p>
+          <input type="checkbox" id="air_conditioning" name="air_conditioning" {% if property.air_conditioning %}checked{% endif %}>
+          <label for="air_conditioning">Air conditioning</label>
+        </p>
+        <p>
+          <input type="checkbox" id="gym" name="gym" {% if property.gym %}checked{% endif %}>
+          <label for="gym">Gym</label>
+        </p>
+        <p>
+          <input type="checkbox" id="laundry" name="laundry" {% if property.laundry %}checked{% endif %}>
+          <label for="laundry">Laundry</label>
+        </p>
+      </div>
+      <div class="column-2 row-2">
+        <p>
+          <input type="checkbox" id="lawn" name="lawn" {% if property.lawn %}checked{% endif %}>
+          <label for="lawn">Lawn</label>
+        </p>
+        <p>
+          <input type="checkbox" id="swimming_pool" name="swimming_pool" {% if property.swimming_pool %}checked{% endif %}>
+          <label for="swimming_pool">Swimming pool</label>
+        </p>
+        <p>
+          <input type="checkbox" id="wifi" name="wifi" {% if property.wifi %}checked{% endif %}>
+          <label for="wifi">Wifi</label>
+        </p>
+      </div>
+    </div>
     
 
+    
+    <p>Payment Link: <a href="{{ property.payment_link }}">{{ property.payment_link }}</a></p>
+    
+    
 </body>
 </html>
+    
+  

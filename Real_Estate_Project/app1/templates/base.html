@@ -7,20 +7,10 @@
 </head>
 
 <body>
-  <div class="navbar">
-    <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="#home" class="home">Home</a>
-    <a href="#listing">Listing</a>
-    <a href="#salesperson">Sales Person</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-    <a href="#help">Help</a>
-    <a href="#register" class="register">Register</a>
-    <a href="#login" class="login">Login</a>
-  </div>
-
+ 
 
   <footer>
+    {% block footer %}
     <div class="footer-section opening-hours">
       <h1>Opening Hours</h1>
       <p>Monday - Friday: 8:00AM-5:00PM</p>
@@ -37,16 +27,14 @@
       <h1>Follow Us</h1>
       <div class="social-media-links">
         <ul>
-        
-          <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a>    
-          <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a>   
-          <a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a> 
-          <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a> 
-        
-      </ul>
+          <li><a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a></li>
+          <li><a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a></li>
+          <li><a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a></li>
+          <li><a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a></li>
+        </ul>
       </div>
     </div>
-    
+    {% endblock %}
   </footer>
 </body>
 </html>

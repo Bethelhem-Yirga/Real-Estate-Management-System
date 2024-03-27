@@ -91,19 +91,15 @@
     background-color: #c7c73a;
   }
 
-  .navbar .logo,
-  .navbar  .home,
-  .navbar .property,
-  .navbar .salespersons
-   {
+  .navbar .logo {
     float: left;
   }
 
   
   .navbar .About, 
-  .navbar .Contact,
+  .navbar .Contact, 
   .navbar .help
-  
+
   {
     float: right;
   }
@@ -176,6 +172,16 @@
       margin-left: 50px;
       margin-bottom: 10px;
    
+    } 
+    .form-content  .submit{
+        background-color:  #4CAF50; 
+       
+
+    }
+    .form-content .clear-button{
+        background-color: #ff5608; 
+        margin-right: 50px;
+        
     }
     .rating {
   display: inline-block;
@@ -216,65 +222,24 @@
   <div class="navbar">
     <a href="#home" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
     <a href="/" class="home">Home</a>
-    <a href="/property_listing" class="property">Listing</a>
-    <a href="/salespersons" class="salespersons">Sales Person</a>
-    <a href="{% url 'contact' %}" class="Contact">Contact</a>
-    <a href="#about"class="About">About</a>
-    <a href="#help" class="help">Help</a>
-    
-   
+    <a href="/property_listing">Listing</a>
+    <a href="/salespersons">Sales Person</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="#about">About</a>
+    <a href="#help">Help</a>
    
   </div>
   <div class="navbar-container">
     <div class="vertical-navbar">
       
       <ul class="nav-links">
-        <li><a href="/appform">Application</a></li>
+        <li><a href="/appform" >Application</a></li>
         <li><a href="#" onclick="toggleForm('payment-form')">Payment</a></li>
-        <li><a href="#" onclick="toggleForm('feedback-form')">Feedback</a></li>
+        <li><a href="#" onclick="toggleForm('maintenance-form')">Maintenance Request</a></li>
         <li><a href="#" onclick="toggleForm('chatbot-form')">Chatbot</a></li>
       </ul>
     </div>
-   
-    <div class="form-container">
-      <div id="payment-form" class="form-content">
-        <h2>Payment</h2>
-        <!-- Payment form content goes here -->
-      </div>
-      
-      
-      <div id="feedback-form" class="form-content">
-        <h2>Feedback</h2>
-        <!--form action="{% url 'feedback' %}" method="post"-->
-          {% csrf_token %}
-          <label for="feedback">Feedback:</label>
-          <textarea id="feedback" name="feedback" required></textarea>
-          <br>
-          <label for="rating">Rating:</label>
-          <div class="rating">
-            <input type="radio" id="star5" name="rating" value="5" required>
-            <label for="star5">5 stars</label>
-            <input type="radio" id="star4" name="rating" value="4" required>
-            <label for="star4">4 stars</label>
-            <input type="radio" id="star3" name="rating" value="3" required>
-            <label for="star3">3 stars</label>
-            <input type="radio" id="star2" name="rating" value="2" required>
-            <label for="star2">2 stars</label>
-            <input type="radio" id="star1" name="rating" value="1" required>
-            <label for="star1">1 star</label>
-          </div>
-          <br>
-          <button type="submit">Submit</button>
-        <!--/form-->
-      </div>
-      <div id="chatbot-form" class="form-content">
-        <h2>Chatbot</h2>
-        <textarea id="chat" name="chat" required></textarea>
-        <br>
-        <button type="submit">Send</button>
-      </form>
-      </div>
-    </div>
+ 
   </div>
   <footer>
     <div class="footer-section opening-hours">
