@@ -9,7 +9,7 @@ import stripe
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration
-        fields =['first_name','last_name','email','gender','address','phone_number','password','confirm_password']
+        fields =['first_name','last_name','email','address','phone_number','password','confirm_password']
 
 class PropertyForm(forms.ModelForm):
     class Meta:
