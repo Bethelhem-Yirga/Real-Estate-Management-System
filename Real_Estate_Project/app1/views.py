@@ -274,7 +274,12 @@ def add_property(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Data added successfully.')
-                   
+           # return redirect('property_list')  # Redirect to a success page or another view
+        else:
+            # Add form errors to Django messages
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {form[field].label}: {error}")
     else:
         form = PropertyForm()
     return render(request, 'add_property.html', {'form': form})

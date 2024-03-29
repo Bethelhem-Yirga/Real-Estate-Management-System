@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+from pyexpat.errors import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,7 +143,13 @@ MEDIA_URL = '/media/'
 
 
 
-
+MESSAGE_TAGS = {
+    'error': 'danger',
+    'success': 'success',
+    'warning': 'warning',
+    'info': 'info',
+    'debug': 'secondary',
+}
 
 
 

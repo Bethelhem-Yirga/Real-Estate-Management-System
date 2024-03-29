@@ -72,7 +72,7 @@ MY_CHOICES = [
 
 PROPERTY_CHOICES = [
         ('Commercial', 'Commercial'),
-        ('Residential Apartment', 'Residential Apartment'),
+        ('Residential', 'Residential'),
     ]
 PROPERTY_AREA = [
         ('22 Mazoria', '22 Mazoria'),
@@ -215,6 +215,7 @@ class WorkOrder(models.Model):
     room_number = models.IntegerField()
     floor_number = models.IntegerField()
     type_of_maintenance = models.CharField(max_length=20)
+
 class Applicationrent(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
