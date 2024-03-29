@@ -1,7 +1,90 @@
+<<!-- property_form.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Property Form</title>
+    <style>
+        /* CSS styles for the property form */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .form-group select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .form-group .checkbox-label {
+            margin-left: 5px;
+        }
+        
+        .form-group input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        
+        .messages li {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .messages .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        
+        .messages .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
 </head>
 <body>
     {% if messages %}
@@ -10,12 +93,118 @@
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
     </ul>
-{% endif %}
+    {% endif %}
+    
     <h1>Add a Property</h1>
+    
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save Property">
+        
+        <div class="form-group">
+            <label for="id_propertyType">Property Type:</label>
+            {{ form.propertyType }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_country">Country:</label>
+            {{ form.country }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_city">City:</label>
+            {{ form.city }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_area">Area:</label>
+            {{ form.area }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_description">Description:</label>
+            {{ form.description }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_size">Size:</label>
+            {{ form.size }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_price">Price:</label>
+            {{ form.price }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_status">Status:</label>
+            {{ form.status }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_noOfRooms">Number of Rooms:</label>
+            {{ form.noOfRooms }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_bedrooms">Bedrooms:</label>
+            {{ form.bedrooms }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_bathrooms">Bathrooms:</label>
+            {{ form.bathrooms }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_roomFloor">Room Floor:</label>
+            {{ form.roomFloor }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_TotalFloor">Total Floor:</label>
+            {{ form.TotalFloor }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_image">Image:</label>
+            {{ form.image }}
+        </div>
+        
+        <div class="form-group">
+
+            <label for="id_date_added">Date Added:</label>
+            {{ form.date_added }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_year_built">Year Built:</label>
+            {{ form.year_built }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_payment_link">Payment Link:</label>
+            {{ form.payment_link }}
+        </div>
+        
+        <div class="form-group">
+            <label>Amenities:</label><br>
+            <input type="checkbox" id="id_air_conditioning" name="air_conditioning" {% if form.air_conditioning.value %}checked{% endif %}>
+            <label class="checkbox-label" for="id_air_conditioning">Air Conditioning</label><br>
+            <input type="checkbox" id="id_gym" name="gym" {% if form.gym.value %}checked{% endif %}>
+            <label class="checkbox-label" for="id_gym">Gym</label><br>
+            <input type="checkbox" id="id_laundry" name="laundry" {% if form.laundry.value %}checked{% endif %}>
+            <label class="checkbox-label" for="id_laundry">Laundry</label><br>
+            <input type="checkbox" id="id_lawn" name="lawn" {% if form.lawn.value %}checked{% endif %}>
+            <label class="checkbox-label" for="id_lawn">Lawn</label><br>
+            <input type="checkbox" id="id_swimming_pool" name="swimming_pool" {% if form.swimming_pool.value %}checked{% endif %}>
+            <label class="checkbox-label" for="id_swimming_pool">Swimming Pool</label><br>
+            <input type="checkbox" id="id_wifi" name="wifi" {% if form.wifi.value %}checked{% endif %}>
+            <label class="checkbox-label" for="id_wifi">Wi-Fi</label>
+        </div>
+        
+        <div class="form-group">
+            <input type="submit" value="Save Property">
+        </div>
     </form>
 </body>
 </html>

@@ -63,3 +63,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ['name','last_name', 'email', 'subject', 'message']
+        
+        
+        
+        
+        
