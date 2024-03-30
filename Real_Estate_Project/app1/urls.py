@@ -8,10 +8,8 @@ urlpatterns = [
     path('property_listing/', views.property_listing_page, name='property_listing'),
     path('salespersons/', views.salespersons, name='salespersons'),
     path('contact/', views.contact, name='contact'),
-
     path('accept/<int:application_id>/', accept_or_reject_application, {'decision': 'accept'}, name='accept_application'),
     path('reject/<int:application_id>/', accept_or_reject_application, {'decision': 'reject'}, name='reject_application'),
-
     path('adminn/', views.adminn, name='adminn'),
     path('registration_view/', views.registration_view, name='registration_view'),
     path('dashboard/', views.marketing_manager, name='marketing_manager_dashboard'),
@@ -19,8 +17,6 @@ urlpatterns = [
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
-    
-    
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
