@@ -3,11 +3,12 @@ from django.contrib import admin
 from .models import ContactMessage, Employee, MarketingManager, Properties, Registration
 
 
-from .models import Properties, Registration,Application
+from .models import Properties, Registration,Application,Report
 
 admin.site.register(Registration)
 admin.site.register(Properties)
 admin.site.register(Application)
+admin.site.register(Report)
 
 from .models import MarketingManager, Properties, Registration,Maintenance,Applicationrent
 

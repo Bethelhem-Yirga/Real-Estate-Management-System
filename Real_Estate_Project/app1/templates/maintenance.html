@@ -1,16 +1,10 @@
-<!-- maintenance_staff_page.html -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance Staff Page</title>
-    <script> 
-</script>
+    <title>Maintenance Page</title>
 </head>
 <body>
-    <h1>Work Orders</h1>
+    <h1>Maintenance Requests</h1>
     <table>
         <thead>
             <tr>
@@ -19,18 +13,26 @@
                 <th>Room Number</th>
                 <th>Floor Number</th>
                 <th>Type of Maintenance</th>
-                <th>Status</th>
+                <th>Select</th>
             </tr>
         </thead>
         <tbody>
-            {% for work_order in work_orders %}
+            {% for maintenance_request in maintenance_requests %}
             <tr>
-                <td>{{ work_order.maintenance.email }}</td>
-                <td>{{ work_order.maintenance.building_number }}</td>
-                <td>{{ work_order.maintenance.room_number }}</td>
-                <td>{{ work_order.maintenance.floor_number }}</td>
-                <td>{{ work_order.maintenance.type_of_maintenance }}</td>
-                <td>{{ work_order.status }}</td>
+                <td>{{ maintenance_request.email }}</td>
+                <td>{{ maintenance_request.building_number }}</td>
+                <td>{{ maintenance_request.room_number }}</td>
+                <td>{{ maintenance_request.floor_number }}</td>
+                <td>{{ maintenance_request.type_of_maintenance }}</td>
+                <td>
+                    {% if not maintenance_request.report %}
+                    <a href="{% url 'complete_maintenance' maintenance_request.id %}">New Request</a>
+                {% elif maintenance_request.report.staff_name %}
+                    {{ maintenance_request.report.staff_name }}
+                {% else %}
+                    <a href="{% url 'in_progress' maintenance_request.id %}">In Progress</a>
+                {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
