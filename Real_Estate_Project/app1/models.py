@@ -109,7 +109,7 @@ class Properties(models.Model):
     roomFloor = models.BigIntegerField(validators=[MinValueValidator(0)])
     TotalFloor = models.BigIntegerField(validators=[MinValueValidator(0)])
     image = models.ImageField(upload_to='images', default='bg1.jpg')
-    date_added = models.DateTimeField(default=datetime.now, blank=True)
+    #date_added = models.DateTimeField(default=datetime.now, blank=True)
     year_built = models.IntegerField(blank=True, null=True)
     payment_link = models.URLField(max_length=200, blank=True, null=True)
 

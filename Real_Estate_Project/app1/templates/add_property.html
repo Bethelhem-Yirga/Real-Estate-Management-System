@@ -1,0 +1,394 @@
+<!-- property_form.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Property Form</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9; /* Set a background color for the body */
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: rgba(249, 249, 249, 0.8); /* Set the background color with an alpha channel */
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+        }
+        
+       .form-group input[type="submit"],
+    .form-group button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .form-group input[type="submit"]:hover,
+    .form-group button:hover {
+        background-color: #45a049;
+    }
+
+    .form-group input[type="submit"]:focus,
+    .form-group button:focus {
+        outline: none;
+    }
+        
+        .form-group input[type="submit"],
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .form-step {
+            margin-bottom: 20px;
+        }
+        
+        /* Styles for navigation buttons */
+        .form-group button {
+            margin-right: 10px;
+        }
+
+        
+        /* Styles for success message */
+        .success-message {
+            background-color: lightgreen;
+            border: none;
+            color: darkgreen;
+            font-weight: bold;
+            width: 45%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            animation: fade-in 0.5s ease-in-out;
+            text-align: center;
+        }
+        
+        /* Styles for error message */
+        .error-message {
+            background-color: #FFCCCC;
+            border: none;
+            color: #FF0000;
+            font-weight: bold;
+            width: 45%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            animation: fade-in 0.5s ease-in-out;
+            text-align: center;
+        }
+        
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    
+        /* Media queries for responsive design */
+        @media (max-width: 767px) {
+            form {
+                max-width: 100%;
+                padding: 10px;
+            }
+            
+            .success-message,
+            .error-message {
+                width: 100%;
+            }
+            
+            .form-group input[type="submit"],
+            .form-group button {
+                width: 100%;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+            
+            form {
+                padding: 10px;
+            }
+            
+            .form-group input[type="submit"],
+            .form-group button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul class="my-messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.tags == 'success' %}
+            <div class="success-message">{{ message }}</div>
+            {% elif message.tags == 'error' %}
+            <div class="error-message">{{ message }}</div>
+            {% else %}
+            <div class="other-message">{{ message }}</div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <h1>Add a Property</h1>
+    
+    <form method="POST" enctype="multipart/form-data" id="property-form">
+        {% csrf_token %}
+        
+        <!-- Step 1: Property Type -->
+        <div class="form-step" id="step1">
+            <div class="form-group">
+                <label for="id_propertyType">Property Type:</label>
+                {{ form.propertyType }}
+            </div>
+
+             
+            
+            <!-- Add a "Next" button to navigate to the next step -->
+            <div class="form-group">
+                <button type="button" onclick="nextStep(2)">Next</button>
+            </div>
+        </div>
+        
+        <!-- Step 2: Location -->
+        <div class="form-step" id="step2" style="display: none;">
+            <div class="form-group">
+                <label for="id_country">Country:</label>
+                {{ form.country }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_city">City:</label>
+                {{ form.city }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_area">Area:</label>
+                {{ form.area }}
+            </div>
+            
+            <!-- Add buttons to navigate between steps -->
+            <div class="form-group">
+                <button type="button" onclick="prevStep(1)">Previous</button>
+                <button type="button" onclick="nextStep(3)">Next</button>
+            </div>
+        </div>
+        
+        <!-- Step 3: Description and Size -->
+        <div class="form-step" id="step3" style="display: none;">
+            <div class="form-group">
+                <label for="id_description">Description:</label>
+                {{ form.description }}
+            </div>
+            
+           
+            <div class="form-group">
+                <label for="id_image">Image:</label>
+                {{ form.image }}
+            </div>
+            
+            <!-- Add buttons to navigate between steps -->
+            <div class="form-group">
+                <button type="button" onclick="prevStep(2)">Previous</button>
+                <button type="button" onclick="nextStep(4)">Next</button>
+            </div>
+        </div>
+        
+        <!-- Step 4: Price and Status -->
+        <div class="form-step" id="step4" style="display: none;">
+              
+            <div class="form-group">
+                <label for="id_size">Size:</label>
+                {{ form.size }}
+            </div>
+
+
+            <div class="form-group">
+                <label for="id_price">Price:</label>
+                {{ form.price }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_status">Status:</label>
+                {{ form.status }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_payment_link">Payment Link:</label>
+                {{ form.payment_link }}
+            </div>
+            
+
+            <!-- Add buttons to navigate between steps -->
+            <div class="form-group">
+                <button type="button" onclick="prevStep(3)">Previous</button>
+                <button type="button" onclick="nextStep(5)">Next</button>
+            </div>
+        </div>
+        
+        <!-- Step 5: Rooms and Amenities -->
+        <div class="form-step" id="step5" style="display: none;">
+            <div class="form-group">
+                <label for="id_noOfRooms">Number of Rooms:</label>
+                {{ form.noOfRooms }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_bedrooms">Bedrooms:</label>
+                {{ form.bedrooms }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_bathrooms">Bathrooms:</label>
+                {{ form.bathrooms }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_roomFloor">Room Floor:</label>
+                {{ form.roomFloor }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_TotalFloor">Total Floor:</label>
+                {{ form.TotalFloor }}
+            </div>
+           
+            
+            <!-- Add buttons to navigate between steps -->
+            <div class="form-group">
+                <button type="button" onclick="prevStep(4)">Previous</button>
+                <button type="button" onclick="nextStep(6)">Next</button>
+            </div>
+        </div>
+
+        <div class="form-step" id="step5-2" style="display: none;">
+       
+            
+            <!-- Add checkboxes for amenities -->
+            <div class="form-group">
+                <label>Amenities:</label><br>
+                <input type="checkbox" id="id_air_conditioning" name="air_conditioning" {% if form.air_conditioning.value %}checked{% endif %}>
+                <label class="checkbox-label" for="id_air_conditioning">Air Conditioning</label><br>
+                <input type="checkbox" id="id_gym" name="gym" {% if form.gym.value %}checked{% endif %}>
+                <label class="checkbox-label" for="id_gym">Gym</label><br>
+                <input type="checkbox" id="id_laundry" name="laundry" {% if form.laundry.value %}checked{% endif %}>
+                <label class="checkbox-label" for="id_laundry">Laundry</label><br>
+                <input type="checkbox" id="id_lawn" name="lawn" {% if form.lawn.value %}checked{% endif %}>
+                <label class="checkbox-label" for="id_lawn">Lawn</label><br>
+                <input type="checkbox" id="id_swimming_pool" name="swimming_pool" {% if form.swimming_pool.value %}checked{% endif %}>
+                <label class="checkbox-label" for="id_swimming_pool">Swimming Pool</label><br>
+                <input type="checkbox" id="id_wifi" name="wifi" {% if form.wifi.value %}checked{% endif %}>
+                <label class="checkbox-label" for="id_wifi">Wi-Fi</label>
+                <!-- Add more checkboxes for other amenities -->
+            </div>
+            
+            <!-- Add buttons to navigate between steps -->
+            <div class="form-group">
+                <button type="button" onclick="prevStep(7)">Previous</button>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+
+        
+    
+    
+    </form>
+
+    
+    <script>
+        // JavaScript code for handling the multi-step form
+        const form = document.getElementById('property-form');
+        const steps = document.getElementsByClassName('form-step');
+        let currentStep = 1;
+        
+        // Function to show the specified step and hide the others
+        function showStep(step) {
+            for (let i = 0; i < steps.length; i++) {
+                if (i + 1 === step) {
+                    steps[i].style.display = 'block';
+                } else {
+                    steps[i].style.display = 'none';
+                }
+            }
+        }
+        
+        // Function to navigate to the next step
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+        
+        function prevStep() {
+            currentStep--;
+            showStep(currentStep);
+        }
+        
+        // Function to validate a step (you can implement your own validation logic)
+        function validateStep(step) {
+            if (step === 1) {
+                if (!form.propertyType.value) {
+                    alert('Please select a property type.');
+                    return false;
+                }
+            } else if (step === 2) {
+                if (!form.country.value || !form.city.value || !form.area.value) {
+                    alert('Please fill in all location fields.');
+                    return false;
+                }
+            }
+            // Add validation logic for other steps
+            
+            return true;
+        }
+        // Show the initial step
+        showStep(currentStep);
+    </script>
+</body>
+</html>

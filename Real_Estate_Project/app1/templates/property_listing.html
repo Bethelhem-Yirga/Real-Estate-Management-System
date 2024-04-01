@@ -1,78 +1,87 @@
-{% load static %}
+<!-- property_listing.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
-
+    <title>Property Listing</title>
     <style>
-        .navbar a.active {
-          background-color: #c7c73a;
+        /* CSS styles for the property listing */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .property-card {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        
+        .property-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        
+        .property-card h2 {
+            margin-top: 0;
+        }
+        
+        .property-card p {
+            margin-bottom: 10px;
         }
     </style>
 </head>
-
 <body>
-<div class="navbar">
-    <a href="/" class="logo"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="/" class="home">Home</a>
-    <a href="{% url 'property_listing' %}" class="active">Listing</a>
-    <a href="/salespersons">Sales Person</a>
-    <a href="{% url 'contact_us' %}">Contact</a>
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'registration' %}"  class="login">Register</a>
-    <a href="#login" class="login">Login</a>
-</div>
-
-<!-- Property Listings -->
-<div class="property-listings">
+    <h1>Property Listing</h1>
+    
     {% for property in properties %}
-     <div class="property-card">
-         <div class="property-image">
-             <img src="{{ property.image.url }}" alt="Card 1" >
-         </div>
-         <div class="property-description">
-             <h2>{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }}</h2>
-             <p>Location: {{ property.area }}, {{ property.city }}, {{ property.country }}</p>
-             <p>Price: {{ property.price }} birr</p>
-             <p>Bedrooms: {{ property.bedrooms }}</p>
-             <p>Bathrooms: {{ property.bathrooms }}</p>
-             <p>Area: {{ property.size }} Sq.mt</p>
-             <a href="{% url 'property_detail' property.id %}" class="detail-btn">Details</a>
-         </div>
-     </div>
-     {% endfor %}
- </div>
-
-<footer>
-    <div class="footer-section opening-hours">
-        <h1>Opening Hours</h1>
-        <p>Monday - Friday: 8:00AM-5:00PM</p>
-        <p>Saturday: 8:00AM-12:00PM</p>
+    <div class="property-card">
+        <img src="{{ property.image.url }}" alt="Property Image">
+        <h2>{{ property.propertyType }}</h2>
+        <p><strong>Country:</strong> {{ property.country }}</p>
+        <p><strong>City:</strong> {{ property.city }}</p>
+        <p><strong>Area:</strong> {{ property.area }}</p>
+        <p><strong>Description:</strong> {{ property.description }}</p>
+        <p><strong>Size:</strong> {{ property.size }}</p>
+        <p><strong>Price:</strong> {{ property.price }}</p>
+        <p><strong>Status:</strong> {{ property.status }}</p>
+        <p><strong>Number of Rooms:</strong> {{ property.noOfRooms }}</p>
+        <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
+        <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
+        <p><strong>Room Floor:</strong> {{ property.roomFloor }}</p>
+        <p><strong>Total Floor:</strong> {{ property.TotalFloor }}</p>
+        <p><strong>Year Built:</strong> {{ property.year_built }}</p>
+        <p><strong>Payment Link:</strong> <a href="{{ property.payment_link }}">{{ property.payment_link }}</a></p>
+        <p><strong>Amenities:</strong></p>
+        <ul>
+            {% if property.air_conditioning %}
+            <li>Air Conditioning</li>
+            {% endif %}
+            {% if property.gym %}
+            <li>Gym</li>
+            {% endif %}
+            {% if property.laundry %}
+            <li>Laundry</li>
+            {% endif %}
+            {% if property.lawn %}
+            <li>Lawn</li>
+            {% endif %}
+            {% if property.swimming_pool %}
+            <li>Swimming Pool</li>
+            {% endif %}
+            {% if property.wifi %}
+            <li>Wi-Fi</li>
+            {% endif %}
+        </ul>
+        <p><strong>Date Added:</strong> {{ property.date_added }}</p>
     </div>
-    <div class="footer-section address">
-        <h1>Address</h1>
-        <p>Behar Building, 9th floor, Africa Avenue,</p>
-        <p>Addis Ababa, Ethiopia</p>
-        <p>Tel: +251-114670669</p>
-        <p>Fax: +251-114652154</p>
-    </div>
-    <div class="footer-section follow-us">
-        <h1>Follow Us</h1>
-        <div class="social-media-links">
-            <ul>
-                <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook"
-                                                                         style="height:28px"></a>
-                <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}"
-                                                                           alt="Youtube" style="height:22px"></a>
-                <a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram"
-                                                               style="height:22px"></a>
-                <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img
-                            src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a>
-            </ul>
-        </div>
-    </div>
-</footer>
-
+    {% endfor %}
 </body>
 </html>

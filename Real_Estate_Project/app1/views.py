@@ -50,12 +50,29 @@ def accept_or_reject_application(request, application_id, decision):
         send_email(application.id, application.email, application.first_name, decision)
     return redirect('manager')
 
-def send_email(application_id, email, first_name, decision):
-    subject = 'Application Status'
-    message = f"Dear {first_name},\n\nYour application has been {decision}ed."
-    sender = 'bethelyg909@gmail.com'  # Change to your email
-    recipient = [email]
-    send_mail(subject, message, sender, recipient)
+from django.core.mail import EmailMessage
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
+def contact(request):
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        message = request.POST['message']
+        recipient = request.POST['recipient']
+        myfile = request.FILES['myfile']
+
+        email = EmailMessage(
+            subject=subject,
+            body=message,
+            from_email='giftrealestate24@gmail.com',
+            to=[recipient],
+        )
+        email.attach(myfile.name, myfile.read(), myfile.content_type)
+        email.send()
+
+        return HttpResponseRedirect('/success/')  # Redirect to a success page
+
+    return render(request, 'email_form.html')  # Render the email form templat
 
 
 def home_view(request):

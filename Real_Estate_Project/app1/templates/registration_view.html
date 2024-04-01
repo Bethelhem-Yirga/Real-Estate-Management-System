@@ -76,16 +76,16 @@
         }
   
         input[type="submit"] {
-          padding: 10px 20px;
+          padding: 17px 40px;
           background-color: #4caf50;
           color: #fff;
           border: none;
-          border-radius: 4px;
+          border-radius: 20px;
           cursor: pointer;
         }
   
         input[type="submit"]:hover {
-          background-color: #45a049;
+          background-color: #33cc33;
         }
       </style>
 
@@ -95,7 +95,38 @@
   
 </head>
 <body>
-    
+  <script>
+    function validateForm() {
+      var firstName = document.getElementById("first_name").value;
+      var phoneNumber = document.getElementById("phone_number").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirm_password").value;
+      var errorMessages = [];
+
+      if (!/^[a-zA-Z]+$/.test(firstName)) {
+        errorMessages.push("First name can only contain alphabetic characters without spaces.");
+      }
+
+      if (!/^\d+$/.test(phoneNumber)) {
+        errorMessages.push("Phone number can only contain numeric characters without spaces.");
+      }
+
+      if (password !== confirmPassword) {
+        errorMessages.push("Passwords do not match.");
+      }
+
+      if (errorMessages.length > 0) {
+        alert(errorMessages.join("\n"));
+        return false;
+      }
+
+      // Additional validation logic or form submission can be added here
+
+      return true;
+    }
+</script>
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
   
@@ -185,37 +216,7 @@
                 </div>
                 </div>
               </form>
-              <script>
-                function validateForm() {
-                  var firstName = document.getElementById("first_name").value;
-                  var phoneNumber = document.getElementById("phone_number").value;
-                  var email = document.getElementById("email").value;
-                  var password = document.getElementById("password").value;
-                  var confirmPassword = document.getElementById("confirm_password").value;
-                  var errorMessages = [];
-          
-                  if (!/^[a-zA-Z]+$/.test(firstName)) {
-                    errorMessages.push("First name can only contain alphabetic characters without spaces.");
-                  }
-          
-                  if (!/^\d+$/.test(phoneNumber)) {
-                    errorMessages.push("Phone number can only contain numeric characters without spaces.");
-                  }
-          
-                  if (password !== confirmPassword) {
-                    errorMessages.push("Passwords do not match.");
-                  }
-          
-                  if (errorMessages.length > 0) {
-                    alert(errorMessages.join("\n"));
-                    return false;
-                  }
-          
-                  // Additional validation logic or form submission can be added here
-          
-                  return true;
-                }
-            </script>
+              
             </div>
   
         </html>
