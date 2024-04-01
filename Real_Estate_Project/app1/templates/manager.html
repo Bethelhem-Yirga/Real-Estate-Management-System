@@ -95,8 +95,6 @@ float: right;
         border-collapse: collapse;
         width: 100%;
     }
-
-  
     .maintenance-table th,
     .maintenance-table td
     {
@@ -241,26 +239,32 @@ float: right;
         <h2>MaintenanceRequest</h2>
 
           <table class="maintenance-table">
+        
               <thead>
                   <tr>
                       <th>Email</th>
                       <th>Building Number</th>
                       <th>Room Number</th>
-                      <th>Floor Number</th> 
-                      <th>Type of Maintenance</th> 
-                      <th>Action</th> 
+                      <th>Floor Number</th>
+                      <th>Type of Maintenance</th>
+                      <th>Actions</th>
                   </tr>
               </thead>
               <tbody>
-                  {% for maintenance_obj in maintenance %}
+                  {% for maintenance_request in maintenance_requests %}
                   <tr>
-                      <td>{{ maintenance_obj.email }}</td>
-                      <td>{{ maintenance_obj.building_number }}</td>
-                      <td>{{ maintenance_obj.room_number }}</td>
-                      <td>{{ maintenance_obj.floor_number }}</td>
-                      <td>{{ maintenance_obj.type_of_maintenance }}</td>
-                      <td><a href="{% url 'send_to_work_order' maintenance_obj.id %}">Send</a></td>
-
+                      <td>{{ maintenance_request.email }}</td>
+                      <td>{{ maintenance_request.building_number }}</td>
+                      <td>{{ maintenance_request.room_number }}</td>
+                      <td>{{ maintenance_request.floor_number }}</td>
+                      <td>{{ maintenance_request.type_of_maintenance }}</td>
+                      <td>
+                          {% if not maintenance_request.sent_status %}
+                              <a href="{% url 'send_link' maintenance_request.id %}">Send Link</a>
+                          {% else %}
+                              Sent
+                          {% endif %}
+                      </td>
                   </tr>
                   {% endfor %}
               </tbody>
