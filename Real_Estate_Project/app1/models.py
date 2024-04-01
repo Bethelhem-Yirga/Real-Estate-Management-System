@@ -193,28 +193,35 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.subject
-class WorkOrder(models.Model):
-    STATUS_CHOICES = (
-        ('notstart', 'Not Started'),
-        ('inprogress', 'In Progress'),
-        ('complete', 'Complete'),
-    )
+from django.db import models
 
-    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='notstart')
-    created_at = models.DateTimeField(auto_now_add=True)
-class WorkOrder(models.Model):
-    STATUS_CHOICES = (
-        ('notstart', 'Not Started'),
-        ('inprogress', 'In Progress'),
-        ('complete', 'Complete'),
-    )
-
+class Maintenance(models.Model):
     email = models.EmailField()
     building_number = models.CharField(max_length=100)
     room_number = models.IntegerField()
     floor_number = models.IntegerField()
     type_of_maintenance = models.CharField(max_length=20)
+
+    sent_status = models.BooleanField(default=False)
+
+    def send_link(self):
+        self.sent_status = True
+        self.save()
+
+    @staticmethod
+    def get_maintenance_requests():
+        return Maintenance.objects.filter(sent_status=False)
+
+    def __str__(self):
+        return f"Maintenance Request #{self.pk}"
+
+class Report(models.Model):
+    maintenance = models.OneToOneField(Maintenance, on_delete=models.CASCADE)
+    staff_name = models.CharField(max_length=100)
+
+    def complete_maintenance(self):
+        self.staff_name = ""
+        self.save()
 
 class Applicationrent(models.Model):
     first_name = models.CharField(max_length=100)

@@ -8,10 +8,8 @@ urlpatterns = [
     path('property_listing/', views.property_listing_page, name='property_listing'),
     path('salespersons/', views.salespersons, name='salespersons'),
     path('contact/', views.contact, name='contact'),
-
     path('accept/<int:application_id>/', accept_or_reject_application, {'decision': 'accept'}, name='accept_application'),
     path('reject/<int:application_id>/', accept_or_reject_application, {'decision': 'reject'}, name='reject_application'),
-
     path('adminn/', views.adminn, name='adminn'),
     path('registration_view/', views.registration_view, name='registration_view'),
     path('dashboard/', views.marketing_manager, name='marketing_manager_dashboard'),
@@ -19,8 +17,6 @@ urlpatterns = [
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
-    
-    
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
@@ -31,15 +27,17 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('maintenance/', views.maintenance, name='maintenance'),
     path('manager/', views.maintenance, name='maintenance'),
-    path('send_to_work_order/<int:maintenance_id>/', views.send_to_work_order, name='send_to_work_order'),
     path('system_admin/', views.system_admin, name='system_admin'),
     path('add-employee/', add_employee, name='add_employee'),
     path('<int:employee_id>/active_status/', update_employee_active_status, name='update_employee_active_status'),
     path('<int:employee_id>/detail/', views.employee_detail, name='employee_detail'),
     path('system_admin_profile/', views.system_admin_profile, name='system_admin_profile'),
     path('change_password/', views.change_password_view, name='change_password'),
-
     path('salesperson/<int:employee_id>/', views.salesperson_profile, name='salesperson_profile'),
     path('about/', views.about, name='about'),
     path('contact_us/', contact_view, name='contact_us'),
+    path('complete/<int:maintenance_id>/', views.complete_maintenance, name='complete_maintenance'),
+
+    path('send-link/<int:maintenance_id>/', views.send_link, name='send_link'),
+
 ]

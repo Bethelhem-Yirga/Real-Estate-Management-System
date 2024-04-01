@@ -36,9 +36,10 @@ from .models import ContactMessage
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Application
-from django.core.mail import send_mail
-from .models import Application
-from .models import Maintenance, WorkOrder
+from .models import Maintenance, Report
+from django.core.mail import EmailMessage
+from django.http import HttpResponseRedirect
+from .models import Maintenance, Report
 
 def accept_or_reject_application(request, application_id, decision):
     application = Application.objects.get(id=application_id)
@@ -49,10 +50,14 @@ def accept_or_reject_application(request, application_id, decision):
         # Process rejection logic here
         send_email(application.id, application.email, application.first_name, decision)
     return redirect('manager')
+def send_email(application_id, email, first_name, decision):
+    subject = 'Application Status'
+    message = f"Dear {first_name},\n\nYour application has been {decision}ed."
+    sender = 'bethelyg909@gmail.com'  # Change to your email
+    recipient = [email]
+    send_mail(subject, message, sender, recipient)
 
-from django.core.mail import EmailMessage
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+
 
 def contact(request):
     if request.method == 'POST':
@@ -105,19 +110,6 @@ def manager(request):
     return render(request, 'manager.html', {'data': data})
 # views.py
 
-
-def maintenance(request):
-    work_orders = WorkOrder.objects.all()
-    return render(request, 'maintenance.html', { 'work_orders': work_orders})
-
-def send_to_work_order(request, maintenance_id):
-    maintenance_obj = Maintenance.objects.get(id=maintenance_id)
-    work_order = WorkOrder.objects.create(
-        maintenance=maintenance_obj,
-        status='notstart'
-    )
-    maintenance_obj.delete()
-    return redirect('maintenance')
 
 
 def appform(request):
@@ -202,7 +194,7 @@ def rent(request):
         room_number = request.POST.get('room_number')
         type_of_maintenance = request.POST.get('type_of_maintenance')
 
-        maintenance =Maintenance(
+        maintenance_requests =Maintenance(
             email=email,
             building_number=building_number,
             floor_number=floor_number,
@@ -230,10 +222,10 @@ def custemer(request):
 
 def manager(request):
     applications = Application.objects.all()
-    maintenance = Maintenance.objects.all()
+    maintenance_requests = Maintenance.objects.all()
     contact=ContactMessage.objects.all()
     applicationrent =Applicationrent.objects.all()
-    return render(request, 'manager.html', {'applications': applications,'applicationrent':applicationrent,'maintenance': maintenance})
+    return render(request, 'manager.html', {'applications': applications,'applicationrent':applicationrent,'maintenance_requests': maintenance_requests})
 
 def contact(request):
     if request.method == 'POST':
@@ -573,3 +565,26 @@ def contact_view(request):
     else:
         form = ContactForm()
     return render(request, 'contact_us.html', {'form': form})
+def manager(request):
+    maintenance_requests = Maintenance.objects.all()
+    context = {'maintenance_requests': maintenance_requests}
+    return render(request, 'manager.html', context)
+def maintenance(request):
+    maintenance_requests = Maintenance.objects.all()
+    context = {'maintenance_requests': maintenance_requests}
+    return render(request, 'maintenance.html', context)
+
+def send_link(request, maintenance_id):
+    maintenance_request = Maintenance.objects.get(pk=maintenance_id)
+    maintenance_request.send_link()
+    return redirect('manager')
+
+def complete_maintenance(request, maintenance_id):
+    maintenance_request = Maintenance.objects.get(pk=maintenance_id)
+    if request.method == 'POST':
+        staff_name = request.POST['staff_name']
+        Report.objects.create(maintenance=maintenance_request, staff_name=staff_name)
+        maintenance_request.complete_maintenance()
+        return redirect('maintenance')
+    context = {'maintenance_request': maintenance_request}
+    return render(request, 'manager.html', context)
