@@ -41,7 +41,7 @@ class Registration(models.Model):
     )
     confirm_password = models.CharField(max_length=100)
     role = models.CharField(max_length=20, default='customer', choices=ROLE_CHOICES)
-
+    is_active = models.BooleanField(default=True)
     def clean(self):
         # Check if the first name contains only alphabetic characters without spaces
         if not self.first_name.replace(" ", "").isalpha():
@@ -151,7 +151,7 @@ class MarketingManager(Registration):
 
 class Employee(Registration):
     img = models.ImageField(upload_to='images')
-    is_active = models.BooleanField(default=True)
+    
 
 
 from django.core.exceptions import ValidationError

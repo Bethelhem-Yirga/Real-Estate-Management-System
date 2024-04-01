@@ -78,6 +78,9 @@ def contact(request):
 def home_view(request):
     return render(request,'home.html')
 
+def loginn(request):
+    return render(request,'loginn.html')
+
 def property_listing(request):
     properties = Properties.objects.all()
     salespersons = Employee.objects.filter(role='salesperson')
@@ -412,6 +415,7 @@ from django.shortcuts import render, redirect
 
 from django.urls import reverse
 from .models import Registration
+from .models import Employee
 
 def login(request):
     if request.method == 'POST':
@@ -424,6 +428,7 @@ def login(request):
             user = Registration.objects.get(email=email)
             if user.password == password:
                 if user.role == role:
+                 if user.is_active == True:
                     # Email, password, and role match
                     if role == 'admin':
                         return redirect('system_admin')  # Redirect to admin page
@@ -568,3 +573,35 @@ def contact_view(request):
     else:
         form = ContactForm()
     return render(request, 'contact_us.html', {'form': form})
+
+
+
+
+
+
+
+from django.shortcuts import render, redirect
+from .models import Registration
+
+from django.shortcuts import render, redirect
+from .models import Registration
+
+def logincustemer(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Retrieve user from the database and validate credentials
+        try:
+            user = Registration.objects.get(email=email)
+            if user.password == password:
+                # Email and password match
+                return redirect('property_listing')  # Redirect to the desired page after successful login
+            else:
+                # Password does not match
+                return render(request, 'failure.html')
+        except Registration.DoesNotExist:
+            # User does not exist
+            return render(request, 'failure.html')
+
+    return render(request, 'logincustemer.html')

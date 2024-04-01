@@ -7,17 +7,10 @@
         /* CSS styles */
         body {
           font-family: Arial, sans-serif;
-          background-color: #f1f1f1;
-          background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('{% static "img/card-four.jpg" %}');
-          background-repeat: no-repeat;
-        
-        
-        background-size: cover;
-        margin: 0;
-        padding: 0;
-        position: relative;
+          background-color: #f1f1f1; background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('{% static "img/abt2.jpg" %}');
+          margin: 0;
+          padding: 0;
         }
-  
   
         .container {
           max-width: 600px;
@@ -29,7 +22,6 @@
           background
           border-radius: 4;
           box-shadow: 0 0 10px rgba(1, 1, 1, 1);
-          
         }
   
         .form-title {
@@ -137,20 +129,7 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <div class="user-input-box">
-            <div class="user-input">
-                <label for="role">Role:</label>
-                <select id="role" name="role" required>
-                 
-                    <option value="admin">Admin</option>
-                    <option value="manager">Manager</option>
-                  
-                    <option value="finance">Finance</option>
-                    <option value="salesperson">Salesperson</option>
-                    <option value="marketing_manager">Marketing Manager</option>
-                    <option value="maintenance_staff">Maintenance Staff</option>
-                </select>
-            </div>
+        
         <div class="form-submit-btn">
             <input type="submit" value="Login">
         </div>

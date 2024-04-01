@@ -20,7 +20,7 @@ urlpatterns = [
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
     
-    
+      path('logincustemer/', views.logincustemer, name='logincustemer'),
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
     path('appform/', views.appform, name='appform'),
