@@ -152,16 +152,31 @@ margin-top: 80px;
         }
     </style>
     <script>
-          function togglePartnerInfo() {
-            var marriageStatus = document.getElementById("marriage_status");
-            var partnerInfo = document.getElementById("partner_info");
-            
-            if (marriageStatus.value === "married") {
-                partnerInfo.style.display = "block";
-            } else {
-                partnerInfo.style.display = "none";
-            }
-        }
+   const marriageStatus = document.getElementById('marriage_status');
+const partnerInfo = document.getElementById('partner_info');
+
+marriageStatus.addEventListener('change', function() {
+    if (marriageStatus.value === 'married') {
+        partnerInfo.style.display = 'block';
+        document.getElementById('partner_first_name').setAttribute('required', '');
+
+        document.getElementById('partner_last_name').setAttribute('required', '');
+        document.getElementById('partner_phone_number').setAttribute('required', '');
+        document.getElementById('partner_work_status').setAttribute('required', '');
+    } else {
+        partnerInfo.style.display = 'none';
+        document.getElementById('partner_first_name').removeAttribute('required');
+
+        document.getElementById('partner_last_name').removeAttribute('required');
+        document.getElementById('partner_phone_number').removeAttribute('required');
+        document.getElementById('partner_work_status').removeAttribute('required');
+        document.getElementById('partner_first_name').value = 'None';
+
+        document.getElementById('partner_last_name').value = 'None';
+        document.getElementById('partner_phone_number').value = 'None';
+        document.getElementById('partner_work_status').value = 'None';
+    }
+});
         function clearForm() {
             document.getElementById("myForm").reset();
         }
@@ -216,16 +231,15 @@ margin-top: 80px;
         Female<input type="radio" id="female" name="gender" value="female" required>
         
               </div>
-         
-    <div class="form-group">
-        <label for="marriage_status">Marriage Status:</label>
-        <select id="marriage_status" name="marriage_status" onchange="togglePartnerInfo()" required >
-            <option value="">Select</option>
-            <option value="single">Single</option>
-            <option value="married">Married</option>
-        </select>
-    </div>
-    <div class="partner-info" id="partner_info">
+              <div class="form-group">
+                <label for="marriage_status">Marriage Status:</label>
+                <select id="marriage_status" name="marriage_status" required>
+                    <option value="">Select</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                </select>
+            </div>
+    
         <div class="form-group">
             <label for="partner_first_name">Partner First Name:</label>
             <input type="text" id="partner_first_name" name="partner_first_name" required>
@@ -244,8 +258,6 @@ margin-top: 80px;
             <input type="text" id="partner_work_status" name="partner_work_status" required>
         </div>
     </div>
-        </div>
-
     <div class="form-group">
         <input type="submit" value="Send">
         <input type="button" value="Clear" onclick="clearForm()" class="clear-button">
@@ -280,6 +292,7 @@ margin-top: 80px;
           </ul>
           </div>
         </div>
+
         
       </footer>
 </body>
