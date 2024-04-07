@@ -1,119 +1,888 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-      <style>
-  .navbar a.active {
-    background-color: #c7c73a;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Real-Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing:border-box ;
+
+        }
+        .container{
+            max-width: 1170px;
+            margin: auto;
+            padding: 0 15px;
+        }
+        body{
+            
+            font-family: sans-serif;
+        }
+        .header{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            border-bottom: 1px solid hsla(0,0%,100%,0.2);
+            z-index: 10;
+
+        }
+        .header .container{
+            display:flex ;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header .logo img{
+            vertical-align: middle;
+            height: 65px;
+        }
+        .header .menu .head{
+            display: none;
+        } 
+        .header .menu ul{
+            list-style: none;
+        }
+        .header .menu > ul > li{
+            display: inline-block;
+        }
+        .header .menu > ul > li:not(:last-child){
+            margin-right: 40px;
+        }
+        .header .menu .dropdown{
+            position: relative;
+        }
+        .header .menu a {
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 16px;
+  color: hsl(0, 0%, 100%);
+  line-height: 1.5;
+  display: block;
+  transition: color 0.5s ease;
+}
+
+.header .menu a:hover {
+  color: hsl(0, 0%, 80%);
+  text-decoration: underline;
+}
+      
+        .header .menu > ul > li > a{
+            padding: 24px 0;
+        }
+        .header .menu > ul > .dropdown > a{
+            padding-right: 15px;
+
+        }
+        .header .menu i{
+            font-size: 10px;
+            pointer-events: none;
+            user-select: none;
+            position: absolute;
+            color: hsl(0, 0%, 100%);
+            top:calc(50% - 5px)
+        }
+        .header .menu > ul > li > i{
+            right: 0;
+        }
+        .header .menu .sub-menu{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 230px;
+            padding: 15px 0;
+            background-color:#0c0c1d;
+            box-shadow: 0 0 5px hsla(0,0%,0%,0.5);
+            z-index: 1;
+            transform-origin: top;
+            transform: scaleY(0);
+            visibility: hidden;
+            opacity: 0;
+        }
+        .header .menu .sub-menu-right{
+            left: 100%;
+            top: 0;
+
+        }
+        .header .menu li:hover > .sub-menu{
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+            transition: all 0.5s ease;
+        }
+        .header .menu .sub-menu a{
+            padding: 6px 24px;
+        }
+        .header .menu .sub-menu span{
+            background-image: linear-gradient(hsl(0, 0%, 100%),hsl(0, 0%, 100%));
+            background-size: 0 1px;
+            background-repeat: no-repeat;
+            background-position: 0 100%;
+            transition: background-size 0.5s ease;
+        }
+        .header .menu .sub-menu li:hover > a >span {
+            background-size: 100% 1px;
+        }
+       
+        .hero{
+            min-height: 100vh;
+            background-image: url('{% static "img/abt2.jpg"%}');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-text h3.gift-real-estate,
+.hero-text p.sub-heading {
+  
+  font-size: 48px;
+  font-weight: bold;
+  color: #f2f3f5;
+  opacity: 0;
+}
+
+.hero-text h3.gift-real-estate {
+ 
+  animation: slide-in-h3 2s ease-in-out 3 both;
+}
+
+.hero-text p.sub-heading {
+ 
+  animation: slide-in-p 1.5s ease-in-out infinite;
+}
+
+@keyframes slide-in-h3 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-</style>
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-p {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+
+
+.section {
+            padding: 80px 0;
+            text-align: center;
+            
+        }
+        
+        .section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .section p {
+            font-size: 18px;
+        }
+        
+       
+       
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+
+
+        .property {
+    width: 100%;
+    padding: 10rem 8rem;
+    margin-top: 5rem;
+    background-color: #fff;
+}
+
+.property .prop-h {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.property .prop-h h2 {
+    font-size: 4rem;
+    text-align: center;
+}
+
+
+.prop-h h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin-bottom: 30px;
+}
+
+.prop-h h1 span{
+    color: #c7c73a;
+    margin-left: 15px;
+    font-family: mv boli;
+}
+
+.prop-h h1 span::after{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background:  #c7c73a;
+    display: block;
+    position: relative;
+    bottom: 15px;
+}
+
+.property .prop-h p {
+    font-size: 1.3rem;
+    color: #333;
+    line-height: 1.5;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+
+.property .de-box {
+    margin-top: 4rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+}
+
+
+.property .de-box .box {
+    width: 100%;
+    height: 42rem;
+    background: var(--white);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.property .de-box .box .image {
+    width: 100%;
+    height: 26rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.property .de-box .box .image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.property .de-box .box .image:hover::before {
+    opacity: 1;
+}
+
+.property .de-box .box .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.property .de-box .box .price-name {
+    padding: 2rem;
+    border-bottom: 1px solid #b0b0b04d;
+}
+
+.property .de-box .box .price-name h4 {
+    font-size: 2rem;
+    color: #c7c73a;
+    margin-bottom: .8rem;
+    
+}
+
+.property .de-box .box .price-name p {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.property .de-box .box .location-detail {
+    padding: 1rem 2rem;
+}
+
+.property .de-box .box .location-detail p {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.property .de-box .box .location-detail p img {
+    width: 20px;
+    vertical-align: middle;
+}
+
+.property .de-box .box .location-detail .detail {
+    width: 100%;
+}
+
+.property .de-box .box .location-detail .detail ul {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 1rem;
+}
+
+.property .de-box .box .location-detail .detail ul li {
+    list-style: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.property .de-box .box .location-detail .detail ul li img {
+    width: 18px;
+    margin-right: 1rem;
+}
+
+@media (max-width: 1050px) {
+
+.property {
+    padding: 10rem 4rem;
+}
+
+.property .de-box {
+    gap: 2rem;
+}
+
+.property .de-box .box .image {
+    height: 38vh;
+}
+
+}
+
+
+
+@media (max-width: 780px) {
+
+
+
+@keyframes navigation {
+    0% {
+        transform: translate(0, -90rem);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+
+.property .de-box {
+    grid-template-columns: 1fr 1fr;
+}
+
+
+}
+
+@media (max-width: 450px) {
+
+.property .de-box .box {
+    height: 60vh;
+}
+
+.property .de-box {
+    grid-template-columns: 1fr;
+}
+}
+
+
+.team{
+    width: 100%;
+    height: 90vh;
+    background-image: url(image/bg1.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.team h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin-bottom: 30px;
+}
+
+.team h1 span{
+    color:  #c7c73a;
+    margin-left: 15px;
+    font-family: mv boli;
+}
+
+.team h1 span::after{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background:  #c7c73a;
+    display: block;
+    position: relative;
+    bottom: 15px;
+}
+
+.team .team_box{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 13%;
+}
+
+.team .team_box .profile{
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    transition: 0.4s;
+}
+
+.team .team_box .profile:hover{
+    border-radius: 20px;
+    height: 320px;
+}
+
+.team .team_box .profile img{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    z-index: 2;
+    transition: 0.4s;
+}
+
+.team .team_box .profile:hover img{
+    border-radius: 20px;
+    margin-top: -230px;
+}
+
+.team .team_box .profile .info{
+    position: absolute;
+    text-align: center;
+    top: 25%;
+    transition: 0.4s;
+}
+
+.team .team_box .profile:hover .info{
+    top: 60%;
+}
+
+.team .team_box .profile .info .name{
+    color: #c7c73a;
+    margin-bottom: 15px;
+}
+
+.team .team_box .profile .info .bio{
+    width: 70%;
+    text-align: center;
+    margin: 0 auto 10px auto;
+}
+
+.team .team_box .profile .info .team_icon i{
+    margin: 10px 5px 5px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.team .team_box .profile .info .team_icon i:hover{
+    color: #c7c73a;
+}
+
+.footer {
+    background-color: #0c0c1d;
+    padding: 40px 0;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section p {
+    margin: 5px 0;
+    transition: color 0.5s ease;
+}
+.footer-section p:hover {
+    color: #c7c73a;
+    transition-duration: 0.2s;
+}
+.social-icons a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #333333;
+    color: #fff;
+    margin-right: 10px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #c7c73a;
+    
+}
+
+.footer p {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    transition: color 0.5s ease;
+}
+.footer p :hover {
+    color: #c7c73a;
+    transition-duration: 0.2s;
+}
+    
+
+.footer p a {
+    color: #666;
+    text-decoration: none;
+}
+
+   
+    </style>
+
+
 </head>
 
+
+
 <body>
-  <div class="navbar">
-    <a href="/" class="logo" class="active"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-    <a href="/" class="active" >Home</a>
-    <a href="/property_listing" >Listing</a>
-    <a href="/salespersons">Sales Person</a>
-    <a href="{% url 'contact_us' %}">Contact</a>
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'registration_view' %}"  class="login">Register</a>
-    <a href="{% url 'login' %}"  class="login">Login</a>
-  </div>
-  
-  
-  <div class="section1">
-    <div class="left">
-      <div class="content">
-      {% block content %}
-            <h1>GIFT Real Estate</h1>
-            <p>WE BUILD COMMUNITY!</P>
-      {% endblock content %}
-      </div>
-    </div>
-    <div class="right" style="background-image: url('{% static "img/bg1.jpg" %}');"></div>
-  </div>
+      <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="logo">
+            </div>
+            <nav class="menu">
+                <div class="head">
+                    <div class="logo"><img src="img/logo.png" alt="logo"></div>
+                    <button type="button" class="close-menu-btn"></button>
+                   
+                </div>
+                <ul>
 
+                 
 
+                    <li><a href="/">home</a></li>
+                    <li><a href="/salespersons">salesperson</a></li>
 
+                    <li><a href="{% url 'contact_us' %}">contact</a></li>
+                    <li><a href="{% url 'about' %}">about</a></li>
+                    
 
-  <div class="section">
-    <div class="section2">
-      {% for property in properties|slice:":4" %}
-        <div class="card">
-          <img src="{{ property.image.url }}" alt="Card" style="height: 310px">
-          <div class="description">
-            <h2>{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }}</h2>
-            <p>Bedrooms: {{ property.bedrooms }} Bathrooms: {{ property.bathrooms }} Area: {{ property.size }} Sq.mt</p>
-            <a href="{% url 'property_detail' property.id %}" class="btn">details</a>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
+                    <li class="dropdown">
+                        <a href="#" >login</a>
+                        <i class="fa-solid fa-chevron-down"></i>
+                        <ul class="sub-menu">
+                            <li><a href="#"><span>Customer</span></a></li>
+                            <li><a href="#"><span>Employees</span></a></li>
 
+                        </ul>
+                    </li>
 
-  
-  
-</div>
-
-
-
-  </div>
-  
-  <div class="section">
-     
-    <div class="section3">
-      <h1 style="text-align: center;">Meet Our Salesperson</h1>
-      <div class="card-container">
+                </ul>
+            </nav>
+            
+      
        
 
-        {% for salesperson in salespersons|slice:":4" %}
-    <div class="card">
-        <img src="{{ salesperson.img.url }}" alt="{{ salesperson.first_name }}" style="height:430px">
-        <div class="description">
-            <h2>{{ salesperson.first_name }} {{ salesperson.last_name }}</h2>
-            <p><a href="{% url 'salesperson_profile' salesperson.id %}" class="profile-btn">View Profile</a></p>
-        </div>
     </div>
-        {% endfor %}
 
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-section opening-hours">
-      <h1>Opening Hours</h1>
-      <p>Monday - Friday: 8:00AM-5:00PM</p>
-      <p>Saturday: 8:00AM-12:00PM</p>
-    </div>
-    <div class="footer-section address">
-      <h1>Address</h1>
-      <p>Behar Building, 9th floor, Africa Avenue,</p>
-      <p>Addis Ababa, Ethiopia</p>
-      <p>Tel: +251-114670669</p>
-      <p>Fax: +251-114652154</p>
-    </div>
-    <div class="footer-section follow-us">
-      <h1>Follow Us</h1>
-      <div class="social-media-links">
-        <ul>
-        
-          <a href="https://www.facebook.com/giftatofficial/"><img src="{% static 'img/FB.png' %}" alt="Facebook" style="height:28px"></a>    
-          <a href="https://www.youtube.com/@GIFTBusinessGroup"><img src="{% static 'img/YOUTUBE.png' %}" alt="Youtube" style="height:22px"></a>   
-          <a href="https://t.me/giftbusinessgroup"><img src="{% static 'img/TG.png' %}" alt="Telegram" style="height:22px"></a> 
-          <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><img src="{% static 'img/TW.png' %}" alt="Twitter" style="height:22px"></a> 
-        
-      </ul>
-      </div>
-    </div>
+      </header>
     
-  </footer>
+      <section class="hero">
+      
+        <div class="hero-text">
+            <h3 class="gift-real-estate">Gift Real Estate</h3>
+            <p class="sub-heading">WE BUILD COMMUNITY!</p>
+          
+        </div>
+            
+      </section>
+<!--
+<section class="section">
+        <div class="container">
+            <h2>Section 1</h2>
+            <p>This is the first section of the webpage.</p>
+        </div>
+    </section>
+-->
+      
+
+   
+    <div class="property">
+
+        <div class="prop-h">
+            <h1>Our<span>property</span></h1>  
+        </div>
+
+             
+        <div class="de-box">
+          {% for property in properties|slice:":6" %}
+            <div class="box">
+                <div class="image">
+                    <img src="{{ property.image.url }}" alt="">
+                </div>
+                <div class="price-name">
+                    <h4>{{ property.price }} birr</h4>
+                    <p>{{ property.propertyType }} apartment</p>
+                </div>
+                <div class="location-detail">
+                    <p><img src="{% static 'img/icons8-location-50.png ' %}" alt=""> {{ property.area }}, {{ property.city }}</p>
+                    <div class="detail">
+                        <ul>
+                            <li><img src="{% static 'img/icons8-bed-50.png' %}" alt=""> 4 bed</li>
+                            <li><img src="{% static 'img/icons8-bath-50.png' %}" alt="">2 bath</li>
+                            <li><i class="fa-solid fa-landmark" style="color: #0a0a0a;"></i> 4 sq m</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+
+<!--
+  <div class="box">
+                <div class="image">
+                    <img src="img/office-skyscrapers-business-district.jpg" alt="">
+                </div>
+                <div class="price-name">
+                    <h4>$23,383,00</h4>
+                    <p>the gurugobind apartment</p>
+                </div>
+                <div class="location-detail">
+                    <p><img src="img/icons8-location-50.png" alt=""> indore, madhya pradesh</p>
+                    <div class="detail">
+                        <ul>
+                            <li><img src="img/icons8-bed-50.png" alt=""> 4 bed</li>
+                            <li><img src="img/icons8-bath-50.png" alt="">2 baht</li>
+                            <li><img src="img/icons8-car-50.png" alt="">4 parking</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="img/observation-urban-building-business-steel.jpg" alt="">
+                </div>
+                <div class="price-name">
+                    <h4>$23,383,00</h4>
+                    <p>the gurugobind apartment</p>
+                </div>
+                <div class="location-detail">
+                    <p><img src="img/icons8-location-50.png" alt=""> indore, madhya pradesh</p>
+                    <div class="detail">
+                        <ul>
+                            <li><img src="img/icons8-bed-50.png" alt=""> 4 bed</li>
+                            <li><img src="img/icons8-bath-50.png" alt="">2 baht</li>
+                            <li><img src="img/icons8-car-50.png" alt="">4 parking</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="img/modern-business-building-with-glass-wall-from-empty-floor.jpg" alt="">
+                </div>
+                <div class="price-name">
+                    <h4>$23,383,00</h4>
+                    <p>the gurugobind apartment</p>
+                </div>
+                <div class="location-detail">
+                    <p><img src="img/icons8-location-50.png" alt=""> indore, madhya pradesh</p>
+                    <div class="detail">
+                        <ul>
+                            <li><img src="img/icons8-bed-50.png" alt=""> 4 bed</li>
+                            <li><img src="img/icons8-bath-50.png" alt="">2 baht</li>
+                            <li><img src="img/icons8-car-50.png" alt="">4 parking</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="img/low-angle-shot-tall-city-building-with-blue-sky-background-new-york.jpg" alt="">
+                </div>
+                <div class="price-name">
+                    <h4>$23,383,00</h4>
+                    <p>the gurugobind apartment</p>
+                </div>
+                <div class="location-detail">
+                    <p><img src="img/icons8-location-50.png" alt=""> indore, madhya pradesh</p>
+                    <div class="detail">
+                        <ul>
+                            <li><img src="img/icons8-bed-50.png" alt=""> 4 bed</li>
+                            <li><img src="img/icons8-bath-50.png" alt="">2 baht</li>
+                            <li><img src="img/icons8-car-50.png" alt="">4 parking</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="img/glassclad-skyscrapers-central-mumbai-reflecting-sunset-hues-blue-hour.jpg" alt="">
+                </div>
+                <div class="price-name">
+                    <h4>$23,383,00</h4>
+                    <p>the gurugobind apartment</p>
+                </div>
+                <div class="location-detail">
+                    <p><img src="img/icons8-location-50.png" alt=""> indore, madhya pradesh</p>
+                    <div class="detail">
+                        <ul>
+                            <li><img src="img/icons8-bed-50.png" alt=""> 4 bed</li>
+                            <li><img src="img/icons8-bath-50.png" alt="">2 baht</li>
+                            <li><img src="img/icons8-car-50.png" alt="">4 parking</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+-->
+          
+
+        </div>
+
+       
+    </div>
+
+    <div class="team">
+        <h1>Our<span>salespersons</span></h1>
+
+        <div class="team_box">
+          {% for salesperson in salespersons|slice:":4" %}
+            <div class="profile">
+                <img src="{{ salesperson.img.url }}">
+
+                <div class="info">
+                    <h2 class="name">{{ salesperson.first_name }} {{ salesperson.last_name }}</h2>
+                    <p class="bio">salesperson</p>
+
+                    <div class="team_icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+
+                </div>
+
+            </div>
+          {% endfor %}
+          
+          
+        </div>
+
+    </div>
+
+
+
+   
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Opening Hours</h3>
+                    <p>Monday - Friday: 9am - 6pm</p>
+                    <p>Saturday: 10am - 4pm</p>
+                    <p>Sunday: Closed</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Address</h3>
+                    <p>123 Main Street</p>
+                    <p>City, State, Postal Code</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+
+      
+    
 </body>
+
+
 </html>
+
+
+
+
+
