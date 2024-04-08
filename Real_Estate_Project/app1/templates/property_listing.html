@@ -1,87 +1,821 @@
-<!-- property_listing.html -->
-
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Property Listing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift</title>
     <style>
-        /* CSS styles for the property listing */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .property-card {
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-        
-        .property-card img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        
-        .property-card h2 {
-            margin-top: 0;
-        }
-        
-        .property-card p {
-            margin-bottom: 10px;
-        }
+        * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+    transition: .2s linear;
+}
+
+:root {
+    --blue: #6b73ff;
+    --white: #ffffff;
+    --black: #000000;
+    --dark: #0c0c1d;
+
+    --header-height: 3.5rem;
+    --black-color: hsl(220, 24%, 12%);
+    --black-color-light: hsl(220, 24%, 15%);
+    --black-color-lighten: hsl(220, 20%, 18%);
+    --white-color: #fff;
+    --body-color: hsl(220, 100%, 97%);
+       
+    --body-font: "Montserrat", sans-serif;
+    --normal-font-size: .938rem;
+       
+    --font-regular: 400;
+    --font-semi-bold: 600;
+       
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+html {
+    font-size: 80%;
+    background: #f8f9fb;
+}
+
+
+       
+       :root {
+         
+       }
+       
+       @media screen and (min-width: 1024px) {
+         :root {
+           --normal-font-size: 1rem;
+         }
+       }
+       
+       * {
+         box-sizing: border-box;
+         padding: 0;
+         margin: 0;
+       }
+       
+       body {
+         font-family: var(--body-font);
+         font-size: var(--normal-font-size);
+         background-color: var(--body-color);
+       }
+       
+       ul {
+         list-style: none;
+         
+       }
+       
+       a {
+         text-decoration: none;
+       }
+       
+       .container {
+         max-width: 1120px;
+         margin-inline: 1.5rem;
+       }
+       
+       .header {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         background-color: var(--white-color);
+         color: #fff;
+         box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
+         z-index: var(--z-fixed);
+       }
+       
+       /*=============== NAV ===============*/
+       .nav {
+         height: var(--header-height);
+       }
+       
+       .nav__logo, 
+       .nav__burger, 
+       .nav__close {
+         color:var(--black-color);
+       }
+       
+       .nav__data {
+         height: 100%;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+       }
+       
+       .nav__logo {
+         display: inline-flex;
+         align-items: center;
+         column-gap: .25rem;
+         font-weight: var(--font-semi-bold);
+       
+       }
+       
+       .nav__logo img {
+           vertical-align: middle;
+           height: 65px;
+       
+           
+       }
+       
+       .nav__toggle {
+         position: relative;
+         width: 32px;
+         height: 32px;
+       }
+       
+       .nav__burger, 
+       .nav__close {
+         position: absolute;
+         width: max-content;
+         height: max-content;
+         inset: 0;
+         margin: auto;
+         font-size: 1.25rem;
+         cursor: pointer;
+         transition: opacity .1s, transform .4s;
+       }
+       
+       .nav__close {
+         opacity: 0;
+       }
+       
+       
+       @media screen and (max-width: 1118px) {
+         .nav__menu {
+           position: absolute;
+           left: 0;
+           top: 2.5rem;
+           width: 100%;
+           height: calc(100vh - 3.5rem);
+           overflow: auto;
+           pointer-events: none;
+           opacity: 0;
+           transition: top .4s, opacity .3s;
+         }
+         .nav__menu::-webkit-scrollbar {
+           width: 0;
+         }
+         .nav__list {
+           background-color: var(--black-color);
+           padding-top: 1rem;
+         }
+       }
+       
+       .nav__link {
+         color: var(--black-color);
+         background-color: var(--white-color);
+         font-weight: var(--font-semi-bold);
+         padding: 1.25rem 1.5rem;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         transition: background-color .3s;
+       }
+       
+       .nav__link:hover {
+         background-color: var(--black-color-light);
+       }
+       
+       
+       .show-menu {
+         opacity: 1;
+         top: 3.5rem;
+         pointer-events: initial;
+       }
+       
+       
+       .show-icon .nav__burger {
+         opacity: 0;
+         transform: rotate(90deg);
+       }
+       .show-icon .nav__close {
+         opacity: 1;
+         transform: rotate(90deg);
+       }
+       
+       
+       .dropdown__item {
+         cursor: pointer;
+       }
+       
+       .dropdown__arrow {
+         font-size: 1.25rem;
+         font-weight: initial;
+         transition: transform .4s;
+       }
+       
+       .dropdown__link, 
+       .dropdown__sublink {
+         padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+         color: var(--white-color);
+         background-color: var(--black-color-light);
+         display: flex;
+         align-items: center;
+         column-gap: .5rem;
+         font-weight: var(--font-semi-bold);
+         transition: background-color .3s;
+       }
+       
+       .dropdown__link i, 
+       .dropdown__sublink i {
+         font-size: 1.25rem;
+         font-weight: initial;
+       }
+       
+       .dropdown__link:hover, 
+       .dropdown__sublink:hover {
+         background-color: var(--white-color);
+         color: var(--black-color);
+       }
+       
+       .dropdown__menu, 
+       .dropdown__submenu {
+         max-height: 0;
+         overflow: hidden;
+         transition: max-height .4s ease-out;
+       }
+       
+       
+       .dropdown__item:hover .dropdown__menu, 
+       .dropdown__subitem:hover > .dropdown__submenu {
+         max-height: 1000px;
+         transition: max-height .4s ease-in;
+       }
+       
+       
+       .dropdown__item:hover .dropdown__arrow {
+         transform: rotate(180deg);
+       }
+       
+       
+       .dropdown__add {
+         margin-left: auto;
+       }
+       
+       .dropdown__sublink {
+         background-color: var(--white-color);
+       }
+       
+       
+       @media screen and (max-width: 340px) {
+         .container {
+           margin-inline: 1rem;
+         }
+       
+         .nav__link {
+           padding-inline: 1rem;
+         }
+       }
+       
+       
+       @media screen and (min-width: 1118px) {
+         .container {
+           margin-inline: auto;
+         }
+       
+         .nav {
+           height: calc(var(--header-height) + 2rem);
+           display: flex;
+           justify-content: space-between;
+         }
+         .nav__toggle {
+           display: none;
+         }
+         .nav__list {
+           height: 100%;
+           display: flex;
+           column-gap: 3rem;
+         }
+         .nav__link {
+           height: 100%;
+           padding: 0;
+           justify-content: initial;
+           column-gap: .25rem;
+         }
+         .nav__link:hover {
+           background-color: transparent;
+         }
+       
+         .dropdown__item, 
+         .dropdown__subitem {
+           position: relative;
+         }
+       
+         .dropdown__menu, 
+         .dropdown__submenu {
+           max-height: initial;
+           overflow: initial;
+           position: absolute;
+           left: 0;
+           top: 6rem;
+           opacity: 0;
+           pointer-events: none;
+           transition: opacity .3s, top .3s;
+         }
+       
+         .dropdown__link, 
+         .dropdown__sublink {
+           padding-inline: 1rem 3.5rem;
+         }
+       
+       
+       
+       
+         .dropdown__item:hover .dropdown__menu {
+           opacity: 1;
+           top: 5.5rem;
+           pointer-events: initial;
+           transition: top .3s;
+         }
+       
+       
+       }
+             
+
+.property {
+    width: 100%;
+    padding: 10rem 8rem;
+    margin-top: 0;
+    background-color: var(--white);
+}
+
+.property .prop-h {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.property .prop-h h2 {
+    font-size: 4rem;
+    text-align: center;
+}
+
+
+.prop-h h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin-bottom: 30px;
+}
+
+.prop-h h1 span{
+    color: #c7c73a;
+    margin-left: 15px;
+    font-family: mv boli;
+}
+
+.prop-h h1 span::after{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background:  #c7c73a;
+    display: block;
+    position: relative;
+    bottom: 15px;
+}
+
+
+.property .de-box {
+    margin-top: 4rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+}
+
+
+.property .de-box .box {
+    width: 100%;
+    height: 42rem;
+    background: var(--white);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.property .de-box .box .image {
+    width: 100%;
+    height: 26rem;
+    overflow: hidden;
+    position: relative;
+    
+}
+
+.property .de-box .box .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+.property .de-box .box .image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.property .de-box .box .image:hover::before {
+    opacity: 1;
+}
+.property .de-box .box .price-name {
+    padding: 2rem;
+    border-bottom: 1px solid #b0b0b04d;
+}
+
+.property .de-box .box .price-name h4 {
+    font-size: 2rem;
+    color: var(--blue);
+    margin-bottom: .8rem;
+}
+
+.property .de-box .box .price-name p {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.property .de-box .box .location-detail {
+    padding: 1rem 2rem;
+    
+}
+
+
+
+.property .de-box .box .location-detail .detail {
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 12px;
+
+}
+
+.property .de-box .box  .detail ul {
+   
+ display: flex; justify-content: space-between;
+   
+}
+
+.property .de-box .box  .detail ul li {
+    list-style: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    
+    
+}
+
+.property .de-box .box .location-detail .detail ul li img {
+    width: 18px;
+    margin-right: 1rem;
+}
+
+
+ .view-detail {
+      display: inline-block;
+      padding: 5px 12px;
+      background-color: #c7c73a;
+      color: white;
+      text-decoration: none;
+      border-radius: 3px;
+      
+      
+    }
+
+   .view-detail:hover {
+      background-color: #c7c73a;
+    }
+
+.property .explore {
+    width: 100%;
+    display: flex;
+    margin-top: 5rem;
+    justify-content: center;
+}
+
+.property .explore a {
+    color: var(--white);
+    background: var(--black);
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    border-radius: .8rem;
+}
+
+.property .explore a:hover {
+    transform: translate(0, -.7rem);
+    box-shadow: 1px 5px 15px #00000049;
+}
+@media (max-width: 1050px) {
+
+
+
+.property {
+    padding: 10rem 4rem;
+}
+
+.property .de-box {
+    gap: 2rem;
+}
+
+.property .de-box .box .image {
+    height: 38vh;
+}
+
+
+}
+
+@media (max-width: 780px) {
+    .property .de-box {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+  
+    .property .de-box .box {
+        height: 60vh;
+    }
+
+    .property .de-box {
+        grid-template-columns: 1fr;
+    }
+}
+
+.footer {
+    background-color: #0c0c1d;
+    padding: 40px 0;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 300px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section p {
+    margin: 5px 0;
+    transition: color 0.5s ease;
+}
+.footer-section p:hover {
+    color: #c7c73a;
+    transition-duration: 0.2s;
+}
+.social-icons a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #333333;
+    color: #fff;
+    margin-right: 10px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #c7c73a;
+    
+}
+
+.footer p {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    transition: color 0.5s ease;
+}
+.footer p :hover {
+    color: #c7c73a;
+    transition-duration: 0.2s;
+}
+    
+
+.footer p a {
+    color: #666;
+    text-decoration: none;
+}
+
+.hide{
+  display: none;
+}
+
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 <body>
-    <h1>Property Listing</h1>
-    
-    {% for property in properties %}
-    <div class="property-card">
-        <img src="{{ property.image.url }}" alt="Property Image">
-        <h2>{{ property.propertyType }}</h2>
-        <p><strong>Country:</strong> {{ property.country }}</p>
-        <p><strong>City:</strong> {{ property.city }}</p>
-        <p><strong>Area:</strong> {{ property.area }}</p>
-        <p><strong>Description:</strong> {{ property.description }}</p>
-        <p><strong>Size:</strong> {{ property.size }}</p>
-        <p><strong>Price:</strong> {{ property.price }}</p>
-        <p><strong>Status:</strong> {{ property.status }}</p>
-        <p><strong>Number of Rooms:</strong> {{ property.noOfRooms }}</p>
-        <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
-        <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-        <p><strong>Room Floor:</strong> {{ property.roomFloor }}</p>
-        <p><strong>Total Floor:</strong> {{ property.TotalFloor }}</p>
-        <p><strong>Year Built:</strong> {{ property.year_built }}</p>
-        <p><strong>Payment Link:</strong> <a href="{{ property.payment_link }}">{{ property.payment_link }}</a></p>
-        <p><strong>Amenities:</strong></p>
-        <ul>
-            {% if property.air_conditioning %}
-            <li>Air Conditioning</li>
-            {% endif %}
-            {% if property.gym %}
-            <li>Gym</li>
-            {% endif %}
-            {% if property.laundry %}
-            <li>Laundry</li>
-            {% endif %}
-            {% if property.lawn %}
-            <li>Lawn</li>
-            {% endif %}
-            {% if property.swimming_pool %}
-            <li>Swimming Pool</li>
-            {% endif %}
-            {% if property.wifi %}
-            <li>Wi-Fi</li>
-            {% endif %}
-        </ul>
-        <p><strong>Date Added:</strong> {{ property.date_added }}</p>
-    </div>
-    {% endfor %}
+    <header class="header">
+        <nav class="nav container">
+           <div class="nav__data">
+              
+              <a href="/" class="nav__logo">
+               <img src="{% static 'img/logo.png' %}" alt="logo" >
+              </a>
+              
+              <div class="nav__toggle" id="nav-toggle">
+                 <i class="ri-menu-line nav__burger"></i>
+                 <i class="ri-close-line nav__close"></i>
+              </div>
+
+           </div>
+
+           
+           <div class="nav__menu" id="nav-menu">
+              <ul class="nav__list">
+                 <li><a href="/" class="nav__link">Home</a></li>
+                 <li><a href="{% url 'property_listing' %}" class="nav__link">listing</a></li>
+                 <li><a href="/salespersons" class="nav__link">salesperson</a></li>
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Application <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                           <a href="#" class="dropdown__link">
+                               Rent
+                            </a>                         
+                       </li>
+
+                       <li>
+                           <a href="#" class="dropdown__link">
+                              Buy
+                            </a>
+                       </li>
+                    </ul>
+                 </li>
+                 <li><a href="{% url 'contact_us' %}" class="nav__link">Contact</a></li>
+                 <li><a href="{% url 'about' %}" class="nav__link">About</a></li>
+
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Login <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i class="ri-user-line"></i> Customer
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                           <i class="fa-solid fa-users" style="color: #ffffff;"></i>Employees
+                          </a>
+                       </li>
+
+                       
+                    </ul>
+                 </li>
+
+                 
+              </ul>
+           </div>
+        </nav>
+    </header>
+
+    <main>
+     
+        <div class="property">
+            <div class="prop-h">
+                <h1>Our<span>property</span></h1>  
+            </div>
+
+            <div class="de-box">
+                {% for property in properties %}
+                <div class="box {% if forloop.counter > 6 %}additional-properties hide{% endif %}">
+                    
+                    <div class="image">
+                        <img src="{{ property.image.url }}" alt="">
+                    </div>
+
+                    <div class="price-name">
+                        <h4>{{property.status}}</h4>
+                        <div class="detail" >
+                           <ul>
+                           <li style=" list-style: none;"><img src="{% static 'img/icons8-bed-50.png' %}" alt=""> {{ property.bedrooms }} bed</li> 
+                           <li ><img src="{% static 'img/icons8-bath-50.png' %}" alt="">{{ property.bathrooms }} bath</li>
+                           <li><i class="fa-solid fa-landmark" style="color: #0a0a0a;font-size: 20px;margin-top: 5px;"></i> {{ property.size }} sq m</li>
+                           </ul>
+                        </div>
+                    </div>
+
+                    <div class="location-detail" style="text-align: center;">
+                        <a href="{% url 'property_detail' property_id=property.id %}" class="view-detail">View Detail</a>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+           
+
+            </div>
+
+            <div class="explore">
+              <a href="#" id="show-more-link">Explore all properties</a>
+          </div>
+        </div>
+  
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+          <div class="footer-content">
+              <div class="footer-section">
+                  <h3>Opening Hours</h3>
+                  <p>Monday - Friday: 8:00AM-5:00PM</p>
+                  <p>Saturday: 8:00AM-12:00PM</p>
+              </div>
+              <div class="footer-section">
+                  <h3>Address</h3>
+                  <p>Behar Building, 9th floor, Africa Avenue,</p>
+                  <p>Addis Ababa, Ethiopia</p>
+                  <p>Tel: +251-114670669</p>
+                  <p>Fax: +251-114652154</p>
+              </div>
+              <div class="footer-section">
+                  <h3>Follow Us</h3>
+                  <div class="social-icons">
+                      <a href="https://www.facebook.com/giftatofficial/"><i class="fab fa-facebook-f"></i></a>
+                      <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><i class="fab fa-twitter"></i></a>
+                      <a href="https://www.youtube.com/@GIFTBusinessGroup"><i class="fab fa-youtube"></i></a>
+                      <a href="https://t.me/giftbusinessgroup"><i class="fab fa-telegram"></i></a>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+    </footer>
+
+
+    <script >
+       
+        const showMenu = (toggleId, navId) =>{
+           const toggle = document.getElementById(toggleId),
+                 nav = document.getElementById(navId)
+        
+           toggle.addEventListener('click', () =>{
+               
+               nav.classList.toggle('show-menu')
+        
+              
+               toggle.classList.toggle('show-icon')
+           })
+        }
+        
+        showMenu('nav-toggle','nav-menu')
+    </script>
+
+<script>
+  const showMoreLink = document.getElementById('show-more-link');
+  const additionalProperties = document.querySelectorAll('.additional-properties');
+
+  showMoreLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      additionalProperties.forEach(function(property) {
+          property.classList.toggle('hide');
+      });
+  });
+</script>
+
+
+  
 </body>
 </html>

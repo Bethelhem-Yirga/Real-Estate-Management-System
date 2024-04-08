@@ -637,7 +637,7 @@
                         <i class="fa-solid fa-chevron-down"></i>
                         <ul class="sub-menu">
                             <li><a href="#"><span>Customer</span></a></li>
-                            <li><a href="#"><span>Employees</span></a></li>
+                            <li><a href="{% url 'login' %}"><span>Employees</span></a></li>
 
                         </ul>
                     </li>
@@ -693,9 +693,10 @@
                     <p><img src="{% static 'img/icons8-location-50.png ' %}" alt=""> {{ property.area }}, {{ property.city }}</p>
                     <div class="detail">
                         <ul>
-                            <li><img src="{% static 'img/icons8-bed-50.png' %}" alt=""> 4 bed</li>
-                            <li><img src="{% static 'img/icons8-bath-50.png' %}" alt="">2 bath</li>
-                            <li><i class="fa-solid fa-landmark" style="color: #0a0a0a;"></i> 4 sq m</li>
+                            <li style=" list-style: none;"><img src="{% static 'img/icons8-bed-50.png' %}" alt=""> {{ property.bedrooms }} <br>bed</li> 
+                            <li ><img src="{% static 'img/icons8-bath-50.png' %}" alt="">{{ property.bathrooms }}<br> bath</li>
+                            <li><i class="fa-solid fa-landmark" style="color: #0a0a0a;"></i> {{ property.size }} <br>m sq</li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -831,8 +832,8 @@
 
                     <div class="team_icon">
                         <i class="fa-brands fa-facebook-f"></i>
-                        <i class="fa-brands fa-twitter"></i>
                         <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-linkedin"></i>
                     </div>
 
                 </div>
@@ -853,21 +854,23 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Opening Hours</h3>
-                    <p>Monday - Friday: 9am - 6pm</p>
-                    <p>Saturday: 10am - 4pm</p>
-                    <p>Sunday: Closed</p>
+                    <p>Monday - Friday: 8:00AM-5:00PM</p>
+                    <p>Saturday: 8:00AM-12:00PM</p>
                 </div>
                 <div class="footer-section">
                     <h3>Address</h3>
-                    <p>123 Main Street</p>
-                    <p>City, State, Postal Code</p>
+                    <p>Behar Building, 9th floor, Africa Avenue,</p>
+                    <p>Addis Ababa, Ethiopia</p>
+                    <p>Tel: +251-114670669</p>
+                    <p>Fax: +251-114652154</p>
                 </div>
                 <div class="footer-section">
                     <h3>Follow Us</h3>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/giftatofficial/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@GIFTBusinessGroup"><i class="fab fa-youtube"></i></a>
+                        <a href="https://t.me/giftbusinessgroup"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
             </div>

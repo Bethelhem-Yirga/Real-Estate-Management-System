@@ -627,3 +627,6 @@ def complete_maintenance(request, maintenance_id):
     context = {'maintenance_request': maintenance_request}
     return render(request, 'manager.html', context)
 
+
+
+
