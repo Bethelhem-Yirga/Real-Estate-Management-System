@@ -151,7 +151,7 @@ class MarketingManager(Registration):
 
 class Employee(Registration):
     img = models.ImageField(upload_to='images')
-    
+
 
 
 from django.core.exceptions import ValidationError

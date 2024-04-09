@@ -1,0 +1,13 @@
+{% load static %}
+
+<h1>Admin  Profile</h1>
+<p>First Name: {{ mrk_mng_profile.first_name }}</p>
+<p>Last Name: {{ mrk_mng_profile.last_name }}</p>
+{% if  mrk_mng_profile.img %}
+            <img src="{{  mrk_mng_profile.img.url }}" alt="img" class="" style="height:80px; width:80px;">
+
+          {%else%}
+            <img src="{% static 'img/logo.png' %}" alt="img">
+         
+    {% endif %}
+<!-- Add additional fields as needed -->

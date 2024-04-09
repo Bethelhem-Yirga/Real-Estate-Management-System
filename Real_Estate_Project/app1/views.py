@@ -289,15 +289,17 @@ def marketing_manager(request):
     return render(request, 'marketing_manager.html', context)
 
 
-def properties(request):
-   all_info = Properties.objects.all()
-   context = {'all_info':all_info}
-   return render(request,"marketing_manager.html",context = context)
 
 
 def add_property(request):
     if request.method == 'POST':
+        marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
         form = PropertyForm(request.POST, request.FILES)
+
+        context ={
+            'marketing_manager_profile' : marketing_manager_profile,
+             'form' : form, 
+        }
         if form.is_valid():
             form.save()
             messages.success(request, 'Data added successfully.')
@@ -309,25 +311,58 @@ def add_property(request):
                     messages.error(request, f"Error in {form[field].label}: {error}")
     else:
         form = PropertyForm()
-    return render(request, 'add_property.html', {'form': form})
+    return render(request, 'add_property.html', context)
 
 
 
+def add_property(request):
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+    form = PropertyForm(request.POST or None, request.FILES or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data added successfully.')
+            
+        else:
+            # Add form errors to Django messages
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {form[field].label}: {error}")
+
+    context = {
+        'marketing_manager_profile': marketing_manager_profile,
+        'form': form,
+    }
+
+    return render(request, 'add_property.html', context)
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from .models import Properties
+from .forms import PropertyForm
+from .models import Employee
 
 def update_property(request, property_id):
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
     property_obj = get_object_or_404(Properties, id=property_id)
+
     if request.method == 'POST':
         form = PropertyForm(request.POST, request.FILES, instance=property_obj)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Data updated successfully.') 
-            #return redirect('marketing_manager')
+            messages.success(request, 'Data updated successfully.')
+            return redirect('mrk_mng')
     else:
-      form = PropertyForm(instance=property_obj)
+        form = PropertyForm(instance=property_obj)
 
-    return render(request, 'update_property.html', {'form': form})
+    context = {
+        'marketing_manager_profile': marketing_manager_profile,
+        'property_obj': property_obj,
+        'form': form  # Include the form in the context to render it in the template
+    }
 
-
+    return render(request, 'update_property.html', context)
 
 def property_detail(request, property_id):
     property_obj = get_object_or_404(Properties, id=property_id)
@@ -361,19 +396,8 @@ def registration_view(request):
 
 
 def profile_view(request):
-    profile = MarketingManager.objects.first() 
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile updated successfully.')         
-    else:
-        form = ProfileForm(instance=profile)
-    context = {
-        'profile': profile,
-        'form': form,
-    }
-    return render(request, 'profile.html', context)
+     mrk_mng_profile = Registration.objects.filter(role='marketing_manager').first()
+     return render(request, 'mrk_mng_profile.html', {'mrk_mng_profile': mrk_mng_profile})
 
 
 
@@ -511,17 +535,27 @@ def system_admin(request):
 
     return render(request, 'system_admin.html', context)
 
+from django.shortcuts import render, redirect
+from .models import Employee
+from .forms import EmployeeForm
+
 def add_employee(request):
+    admin_profile = Employee.objects.filter(role='admin').first()
+
     if request.method == 'POST':
         form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('system_admin')  
+            return redirect('system_admin')
     else:
         form = EmployeeForm()
-    return render(request, 'add_employee.html', {'form': form})
 
+    context = {
+        'admin_profile': admin_profile,
+        'form': form,
+    }
 
+    return render(request, 'add_employee.html', context)
 
 def update_employee_active_status(request, employee_id):
     employee = get_object_or_404(Employee, id=employee_id)

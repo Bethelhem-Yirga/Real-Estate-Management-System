@@ -50,6 +50,8 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         fields = '__all__' 
 
+from django import forms
+
 
 
 from django.contrib.auth.forms import PasswordChangeForm
