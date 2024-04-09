@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Marketing Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
@@ -42,8 +43,8 @@ padding: 30px 0 0 30px;
 
 
  #menu .logo img {
-     width: 40px;
-     margin-right: 15px;
+     width: 60px;
+     margin-right: 25px;
 }
 
 #menu .items {
@@ -300,28 +301,29 @@ tbody tr td{
 <body>
     
         <section id="menu">
-
+            {% if marketing_manager_profile %}
            <div class="logo">
-              <img src="img/logo.png" alt="logo">
-             
+              <img src="{% static 'img/logo.png' %}" alt="">
+              
            </div>
+           {% endif %}
 
           <div class="items">
             
                 <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
-                <li><i class="fab fa-uikit"></i><a href="#">UI Elements</a></li>
-                <li><i class="fas fa-th-large"></i><a href="#">Tabels</a></li>
-                <li><i class="fas fa-edit"></i></i><a href="#">Forms</a></li>
-                <li><i class="fab fa-cc-visa"></i><a href="#">Cards</a></li>
-                <li><i class="fas fa-hamburger"></i><a href="#">Modal</a></li>
-                <li><i class="fa fa-chart-line"></i><a href="#">Blank</a></li>
+                <li><i class="fab fa-uikit"></i><a href="#">Properties</a></li>
+                <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Property</a></li>
+                <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Profile</a></li>
+                <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
+                <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+               
                 
           </div>
-
+         
         </section>
 
         
-        <section id="interface"> 
+      <section id="interface"> 
             <div class="navigation"> 
                 <div class="n1">
 
@@ -332,187 +334,114 @@ tbody tr td{
 
                    
                </div>
-
+               {% if marketing_manager_profile %}
                <div class="profile">
                   
-                  <img src="img/sp1.jpg" alt="">
+                  <img src="{{ marketing_manager_profile.img.url }}" alt="">
               </div>
+              {% endif %}
             </div>
 
             
         <h3 class="i-name"> 
             Dashboard
         </h3>
-I
+.
         <div class="values">
             <div class="val-box">
-                <i class="fas fa-users"></i>
+                <i class="fa-solid fa-house-chimney"></i>
                 <div>
-                   <h3>8,267</h3>
-                   <span>New Users</span>
+                   <h3>{{ total_properties }}</h3>
+                   <span>total_properties</span>
                 </div>
             </div>
 
             <div class="val-box">
-                <i class="fas fa-users"></i>
+                <i class="fa-solid fa-house-chimney"></i>
                 <div>
-                   <h3>8,267</h3>
-                   <span>New Users</span>
+                   <h3>For sale</h3>
+                   <span>{{ sale_properties }}</span>
                 </div>
             </div>
 
             <div class="val-box">
-                <i class="fas fa-users"></i>
+                <i class="fa-solid fa-house-chimney"></i>
                 <div>
-                   <h3>8,267</h3>
-                   <span>New Users</span>
+                   <h3>For rent</h3>
+                   <span>{{ rent_properties }}</span>
                 </div>
             </div>
+
         </div>
+
+        
+        <div class="values">
+            <div class="val-box">
+                <i class="fa-solid fa-house-circle-check"></i>
+                <div>
+                   <h3>0</h3>
+                   <span>Soled</span>
+                </div>
+            </div>
+
+            <div class="val-box">
+                <i class="fa-solid fa-house-circle-check"></i>
+                <div>
+                   <h3>Rented</h3>
+                   <span>0</span>
+                </div>
+            </div>
+
+            
+        </div>
+
 
         <div class="board">
             <table width="100%">
                 <thead>
                     <tr>
-                        <td>Name</td>
-                        <td>Title</td>
+                        <td>Type</td>
+                        <td>Address</td>
                         <td>Status</td>
-                        <td>Role</td>
-                        <td></td>
+                        <td>Action</td>
+                        
                     </tr>
                 </thead>
 
                 <tbody>
-
+                    {% for x in all_info %}
                   <tr>
 
                     
                     <td class="people">
-                        <img src="img/sp1.jpg">
+                        <img src="{{ x.image.url }}">
                         <div class="people-de">
-                            <h5>Bethel Yirga</h5>
-                            <p>bethel@gmail.com</p>
+                            <h5>{{x.propertyType}}</h5>
+                            <p>id {{ x.id}}</p>
                         </div>
                     </td>
 
                     <td class="people-des">
-                            <h5>Computer Science</h5>
-                            <p>web dev</p>
+                            <h5>{{ x.city}}</h5>
+                            <p>{{ x.area}}</p>
                     </td>
 
                     <td class="active">
-                        <p>active</p>
+                        <p>{{ x.status}}</p>
                     </td>
 
                     <td class="role">
-                        <p>Owner</p>
+                        <p>
+                            <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square "  style="color: #787d8d;"></i></a>
+                            <a href="{% url 'property_detail' property_id=x.id %}"><i class="fa-solid fa-eye" style="color: #787d8d;"></i></a>
+                        </p>
                     </td>
 
                   </tr>
+                   {% endfor %}
 
-                  <tr>
-
-                    
-                    <td class="people">
-                        <img src="img/sp1.jpg">
-                        <div class="people-de">
-                            <h5>Bethel Yirga</h5>
-                            <p>bethel@gmail.com</p>
-                        </div>
-                    </td>
-
-                    <td class="people-des">
-                            <h5>Computer Science</h5>
-                            <p>web dev</p>
-                    </td>
-
-                    <td class="active">
-                        <p>active</p>
-                    </td>
-
-                    <td class="role">
-                        <p>Owner</p>
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    
-                    <td class="people">
-                        <img src="img/sp1.jpg">
-                        <div class="people-de">
-                            <h5>Bethel Yirga</h5>
-                            <p>bethel@gmail.com</p>
-                        </div>
-                    </td>
-
-                    <td class="people-des">
-                            <h5>Computer Science</h5>
-                            <p>web dev</p>
-                    </td>
-
-                    <td class="active">
-                        <p>active</p>
-                    </td>
-
-                    <td class="role">
-                        <p>Owner</p>
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    
-                    <td class="people">
-                        <img src="img/sp1.jpg">
-                        <div class="people-de">
-                            <h5>Bethel Yirga</h5>
-                            <p>bethel@gmail.com</p>
-                        </div>
-                    </td>
-
-                    <td class="people-des">
-                            <h5>Computer Science</h5>
-                            <p>web dev</p>
-                    </td>
-
-                    <td class="active">
-                        <p>active</p>
-                    </td>
-
-                    <td class="role">
-                        <p>Owner</p>
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    
-                    <td class="people">
-                        <img src="img/sp1.jpg">
-                        <div class="people-de">
-                            <h5>Bethel Yirga</h5>
-                            <p>bethel@gmail.com</p>
-                        </div>
-                    </td>
-
-                    <td class="people-des">
-                            <h5>Computer Science</h5>
-                            <p>web dev</p>
-                    </td>
-
-                    <td class="active">
-                        <p>active</p>
-                    </td>
-
-                    <td class="role">
-                        <p>Owner</p>
-                    </td>
-
-                  </tr>
+                 
+                 
 
                 </tbody>
 

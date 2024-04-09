@@ -43,6 +43,7 @@ urlpatterns = [
     path('complete/<int:maintenance_id>/', views.complete_maintenance, name='complete_maintenance'),
 
     path('send-link/<int:maintenance_id>/', views.send_link, name='send_link'),
+     path('mrk_mng/', views.mrkMng, name='mrk_mng'),
     
 
 ]

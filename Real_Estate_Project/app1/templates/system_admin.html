@@ -1,13 +1,301 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>System Admin Dashboard</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/system_admin.css' %}">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    .active {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+     
+@import url('https://fonts.googleapis.com/css?family=Poppins: wght@100;200;300;400; 500;600;700; 800;900&display=swap');
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+
+}
+body {
+width: 100%;
+background:#E5E7EB;
+position: relative;
+display: flex;
+
+}
+
+#menu {
+background: #111827;
+width: 300px;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+}
+
+#menu .logo{
+display: flex;
+align-items: center;
+color: #fff;
+padding: 30px 0 0 30px;
+ }
+
+
+ #menu .logo img {
+     width: 60px;
+     margin-right: 25px;
+}
+
+#menu .items {
+    margin-top: 40px;
+}
+
+
+#menu .items li{
+list-style: none; 
+padding: 3px 0;
+transition: 0.3s ease;
+}
+
+#menu .items li i{
+color: rgb(134, 141, 151);
+width: 30px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+font-size: 14px;
+margin: 10px 0 25px;
+
+}
+
+#menu .items li i a{
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+}
+
+
+#menu .items li:hover{
+    background: #253847; 
+    cursor: pointer;
+}
+
+#menu .items li:nth-child(1)
+{ 
+    border-left: 4px solid #fff;
+}
+
+
+#menu .items li:hover i,
+#menu .items li:hover a { 
+    color: #F3F4F6;
+}
+#menu .items li a {
+    text-decoration: none;
+color: rgb(134, 141, 151);
+font-weight: 300px;
+transition: 0.3s ease;
+}
+
+
+#interface {
+width: calc(100% - 300px);
+margin-left: 300px;
+position: relative;
+}
+
+#interface .navigation {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #fff;
+padding: 15px 30px;
+border-bottom: 3px solid #594ef7;
+position: fixed;
+width: calc(100% - 300px);
+ }
+
+ 
+#interface .navigation .search {
+    display: flex;
+justify-content: flex-start; align-items: center;
+padding: 10px 14px;
+border: 1px solid #d7dbe6;
+border-radius: 4px;
+}
+
+#interface .navigation .search i {
+margin-right: 14px;
+}
+
+
+#interface .navigation .search input {
+border: none; outline: none;
+font-size: 14px;
+}
+
+
+#interface .navigation .profile {
+display: flex;
+justify-content: flex-start; 
+align-items: center;
+}
+
+#interface .navigation .profile i {
+margin-right: 20px;
+font-size: 19px; 
+font-weight: 400;
+}
+
+
+#interface .navigation .profile img {
+    width: 55px; 
+    height: 55px;
+    object-fit: cover; 
+    border-radius: 50%;
+}
+
+.n1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#menu-btn{
+    color: #2b2b2b;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.i-name {
+color: #444a53;
+padding: 30px 30px 0 30px;
+font-size: 24px;
+font-weight: 700;
+margin-top: 70px;
+}
+
+.values {
+padding: 30px 30px 0 30px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap:wrap ;
+}
+
+
+.values .val-box { 
+    background: #fff; 
+    width: 235px;
+    padding: 16px 20px;
+    border-radius: 5px; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.values .val-box i { 
+font-size: 25px; width: 60px; height: 60px;
+line-height: 60px; border-radius: 50%;
+text-align: center;
+color: #fff;
+
+margin-right: 15px;
+}
+
+.values .val-box:nth-child(1) i{
+    background: #111827;
+}
+
+.values .val-box:nth-child(2) i{
+    background: #4b6aad;
+}
+
+.values .val-box:nth-child(3) i{
+    background: #0a3288;
+}
+
+
+
+
+.values .val-box h3 { 
+    font-size: 18px; 
+    font-weight: 600;
+}
+
+.values .val-box span {
+   font-size: 15px;
+   color: #828997;
+}
+
+
+.board {
+width: 94%;
+margin: 30px 0 30px 30px;
+overflow: auto;
+background: #fff; 
+border-radius: 8px;
+
+}
+
+
+
+.board img { 
+width: 45px;
+height: 45px;
+object-fit: cover; border-radius: 50%;
+margin-right: 15px;
+}
+
+.board h5{
+font-weight: 600; 
+font-size: 14px;
+ }
+
+ 
+.board p {
+font-weight: 400; 
+font-size: 13px; 
+color: #787d8d;
+}
+
+.board .people{
+    display: flex;
+}
+
+
+.board .people {
+display: flex;
+justify-content: flex-start;
+ align-items: center; 
+ text-align: start;
+}
+
+table{
+border-collapse: collapse;
+}
+
+tr{
+border-bottom: 1px solid #eef0f3;
+}
+
+
+thead td {
+font-size: 14px;
+text-transform: uppercase;
+font-weight: 400;
+background:#F9FAFB;
+text-align: start;
+padding: 15px;
+}
+
+tbody tr td{
+    padding: 10px 15px;
+}
+
+.active {
       color: green;
       font-weight: bold;
     }
@@ -15,183 +303,160 @@
       color: red;
       text-decoration: line-through;
     }
-
-
-  
-      .dashboard-info {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 40px;
-      
-      }
-      
-      .dashboard-item {
-        text-align: center;
-        flex-basis: 30%;
-        padding: 10px;
-        background-color:#ffffff;
-        border-radius: 5px;
-        
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-      
-      .dashboard-item h4 {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-      
-      .dashboard-item p {
-        font-size: 20px;
-        color: #555555;
-      }
-      .sidebar {
-        width: 200px;
-        background: #18361a;
-        padding: 20px;
-        height: 120vh;
-        color: #ffffff;
-      }
-      .table-container {
-        overflow: auto;
-        max-height: 500px; /* Adjust the value as needed */
-      }
-  </style>
-  
+ 
+    </style>
 </head>
 <body>
-
-  
-  <header>
-    <nav class="navbar">
-        <div class="logo">
+    
+        <section id="menu">
+            
+           <div class="logo">
             <img src="{% static 'img/logo.png' %}" alt="Logo">
-            <span class="logo-name">Gift Real Estate</span>
-        </div>
-
-        {% if admin_profile %}
-        <div class="profile">
+           </div>
           
-          <img src="{{ admin_profile.img.url }}" alt="Profile Photo" class="profile-photo">
-          <div class="profile-info">
-            <span class="name">{{ admin_profile.first_name }} {{ admin_profile.last_name }}</span>
-            <span class="email">{{ admin_profile.email }}</span>
+
+          <div class="items">
+           
+                <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+                <li><i class="fas fa-users"></i><a href="#">Employees</a></li>
+                <li><i class="fa-solid fa-user-plus"></i> <a href="{% url 'add_employee' %}">Add Employees</a></li>
+                <li><i class="fas fa-user"></i></i><a href="{% url 'system_admin_profile' %}">Profile</a></li>
+                <li><i class="fa-solid fa-lock"></i><a href="{% url 'change_password' %}">Change Password</a></li>
+                <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+               
+                
           </div>
-        </div>
-        {% endif %}
-    </nav>
-  </header>
-  
-  <div class="container">
-    <aside class="sidebar">
-      <div class="profile">
-        {% if admin_profile %}
-        <img src="{{ admin_profile.img.url }}" alt="Profile Photo">
-        <div class="profile-info">
-          <span class="name">{{ admin_profile.first_name }} {{ admin_profile.last_name }}</span>
-          <span class="email">{{ admin_profile.email }}</span>
-        </div>
-        {% endif %}
-      </div>
-      <ul>
-        <li><a href="#" class="active"><i class="fa-solid fa-gauge" style="color: #ffffff;"></i> Dashboard</a></li>
-        <li><a href="#"><i class="fa-solid fa-users" style="color: #ffffff;"></i> Employees</a></li>
-       
-        <li><a href="{% url 'add_employee' %}"><i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Add Employees</a></li>
+         
+        </section>
+
         
-        <li><a href="{% url 'system_admin_profile' %}"><i class="fa-regular fa-user" style="color: #ffffff;"></i> Profile</a></li>
-        <li><a href="{% url 'change_password' %}"><i class="fa-solid fa-lock" style="color: #ffffff;"></i> Change Password</a></li>        <li><a href="/"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</a></li>
-      </ul>
-    </aside>
+      <section id="interface"> 
+            <div class="navigation"> 
+                <div class="n1">
 
-    
- 
-   
-    
-    <div class="white-div">
-
-      <div class="dashboard-info">
-        <div class="dashboard-item">
-            <h4>Total Employees</h4>
-            <p>{{total_employees}}</p>
-        </div>
-        <div class="dashboard-item">
-            <h4>salespersons</h4>
-            <p>{{salespersons}}</p>
-        </div>
-        <div class="dashboard-item">
-            <h4>Maintenance Staff</h4>
-            <p>{{maintenance_staff}}</p>
-        </div>
-    </div>
+                    <div>
+                        <i id="menu-btn" class="fa-fa-bars"></i>
+                    </div>
 
 
-      <h3>Employees</h3>
-      <form class="search-form">
-        <input type="text" placeholder="Search..." class="search-input">
-        <button type="submit" class="search-btn">Search</button>
-      </form>
-
-      <div class="table-container">
-      <table class="listing-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Photo</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for employee in employees %}
-            <tr>
-                <td>{{ employee.first_name }} {{ employee.last_name }}</td>
-                <td>{{ employee.email }}</td>
-                <td>{{ employee.address }}</td>
-                <td>{{ employee.role }}</td>
-                <td>
-                  <a href="{% url 'update_employee_active_status' employee.id %}">
-                    {% if employee.is_active %}
-                       <span class="active">Active</span>
-                    {% else %}
-                       <span class="inactive">Inactive</span>
-                    {% endif %}
-                  </a>
+                   
+               </div>
+               {% if admin_profile %}
+               <div class="profile">
                   
-                  </td>
-                
-                {% if employee.img %}
-               <td>
-                 <img src="{{ employee.img.url }}" alt="img" class="" style="height:80px; width:80px;">
-               </td>
-                {%else%}
-              <td>
-                <img src="{% static 'img/logo.png' %}" alt="img">
-              </td>
-                {% endif %}
-                
-                <td>
-                  <a href="{% url 'employee_detail' employee.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
-                </td>
-              </tr>
-              {% empty %}
-              <tr>
-                <td colspan="7">No employees found.</td>
-              </tr>
-              {% endfor %}
-        </tbody>
-      </table>
-    </div>
-      <button class="add-property-btn" onclick="window.location.href='{% url 'add_employee' %}'">Add Employees</button>
-     
-    </div>
-  </div>
+                  <img src="{{ admin_profile.img.url }}" alt="">
+              </div>
+              {% endif %}
+            </div>
 
-  
-  
-  
+            
+        <h3 class="i-name"> 
+            Dashboard
+        </h3>
+.
+        <div class="values">
+          <div class="val-box">
+            <i class="fas fa-users"></i>
+            <div>
+               <h3>Total Employees</h3>
+               <span>{{total_employees}}</span>
+            </div>
+          </div>
+
+            <div class="val-box">
+                <i class="fas fa-users"></i>
+                <div>
+                   <h3>Salespersons</h3>
+                   <span>{{salespersons}}</span>
+                </div>
+            </div>
+
+            <div class="val-box">
+                <i class="fas fa-users"></i>
+                <div>
+                   <h3>Maintenance Staff</h3>
+                   <span>{{maintenance_staff}}</span>
+                </div>
+            </div>
+
+        </div>
+
+        
+        
+
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Address</td>
+                        <td>Status</td>
+                        <td>Role</td>
+                        <td>Action</td>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for employee in employees %}
+                  <tr>
+
+                    
+                    <td class="people">
+                        <img src="{{ employee.img.url }}">
+                        <div class="people-de">
+                            <h5>{{ employee.first_name }} {{ employee.last_name }}</h5>
+                            <p>{{ employee.email }}</p>
+                        </div>
+                    </td>
+
+                    <td class="people-des">
+                            <h5>{{ employee.address }}</h5>
+                            
+                    </td>
+
+                    <td class="active">
+                      <a href="{% url 'update_employee_active_status' employee.id %}">
+                        {% if employee.is_active %}
+                           <span class="active">Active</span>
+                        {% else %}
+                           <span class="inactive">Inactive</span>
+                        {% endif %}
+                      </a>
+                    </td>
+
+                    <td class="role">
+                        <p>{{ employee.role }}</p>
+                    </td>
+
+                    
+                    <td>
+                      <a href="{% url 'employee_detail' employee.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="7">No employees found.</td>
+                  </tr>
+
+                  
+                   {% endfor %}
+
+                 
+                 
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+       
+
+      </section>
+        
 </body>
 </html>
+
+
+

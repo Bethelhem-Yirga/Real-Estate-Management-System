@@ -254,7 +254,22 @@ def contact(request):
 
     return render(request, 'contact.html')
 
+def mrkMng(request):
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
+    context = {
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'mrk_mng.html', context)
+   
 
 
 def marketing_manager(request):
@@ -557,6 +572,8 @@ def salesperson_profile(request, employee_id):
 
 def about(request):
     return render(request, 'about.html')
+
+
 
 
 

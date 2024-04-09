@@ -41,7 +41,7 @@
        body {
          font-family: var(--body-font);
          font-size: var(--normal-font-size);
-         background-color: var(--body-color);
+         
        }
        
        ul {
@@ -269,8 +269,8 @@
       justify-content: space-around;
     }
 
-    .about .about_main .image img {
-      width: 600px;
+    .about .about_main .image video {
+      width: 800px;
       position: relative;
       top: 120px;
       margin-right: 20px;
@@ -302,7 +302,7 @@
     }
 
     .about .about_main .about_text p {
-      width: 650px;
+      width: 450px;
       text-align: justify;
       margin-right: 30px;
       line-height: 22px;
@@ -390,8 +390,9 @@
   <div class="about" id="About">
     <div class="about_main">
       <div class="image">
-        <img src="{% static 'img/abt2.jpg' %}">
+        <video src="{% static 'img/about_video.mp4' %}" controls autoplay loop muted></video>
       </div>
+     
       <div class="about_text">
         <h1><span>About</span>Us</h1>
         <h3>Our story</h3>
