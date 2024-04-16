@@ -1,0 +1,5 @@
+<form id="myForm" method="POST" action="{% url 'application_for_sale' property.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>

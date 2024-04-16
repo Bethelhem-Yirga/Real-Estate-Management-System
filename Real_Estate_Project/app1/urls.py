@@ -23,8 +23,9 @@ urlpatterns = [
 
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
-    path('appform/', views.appform, name='appform'),
-    path('apptorent/', views.apptorent, name='apptorent'),
+    
+    path('application_for_sale/<int:property_id>/', views.application_for_sale, name='application_for_sale'),
+    path('application_for_rent/<int:property_id>/', views.application_for_rent, name='application_for_rent'),
     path('addemploy/', views.addemploy, name='addemploy'),
     path('rent/', views.rent, name='rent'),
     path('buy/', views.buy, name='buy'),
@@ -43,7 +44,12 @@ urlpatterns = [
     path('complete/<int:maintenance_id>/', views.complete_maintenance, name='complete_maintenance'),
 
     path('send-link/<int:maintenance_id>/', views.send_link, name='send_link'),
-     path('mrk_mng/', views.mrkMng, name='mrk_mng'),
+    path('mrk_mng/', views.mrkMng, name='mrk_mng'),
+    path('forsale/<int:property_id>/', views.forsale, name='forsale'),
+    path('forent/<int:property_id>/', views.forent, name='forent'),
+    path('soled/', views.soled, name='soled'),
+    path('rented/', views.rented, name='rented'),
+
     
 
 ]

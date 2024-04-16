@@ -1,7 +1,7 @@
 from cProfile import Profile
 import re
 from django import forms
-from .models import Employee, MarketingManager, Properties,Registration,ContactMessage
+from .models import Application, Applicationrent, Employee, MarketingManager, Properties,Registration,ContactMessage
 from django.conf import settings
 import stripe
 
@@ -65,6 +65,20 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ['name','last_name', 'email', 'subject', 'message']
+
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = '__all__'
+
+class ApplicationForRentForm(forms.ModelForm):
+    class Meta:
+        model = Applicationrent
+        fields = '__all__'
+
+
+        
         
         
         

@@ -1,9 +1,10 @@
+from msilib.schema import Property
 from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
 from .models import Employee, MarketingManager, Registration
-from .forms import ProfileForm, RegistrationForm 
+from .forms import ApplicationForRentForm, ProfileForm, RegistrationForm 
 
 from .forms import ContactForm, ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
@@ -40,6 +41,7 @@ from .models import Maintenance, Report
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
 from .models import Maintenance, Report
+from .forms import ApplicationForm
 
 def accept_or_reject_application(request, application_id, decision):
     application = Application.objects.get(id=application_id)
@@ -115,7 +117,9 @@ def manager(request):
 
 
 
-def appform(request):
+def appform(request,property_id):
+        
+
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -130,7 +134,7 @@ def appform(request):
         partner_last_name = request.POST.get('partner_last_name')
         partner_phone_number = request.POST.get('partner_phone_number')
         partner_work_status = request.POST.get('partner_work_status') 
-                
+        
 
         # Create a new instance of the Application model and assign the form data
         application = Application(
@@ -153,10 +157,46 @@ def appform(request):
 
         )
         
-        # Save the application instance to the database
-        application.save()
+        
+    
     
     return render(request, 'appform.html')
+
+def application_for_sale(request,property_id):
+     property = Properties.objects.get(id=property_id)
+     form = ApplicationForm()  # Initialize the form
+
+     if request.method == 'POST':
+        form = ApplicationForm(request.POST)  # Bind form data from POST request
+
+        if form.is_valid():
+            form.save()  # Save the form data as a new Application instance
+            # Additional logic after successful form submission
+
+     context = {
+        'property': property,
+        'form': form,  # Pass the form to the template context
+    }
+     return render(request, 'application_for_sale.html', context)
+
+
+def application_for_rent(request,property_id):
+     property = Properties.objects.get(id=property_id)
+     form = ApplicationForRentForm()  # Initialize the form
+
+     if request.method == 'POST':
+        form = ApplicationForRentForm(request.POST)  # Bind form data from POST request
+
+        if form.is_valid():
+            form.save()  # Save the form data as a new Application instance
+            # Additional logic after successful form submission
+
+     context = {
+        'property': property,
+        'form': form,  # Pass the form to the template context
+    }
+     return render(request, 'application_for_rent.html', context)
+
 def apptorent(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -259,6 +299,29 @@ def mrkMng(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
+    context = {
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'soled_properties':soled_properties,
+        'rent_properties': rent_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'mrk_mng.html', context)
+   
+
+def forsale(request):
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
     context = {
@@ -266,11 +329,77 @@ def mrkMng(request):
         'total_properties': total_properties,
         'sale_properties': sale_properties,
         'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
         'marketing_manager_profile':marketing_manager_profile
     }
-    return render(request, 'mrk_mng.html', context)
+    return render(request, 'forsale.html', context)
+
    
 
+def forent(request):
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
+    context = {
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'forent.html', context)
+   
+def soled(request):
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
+    context = {
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'soled.html', context)
+
+   
+def rented(request):
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
+    context = {
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'rented.html', context)
+
+
+   
 
 def marketing_manager(request):
     profile = MarketingManager.objects.first()

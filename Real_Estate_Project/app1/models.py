@@ -68,6 +68,8 @@ class Registration(models.Model):
 MY_CHOICES = [
     ('For Sale', 'For Sale'),
     ('For Rent', 'For Rent'),
+    ('Rented', 'Rented'),
+    ('Soled', 'Soled'),
 ]
 
 PROPERTY_CHOICES = [

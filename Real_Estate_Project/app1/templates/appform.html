@@ -191,7 +191,7 @@ marriageStatus.addEventListener('change', function() {
         
     </div>
     <div class="container">
-<form id="myForm"method="POST" action="{% url 'appform' %}">
+        <form id="myForm" method="POST" action="{% url 'appform' property.id %}">
         {% csrf_token %}
         <div class="form-group">
         <label for="id_first_name">First name:</label>

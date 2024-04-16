@@ -85,7 +85,6 @@
                    <span>{{ rent_properties }}</span>
                 </div>
             </div>
-     
 
         </div>
 
@@ -111,64 +110,56 @@
         </div>
 
 
+
         <div class="board">
-            <table width="100%">
+            <table width="100%" class="for-sale-table">
                 <thead>
                     <tr>
                         <td>Type</td>
                         <td>Address</td>
                         <td>Status</td>
                         <td>Action</td>
-                        
                     </tr>
                 </thead>
-
                 <tbody>
                     {% for x in all_info %}
-                  <tr>
-
-                    
-                    <td class="people">
-                        <img src="{{ x.image.url }}">
-                        <div class="people-de">
-                            <h5>{{x.propertyType}}</h5>
-                            <p>id {{ x.id}}</p>
-                        </div>
-                    </td>
-
-                    <td class="people-des">
-                            <h5>{{ x.city}}</h5>
-                            <p>{{ x.area}}</p>
-                    </td>
-
-                    <td class="active">
-                        <p>{{ x.status}}</p>
-                    </td>
-
-                    <td class="role">
-                        <p>
-                            <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square "  style="color: #787d8d;"></i></a>
-                            <a href="{% url 'property_detail' property_id=x.id %}"><i class="fa-solid fa-eye" style="color: #787d8d;"></i></a>
-                        </p>
-                    </td>
-
-                  </tr>
-                   {% endfor %}
-
-                 
-                 
-
+                    {% if x.status == 'For Sale' %}
+                    <tr>
+                        <td class="people">
+                            <img src="{{ x.image.url }}">
+                            <div class="people-de">
+                                <h5>{{ x.propertyType }}</h5>
+                                <p>id {{ x.id }}</p>
+                            </div>
+                        </td>
+                        <td class="people-des">
+                            <h5>{{ x.city }}</h5>
+                            <p>{{ x.area }}</p>
+                        </td>
+                        <td class="active">
+                            <p>{{ x.status }}</p>
+                        </td>
+                        <td class="role">
+                            <p>
+                                <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square" style="color: #787d8d;"></i></a>
+                                <a href="{% url 'property_detail' property_id=x.id %}"><i class="fa-solid fa-eye" style="color: #787d8d;"></i></a>
+                            </p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
                 </tbody>
-
             </table>
-
         </div>
+
+
+
 
        
 
       </section>
 
-   
+  
         
 </body>
 </html>

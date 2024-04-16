@@ -40,17 +40,24 @@
 
   
 <div class="responsive-div gallery" style="width: 100%; max-width:120%;">
-
   {% if property.image %}
-    <div class="gallery-item">
-      <h3 class="property-title">{{ property.area }} {{ property.bedrooms}} Bedrooms {{ property.propertyType }} Apartment</h3>
-      <h3 class="property-status">{{ property.status}}</h3>
-      <h3 class="property-location"><i class="fa-solid fa-location-dot" style="color: #b0b0b0;"></i> {{ property.area }}, {{ property.city}} </h3>
+  <div class="gallery-item">
+      <h3 class="property-title">{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }} Apartment</h3>
+      {% if property.status == 'For Rent' %}
+          <a href="{% url 'application_for_rent' property_id=property.id %}">
+              <h3 class="property-status">{{ property.status }}</h3>
+          </a>
+      {% elif property.status == 'For Sale' %}
+          <a href="{% url 'application_for_sale' property_id=property.id %}">
+              <h3 class="property-status">{{ property.status }}</h3>
+          </a>
+      {% endif %}
+      <h3 class="property-location"><i class="fa-solid fa-location-dot" style="color: #b0b0b0;"></i> {{ property.area }}, {{ property.city }}</h3>
       <img src="{{ property.image.url }}" alt="img">
-    </div>
-  {% else %}
-    <p>No image available</p>
-  {% endif %}
+  </div>
+{% else %}
+  <p>No image available</p>
+{% endif %}
   
   <p>
     Property Type: <span> {{ property.propertyType }} </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
