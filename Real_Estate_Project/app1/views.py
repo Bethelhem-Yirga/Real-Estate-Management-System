@@ -582,42 +582,44 @@ from django.urls import reverse
 from .models import Registration
 from .models import Employee
 
+from django.shortcuts import redirect, render
+from .models import Registration  # Assuming Registration is your model for users
+
 def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        role = request.POST['role']
 
         # Retrieve user from the database and validate credentials
         try:
             user = Registration.objects.get(email=email)
-            if user.password == password:
-                if user.role == role:
-                 if user.is_active == True:
-                    # Email, password, and role match
-                    if role == 'admin':
-                        return redirect('system_admin')  # Redirect to admin page
-                    elif role == 'manager':
-                        return redirect('manager_page')  # Redirect to manager page
-                    elif role == 'customer':
-                        return redirect('manager')  # Redirect to customer page
-                    elif role == 'salesperson':
-                        return redirect('salespersons')  # Redirect to salesperson page
-                    elif role == 'marketing_manager':
-                        return redirect('dashboard')  # Redirect to marketing manager page
-                    elif role == 'maintenance_staff':
-                        return redirect('maintenance_staff_page')  # Redirect to maintenance staff page
+            if user.password == password and user.is_active:
+                # Define a dictionary to map roles to page URLs
+                role_page_map = {
+                    'admin': 'system_admin',
+                    'manager': 'manager_page',
+                    'customer': 'property_listing',
+                    'salesperson': 'salespersons',
+                    'marketing_manager': 'mrk_mng',
+                    'maintenance_staff': 'maintenance_staff_page',
+                    'finance': 'https://dashboard.stripe.com/login'
+                }
+                # Check if the user's role is in the map
+                if user.role in role_page_map:
+                    # Redirect to the appropriate page based on the role
+                    return redirect(role_page_map[user.role])
                 else:
-                    # Role does not match
-                    return render(request, 'login.html')
+                    # If role is not found in the map, render failure page
+                    return render(request, 'failure.html')
             else:
-                # Password does not match
+                # Password does not match or user is not active
                 return render(request, 'failure.html')
         except Registration.DoesNotExist:
             # User does not exist
             return render(request, 'failure.html')
 
     return render(request, 'login.html')
+
 
 
 
@@ -809,4 +811,32 @@ def complete_maintenance(request, maintenance_id):
 
 
 
+
+
+
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Update the session to reflect the new password
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('profile')  # Redirect to the user's profile page
+        else:
+            # If form is not valid, display errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
 

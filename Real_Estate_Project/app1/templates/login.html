@@ -46,17 +46,15 @@
         }
      
         label {
-          
-            display: block;
-            margin-bottom: 5px;
-            margin-top: 5px;
-            margin-right: 5px;
-            font-weight: bold;
-            color: white;
-          }
+          display: block;
+          margin-bottom: 5px;
+          margin-top: 5px;
+          margin-right: 5px;
+          font-weight: bold;
+          color: white;
+        }
   
         input[type="text"],
-        input[type="role"], 
         input[type="email"],
         input[type="password"] {
           width: 100%;
@@ -64,12 +62,6 @@
           border: 1px solid #ccc;
           border-radius: 4px;
           box-sizing: border-box;
-        }
-  
-  
-        .gender-category input[type="radio"],
-        .gender-category label {
-          margin-right: 10px;
         }
   
         .form-submit-btn {
@@ -130,22 +122,10 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <div class="user-input">
-            <label for="role">Role:</label>
-            <select id="role" name="role" required>
-              <option value="customer">Customer</option>
-                <option value="admin">Admin</option>
-                <option value="manager">Manager</option>
-                <option value="finance">Finance</option>
-                <option value="salesperson">Salesperson</option>
-                <option value="marketing_manager">Marketing Manager</option>
-                <option value="maintenance_staff">Maintenance Staff</option>
-            </select>
-        </div>
         <div class="form-submit-btn">
             <input type="submit" value="Login">
         </div>
-        
+        <p class="register-link">Don't have an account? <a href="{% url 'registration_view' %}" class="register-link">Sign Up</a></p>
     </div>
     </form>
 </body>
