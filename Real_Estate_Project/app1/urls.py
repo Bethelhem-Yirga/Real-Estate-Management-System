@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import change_password
 from .views import contact_view, payment_view, add_employee, update_employee_active_status, accept_or_reject_application
 
 urlpatterns = [
@@ -36,12 +37,12 @@ urlpatterns = [
     path('<int:employee_id>/active_status/', update_employee_active_status, name='update_employee_active_status'),
     path('<int:employee_id>/detail/', views.employee_detail, name='employee_detail'),
     path('system_admin_profile/', views.system_admin_profile, name='system_admin_profile'),
-    path('change_password/', views.change_password_view, name='change_password'),
+
     path('salesperson/<int:employee_id>/', views.salesperson_profile, name='salesperson_profile'),
     path('about/', views.about, name='about'),
     path('contact_us/', contact_view, name='contact_us'),
     path('complete/<int:maintenance_id>/', views.complete_maintenance, name='complete_maintenance'),
-
+    path('change-password/', change_password, name='change_password'),
     path('send-link/<int:maintenance_id>/', views.send_link, name='send_link'),
      path('mrk_mng/', views.mrkMng, name='mrk_mng'),
     

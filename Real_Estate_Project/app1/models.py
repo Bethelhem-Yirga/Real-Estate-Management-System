@@ -18,9 +18,11 @@ class Registration(models.Model):
         ('manager', 'Manager'),
         ('customer', 'Customer'),
         ('admin', 'Admin'),
+        ('finace', 'finace'),
         ('salesperson', 'Salesperson'),
         ('marketing_manager', 'Marketing Manager'),
         ('maintenance_staff', 'Maintenance Staff'),
+        
     ]
     GENDER_CHOICES = [
         ('male', 'Male'),
