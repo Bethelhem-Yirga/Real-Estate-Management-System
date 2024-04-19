@@ -4,7 +4,7 @@ from .views import change_password
 from .views import contact_view, payment_view, add_employee, update_employee_active_status, accept_or_reject_application
 from .views import finance_form, success_page
 from django.urls import path
-
+from .views import finance_with_property_data
 urlpatterns = [
     path('', views.property_listing, name='index'),
     path('register/', views.registration_view, name='registration'),
@@ -53,6 +53,6 @@ urlpatterns = [
     path('soled/', views.soled, name='soled'),
     path('rented/', views.rented, name='rented'),
     path('finance/', finance_form, name='finance_form'),
-
+    path('financedata/', finance_with_property_data, name='finance_with_property_data'),
 
 ]

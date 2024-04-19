@@ -861,7 +861,16 @@ def success_page(request):
     return render(request, 'login.html')
 
 
+# views.py in app1 directory
+from .models import Finance
 
+
+def finance_with_property_data(request):
+  
+    all_objects = Finance.objects.all()
+
+    print(all_objects)  # Add this line for debugging
+    return render(request, 'finance_with_property_data.html', {'finance_entries': all_objects})
 
 
 

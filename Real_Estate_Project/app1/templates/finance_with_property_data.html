@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finance report</title>
+</head>
+<body>
+    <h1>Finance report</h1>
+    
+    <ul>
+        {% for finance_entry in finance_entries %}
+        <li>
+           
+            <strong>Customer Name:</strong> {{ finance_entry.customer_name }}<br>
+            <strong>Customer Email:</strong> {{ finance_entry.customer_email }}<br>
+            <strong>amount of money paid  :</strong> {{ finance_entry.price }}<br>
+            <strong>Remaining Amount:</strong> {{ finance_entry.remaining_amount }}<br>
+            <strong>Date of Purchase:</strong> {{ finance_entry.date_of_purchase }}<br>
+            
+            <strong>Size:</strong> {{ finance_entry.property.size }}<br>
+            <strong>Status:</strong> {{ finance_entry.property.status }}<br>
+            <strong>Number of Rooms:</strong> {{ finance_entry.property.noOfRooms }}<br>
+            <strong>Bedrooms:</strong> {{ finance_entry.property.bedrooms }}<br>
+            <strong>Bathrooms:</strong> {{ finance_entry.property.bathrooms }}<br>
+            <strong>Room Floor:</strong> {{ finance_entry.property.roomFloor }}<br>
+            <strong>Total Floor:</strong> {{ finance_entry.property.TotalFloor }}<br>
+            <strong>Year Built:</strong> {{ finance_entry.property.year_built }}<br>
+            <strong>Property Price:</strong> {{ finance_entry.property.price }}<br>
+            <strong></strong> <img src="{{ finance_entry.property.image.url }}" alt="Property Image"><br>
+            
+            <!-- Add other fields as needed -->
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
