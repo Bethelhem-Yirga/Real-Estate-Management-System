@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from .views import change_password
 from .views import contact_view, payment_view, add_employee, update_employee_active_status, accept_or_reject_application
+from .views import finance_form, success_page
+from django.urls import path
 
 urlpatterns = [
     path('', views.property_listing, name='index'),
@@ -46,11 +48,11 @@ urlpatterns = [
     path('change-password/', change_password, name='change_password'),
     path('send-link/<int:maintenance_id>/', views.send_link, name='send_link'),
     path('mrk_mng/', views.mrkMng, name='mrk_mng'),
-    path('forsale/<int:property_id>/', views.forsale, name='forsale'),
-    path('forent/<int:property_id>/', views.forent, name='forent'),
+    path('forsale/', views.forsale, name='forsale'),
+    path('forent/', views.forent, name='forent'),
     path('soled/', views.soled, name='soled'),
     path('rented/', views.rented, name='rented'),
+    path('finance/', finance_form, name='finance_form'),
 
-    
 
 ]

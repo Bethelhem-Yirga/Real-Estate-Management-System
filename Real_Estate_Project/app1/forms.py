@@ -76,6 +76,34 @@ class ApplicationForRentForm(forms.ModelForm):
     class Meta:
         model = Applicationrent
         fields = '__all__'
+        
+        
+ # forms.py in app1 directory
+
+# forms.py in app1 directory
+# forms.py in app1 directory
+
+from django import forms
+from .models import Finance
+  # Adjust the import path based on your project structure
+
+class FinanceForm(forms.ModelForm):
+    property_id = forms.IntegerField()  # Field for entering property ID
+
+    class Meta:
+        model = Finance
+        fields = ['property_id', 'customer_name', 'customer_email', 'price', 'date_of_purchase', 'remaining_amount', 'rent_duration']
+
+    def clean_property_id(self):
+        property_id = self.cleaned_data['property_id']
+        try:
+            property_obj = Properties.objects.get(pk=property_id)
+        except Properties.DoesNotExist:
+            raise forms.ValidationError("Property ID does not exist")
+        return property_obj
+
+
+
 
 
         

@@ -840,3 +840,34 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
 
+# views.py in app1 directory
+
+from django.shortcuts import render, redirect
+from .forms import FinanceForm
+
+def finance_form(request):
+    if request.method == 'POST':
+        form = FinanceForm(request.POST)
+        if form.is_valid():
+            finance_instance = form.save(commit=False)
+            finance_instance.property = form.cleaned_data['property_id']
+            finance_instance.save()
+            return redirect('login')  # Redirect to a success page
+    else:
+        form = FinanceForm()
+    return render(request, 'finance_form.html', {'form': form})
+
+def success_page(request):
+    return render(request, 'login.html')
+
+
+
+
+
+
+
+
+
+
+
+
