@@ -874,7 +874,42 @@ def finance_with_property_data(request):
 
 
 
+# views.py
 
+from django.http import JsonResponse
+from .models import Finance
+
+def finance_detail_api(request, finance_id):
+    try:
+        finance_entry = Finance.objects.get(id=finance_id)
+        data = {
+            'customer_name': finance_entry.customer_name,
+            'customer_email': finance_entry.customer_email,
+            'price': finance_entry.price,
+            'remaining_amount': finance_entry.remaining_amount,
+            'date_of_purchase': finance_entry.date_of_purchase,
+            'property_size': finance_entry.property.size,
+            'property_status': finance_entry.property.status,
+            'number_of_rooms': finance_entry.property.noOfRooms,
+            'bedrooms': finance_entry.property.bedrooms,
+            'bathrooms': finance_entry.property.bathrooms,
+            'room_floor': finance_entry.property.roomFloor,
+            'total_floor': finance_entry.property.TotalFloor,
+            'year_built': finance_entry.property.year_built,
+            'property_price': finance_entry.property.price,
+            'property_image': finance_entry.property.image.url,
+            # Add more property-related fields as needed
+        }
+        return JsonResponse(data)
+    except Finance.DoesNotExist:
+        return JsonResponse({'error': 'Finance entry not found'}, status=404)
+
+from django.shortcuts import render, get_object_or_404
+from .models import Finance
+
+def finance_detail_view(request, finance_id):
+    finance_entry = get_object_or_404(Finance, id=finance_id)
+    return render(request, 'finance_detail.html', {'finance_entry': finance_entry})
 
 
 

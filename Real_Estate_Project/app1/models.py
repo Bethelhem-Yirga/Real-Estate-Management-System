@@ -250,7 +250,8 @@ class Finance(models.Model):
     property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='Finance', default=0)
     customer_name = models.CharField(max_length=100)
     customer_email = models.EmailField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+   
     date_of_purchase = models.DateField()
     purchase_or_rent = models.CharField(max_length=10, choices=[('buy', 'Buy'), ('rent', 'Rent')])
     remaining_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)

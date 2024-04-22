@@ -3,34 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <title>Finance report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: auto;
+        }
+
+        .detail-button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Finance report</h1>
     
-    <ul>
-        {% for finance_entry in finance_entries %}
-        <li>
-           
-            <strong>Customer Name:</strong> {{ finance_entry.customer_name }}<br>
-            <strong>Customer Email:</strong> {{ finance_entry.customer_email }}<br>
-            <strong>amount of money paid  :</strong> {{ finance_entry.price }}<br>
-            <strong>Remaining Amount:</strong> {{ finance_entry.remaining_amount }}<br>
-            <strong>Date of Purchase:</strong> {{ finance_entry.date_of_purchase }}<br>
-            
-            <strong>Size:</strong> {{ finance_entry.property.size }}<br>
-            <strong>Status:</strong> {{ finance_entry.property.status }}<br>
-            <strong>Number of Rooms:</strong> {{ finance_entry.property.noOfRooms }}<br>
-            <strong>Bedrooms:</strong> {{ finance_entry.property.bedrooms }}<br>
-            <strong>Bathrooms:</strong> {{ finance_entry.property.bathrooms }}<br>
-            <strong>Room Floor:</strong> {{ finance_entry.property.roomFloor }}<br>
-            <strong>Total Floor:</strong> {{ finance_entry.property.TotalFloor }}<br>
-            <strong>Year Built:</strong> {{ finance_entry.property.year_built }}<br>
-            <strong>Property Price:</strong> {{ finance_entry.property.price }}<br>
-            <strong></strong> <img src="{{ finance_entry.property.image.url }}" alt="Property Image"><br>
-            
-            <!-- Add other fields as needed -->
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Customer Email</th>
+                <th>Amount Paid</th>
+                <th>Remaining Amount</th>
+                <th>Date of Purchase</th>
+                <th>Property Size</th>
+                <th>Property Status</th>
+          
+                <th>Property Image</th>
+                <th>Actions</th> <!-- New column for detail button -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for finance_entry in finance_entries %}
+            <tr>
+                <td>{{ finance_entry.customer_name }}</td>
+                <td>{{ finance_entry.customer_email }}</td>
+                <td>{{ finance_entry.price }}</td>
+                <td>{{ finance_entry.remaining_amount }}</td>
+                <td>{{ finance_entry.date_of_purchase }}</td>
+                <td>{{ finance_entry.property.size }}</td>
+                <td>{{ finance_entry.property.status }}</td>
+               
+                <td><img src="{{ finance_entry.property.image.url }}" alt="Property Image"></td>
+                <td><button class="detail-button" onclick="showDetails('{{ finance_entry.id }}')">Details</button></td> <!-- Detail button -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="details-modal" style="display: none;"> <!-- Modal for displaying details -->
+        <!-- Details will be displayed here -->
+    </div>
+
+    <script>
+        function showDetails(financeId) {
+            // Fetch details for the given finance entry ID via AJAX
+            fetch(`/api/finance/${financeId}/`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Construct HTML for displaying details
+                    let detailsHtml = `
+                        <h2>Details</h2>
+                        <!-- Finance Details -->
+                        <h2>Finance Details</h2>
+                        <p><strong>Customer Name:</strong> ${data.customer_name}</p>
+                        <p><strong>Customer Email:</strong> ${data.customer_email}</p>
+                        <p><strong>Amount Paid:</strong> ${data.price}</p>
+                        <p><strong>Remaining Amount:</strong> ${data.remaining_amount}</p>
+                        <p><strong>Date of Purchase:</strong> ${data.date_of_purchase}</p>
+                        <!-- Add all fields as needed -->
+                        <p><strong>Property Size:</strong> ${data.property_size}</p>
+                        <p><strong>Property Status:</strong> ${data.property_status}</p>
+                        <p><strong>Number of Rooms:</strong> ${data.number_of_rooms}</p>
+                        <p><strong>Bedrooms:</strong> ${data.bedrooms}</p>
+                        <p><strong>Bathrooms:</strong> ${data.bathrooms}</p>
+                        <p><strong>Room Floor:</strong> ${data.room_floor}</p>
+                        <p><strong>Total Floor:</strong> ${data.total_floor}</p>
+                        <p><strong>Year Built:</strong> ${data.year_built}</p>
+                        <p><strong>Property Price:</strong> ${data.property_price}</p>
+                        <p><strong>Property Image:</strong> <img src="${data.property_image}" alt="Property Image"></p>
+                        <!-- Add more fields as needed -->
+                    `;
+                    // Display details in the modal
+                    document.getElementById('details-modal').innerHTML = detailsHtml;
+                    document.getElementById('details-modal').style.display = 'block';
+                })
+                .catch(error => console.error('Error fetching finance details:', error));
+        }
+    </script>
+    

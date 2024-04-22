@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finance Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        .detail-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <h1>Finance Detail</h1>
+        <p><strong>Customer Name:</strong> {{ data.customer_name }}</p>
+        <p><strong>Customer Email:</strong> {{ data.customer_email }}</p>
+        <p><strong>Amount Paid:</strong> {{ data.price }}</p>
+        <p><strong>Remaining Amount:</strong> {{ data.remaining_amount }}</p>
+        <p><strong>Date of Purchase:</strong> {{ data.date_of_purchase }}</p>
+        <p><strong>Property Size:</strong> {{ data.property_size }}</p>
+        <p><strong>Property Status:</strong> {{ data.property_status }}</p>
+        <p><strong>Number of Rooms:</strong> {{ data.number_of_rooms }}</p>
+        <p><strong>Bedrooms:</strong> {{ data.bedrooms }}</p>
+        <p><strong>Bathrooms:</strong> {{ data.bathrooms }}</p>
+        <p><strong>Room Floor:</strong> {{ data.room_floor }}</p>
+        <p><strong>Total Floor:</strong> {{ data.total_floor }}</p>
+        <p><strong>Year Built:</strong> {{ data.year_built }}</p>
+        <p><strong>Property Price:</strong> {{ data.property_price }}</p>
+        <p><strong>Property Image:</strong> <img src="{{ data.property_image }}" alt="Property Image"></p>
+    </div>
+</body>
+</html>
