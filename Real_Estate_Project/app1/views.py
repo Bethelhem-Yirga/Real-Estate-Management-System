@@ -912,6 +912,57 @@ def finance_detail_view(request, finance_id):
     return render(request, 'finance_detail.html', {'finance_entry': finance_entry})
 
 
+def mng(request):
+    applications = Application.objects.all()
+    applicationrent =Applicationrent.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
+    context = {
+        'applications': applications,
+        'applicationrent':applicationrent,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'soled_properties':soled_properties,
+        'rent_properties': rent_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+        
+    }
+    return render(request, 'mng.html',context)
 
+def mng_rent(request):
+    applications = Application.objects.all()
+    applicationrent =Applicationrent.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Soled').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
+    context = {
+        'applications': applications,
+        'applicationrent':applicationrent,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'soled_properties':soled_properties,
+        'rent_properties': rent_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+        
+    }
+    return render(request, 'mng_rent.html',context)
+
+    
+def application_detail(request, application_id):
+    application_obj = get_object_or_404(Application, id=application_id)
+    return render(request, 'application_detail.html', {'application_obj': application_obj})
+
+def rent_application_detail(request, application_id):
+    application_obj = get_object_or_404(Applicationrent, id=application_id)
+    return render(request, 'rent_application_detail.html', {'application_obj': application_obj})

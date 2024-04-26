@@ -126,13 +126,33 @@ class Properties(models.Model):
 
    # add_map = models.URLField(max_length=200, blank=True, null=True)
     
-class Application(models.Model):
+
+class Applicationrent(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='application', default=0)
     first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=150)
+    city = models.CharField(max_length=200)
+    sub_city = models.CharField(max_length=200, default="sub city")
+    kebele = models.CharField(max_length=200, default="Kebele")
+    work_status= models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    date_added = models.DateTimeField(default=datetime.now, blank=True)
+    
+class Application(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='application_sale', default=0)
+
+    first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100,default="middle name")
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=150)
     nationality = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    sub_city = models.CharField(max_length=200, default="sub city")
+    kebele = models.CharField(max_length=200, default="Kebele")
     work_status= models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
     marital_status = models.CharField(max_length=100)
@@ -227,18 +247,7 @@ class Report(models.Model):
         self.staff_name = ""
         self.save()
 
-class Applicationrent(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=150)
-    nationality = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
-    work_status= models.CharField(max_length=100)
-    gender = models.CharField(max_length=10)
-    date_added = models.DateTimeField(default=datetime.now, blank=True)
-    
-# models.py
+
 
 # models.py in app1 directory
 # models.py in app1 directory
