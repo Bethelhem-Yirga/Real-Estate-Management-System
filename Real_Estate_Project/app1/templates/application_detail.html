@@ -1,0 +1,45 @@
+<p><span>Property ID: </span>{{ application_obj.property.id }}</p>
+<p><span>Property Type: </span>{{ application_obj.property.propertyType }}</p>
+<p><span>Size: </span>{{ application_obj.property.size}} Sq mt</p>
+<img src="{{ application_obj.property.image.url }}" alt="img">
+
+    {{ application_obj.property.bedrooms}}
+   Bathrooms: {{ application_obj.property.bathrooms }}
+   Size: {{ application_obj.property.size}} Sq mt
+ Year Built: {{application_obj.property.year_built }}
+
+
+
+   
+ 
+      <h3>Property Details</h3>
+   
+      <p><span>Property ID: </span>{{  application_obj.property.id }}</p>
+      <p><span>Property Type: </span>{{  application_obj.property.propertyType }}</p>
+      <p><span>Size: </span>{{  application_obj.property.size}} Sq mt</p>
+ 
+    
+      <p><span>Number Of Rooms: </span>{{ application_obj.property.noOfRooms}}</p>
+      <p><span>Total Floor: </span>{{  application_obj.property.TotalFloor}}</p>
+      <p><span>Bedrooms: </span>{{  application_obj.property.bedrooms}}</p>
+   
+      <p><span>Bathrooms: </span>{{  application_obj.property.bathrooms }}</p>
+      <p><span>Price: </span>{{  application_obj.property.price }}</p>
+      <p><span>Year Built: </span>{{  application_obj.property.year_built }}</p>
+   
+ 
+    <h3>Address</h3>
+    
+      <p><span>Country: </span>{{  application_obj.property.country}}</p>
+      <p><span>City: </span>{{  application_obj.property.city}}</p>
+   
+      <p><span>Area: </span>{{  application_obj.property.area }}</p>
+    
+  
+
+      
+<h3> CUSTOMER INFO </h3>
+<p> {{application_obj.first_name}} {{application_obj.middle_name }} {{application_obj.last_name}} </p>
+</div>
+
+  

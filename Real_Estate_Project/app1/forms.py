@@ -70,13 +70,26 @@ class ContactForm(forms.ModelForm):
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
-        fields = '__all__'
+        fields = ['property','first_name','middle_name','last_name','email','phone_number','nationality','city','sub_city','kebele',
+         'work_status','gender','marital_status','partner_first_name','partner_last_name','partner_phone_number','partner_work_status',
+         'date_added','status'
+                  ]
+
+class ApplicationFormUp(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = ['status']
 
 class ApplicationForRentForm(forms.ModelForm):
     class Meta:
         model = Applicationrent
         fields = '__all__'
-        
+
+class ApplicationForRentFormUp(forms.ModelForm):
+    class Meta:
+        model = Applicationrent
+        fields = ['status']
+
         
  # forms.py in app1 directory
 
