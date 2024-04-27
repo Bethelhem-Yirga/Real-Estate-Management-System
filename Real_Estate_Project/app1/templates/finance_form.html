@@ -1,17 +1,398 @@
-<!-- finance_form.html -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Finance Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+     
+@import url('https://fonts.googleapis.com/css?family=Poppins: wght@100;200;300;400; 500;600;700; 800;900&display=swap');
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+
+}
+    
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2; /* Background color */
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+form {
+    width: 50%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    grid-column: span 2; /* Span two columns */
+}
+button[type="submit"] {
+    background-color: #0f1b2e;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    grid-column: span 2; /* Span two columns */
+}
+button[type="submit"]:hover {
+    background-color: #2b3c57;
+}
+
+
+#menu {
+background: #111827;
+width: 300px;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+}
+
+#menu .logo{
+display: flex;
+align-items: center;
+color: #fff;
+padding: 30px 0 0 30px;
+ }
+
+
+ #menu .logo img {
+     width: 40px;
+     margin-right: 15px;
+}
+
+#menu .items {
+    margin-top: 40px;
+}
+
+
+#menu .items li{
+list-style: none; 
+padding: 3px 0;
+transition: 0.3s ease;
+}
+
+#menu .items li i{
+color: rgb(134, 141, 151);
+width: 30px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+font-size: 14px;
+margin: 10px 0 25px;
+
+}
+
+#menu .items li i a{
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+}
+
+
+#menu .items li:hover{
+    background: #253847; 
+    cursor: pointer;
+}
+
+#menu .items li:nth-child(1)
+{ 
+    border-left: 4px solid #fff;
+}
+
+
+#menu .items li:hover i,
+#menu .items li:hover a { 
+    color: #F3F4F6;
+}
+#menu .items li a {
+    text-decoration: none;
+color: rgb(134, 141, 151);
+font-weight: 300px;
+transition: 0.3s ease;
+}
+
+
+#interface {
+width: calc(100% - 300px);
+margin-left: 300px;
+position: relative;
+}
+
+#interface .navigation {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #fff;
+padding: 15px 30px;
+border-bottom: 3px solid #594ef7;
+position: fixed;
+width: calc(100% - 300px);
+ }
+
+ 
+#interface .navigation .search {
+    display: flex;
+justify-content: flex-start; align-items: center;
+padding: 10px 14px;
+border: 1px solid #d7dbe6;
+border-radius: 4px;
+}
+
+#interface .navigation .search i {
+margin-right: 14px;
+}
+
+
+#interface .navigation .search input {
+border: none; outline: none;
+font-size: 14px;
+}
+
+
+#interface .navigation .profile {
+display: flex;
+justify-content: flex-start; 
+align-items: center;
+}
+
+#interface .navigation .profile i {
+margin-right: 20px;
+font-size: 19px; 
+font-weight: 400;
+}
+
+
+#interface .navigation .profile img {
+    width: 55px; 
+    height: 55px;
+    object-fit: cover; 
+    border-radius: 50%;
+}
+
+.n1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#menu-btn{
+    color: #2b2b2b;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.i-name {
+color: #444a53;
+padding: 30px 30px 0 30px;
+font-size: 24px;
+font-weight: 700;
+margin-top: 70px;
+}
+
+.values {
+padding: 30px 30px 0 30px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap:wrap ;
+}
+
+
+.values .val-box { 
+    background: #fff; 
+    width: 235px;
+    padding: 16px 20px;
+    border-radius: 5px; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.values .val-box i { 
+font-size: 25px; width: 60px; height: 60px;
+line-height: 60px; border-radius: 50%;
+text-align: center;
+color: #fff;
+
+margin-right: 15px;
+}
+
+.values .val-box:nth-child(1) i{
+    background: #111827;
+}
+
+.values .val-box:nth-child(2) i{
+    background: #4b6aad;
+}
+
+.values .val-box:nth-child(3) i{
+    background: #0a3288;
+}
+
+
+
+
+.values .val-box h3 { 
+    font-size: 18px; 
+    font-weight: 600;
+}
+
+.values .val-box span {
+   font-size: 15px;
+   color: #828997;
+}
+
+
+.board {
+width: 94%;
+margin: 30px 0 30px 30px;
+overflow: auto;
+background: #fff; 
+border-radius: 8px;
+
+}
+
+
+
+.board img { 
+width: 45px;
+height: 45px;
+object-fit: cover; border-radius: 50%;
+margin-right: 15px;
+}
+
+.board h5{
+font-weight: 600; 
+font-size: 14px;
+ }
+
+ 
+.board p {
+font-weight: 400; 
+font-size: 13px; 
+color: #787d8d;
+}
+
+.board .people{
+    display: flex;
+}
+
+
+.board .people {
+display: flex;
+justify-content: flex-start;
+ align-items: center; 
+ text-align: start;
+}
+
+table{
+border-collapse: collapse;
+}
+
+tr{
+border-bottom: 1px solid #eef0f3;
+}
+
+
+thead td {
+font-size: 14px;
+text-transform: uppercase;
+font-weight: 400;
+background:#F9FAFB;
+text-align: start;
+padding: 15px;
+}
+
+tbody tr td{
+    padding: 10px 15px;
+}
+
+ 
+    </style>
 </head>
 <body>
-    <h1>Finance Form</h1>
+    
+        <section id="menu">
+
+           <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="Logo">
+             
+           </div>
+
+          <div class="items">
+            
+                <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+                <li><i class="fas fa-th-large"></i><a href="{% url 'finance_with_property_data' %}">Report</a></li>
+                <li><i class="fas fa-edit"></i></i><a href="{% url 'finance_form' %}">form </a></li>
+                <li><i class="fa-solid fa-message"></i><a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">send email </a></li>
+                <li> <i class="fa-sharp fa-solid fa-circle-info"></i></i><a href="https://dashboard.stripe.com/test/dashboard">Detail</a></li>
+                <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+          </div>
+
+        </section>
+
+        
+       
+
+  
+<body>
+    <h1>Report Form</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        
+        <label for="id_property_id">Property ID:</label><br>
+        {{ form.property_id }}
+        <label for="id_customer_name">Customer Name:</label><br>
+        {{ form.customer_name }}
+        <label for="id_customer_email">Customer Email:</label><br>
+        {{ form.customer_email }}
+
+        <label for="id_price">Amout of paid:</label><br>
+        {{ form.price }}
+
+        <label for="id_remaining_amount">Remaining Amount:</label><br>
+        {{ form.remaining_amount }}
+
+        <label for="id_date_of_purchase">Date of Purchase:</label><br>
+        {{ form.date_of_purchase }}
+
+        
+     
         <button type="submit">Submit</button>
     </form>
+    
+</head>
 </body>
 </html>

@@ -89,12 +89,8 @@ class ApplicationForRentFormUp(forms.ModelForm):
         
  # forms.py in app1 directory
 
-# forms.py in app1 directory
-# forms.py in app1 directory
-
 from django import forms
-from .models import Finance
-  # Adjust the import path based on your project structure
+from .models import Finance, Properties
 
 class FinanceForm(forms.ModelForm):
     property_id = forms.IntegerField()  # Field for entering property ID
@@ -110,6 +106,7 @@ class FinanceForm(forms.ModelForm):
         except Properties.DoesNotExist:
             raise forms.ValidationError("Property ID does not exist")
         return property_obj
+
 
 
 

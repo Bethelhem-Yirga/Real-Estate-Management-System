@@ -854,7 +854,7 @@ def finance_form(request):
             finance_instance = form.save(commit=False)
             finance_instance.property = form.cleaned_data['property_id']
             finance_instance.save()
-            return redirect('login')  # Redirect to a success page
+            return redirect('finance_with_property_data')  # Redirect to a success page
     else:
         form = FinanceForm()
     return render(request, 'finance_form.html', {'form': form})
