@@ -54,6 +54,7 @@ urlpatterns = [
     path('rented/', views.rented, name='rented'),
     path('finance/', finance_form, name='finance_form'),
     path('financedata/', finance_with_property_data, name='finance_with_property_data'),
+    
 path('api/finance/<int:finance_id>/', views.finance_detail_api, name='finance_detail_api'),
     # Add other URLs as needed
 

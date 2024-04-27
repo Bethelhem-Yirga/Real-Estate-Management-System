@@ -1,95 +1,426 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Finance report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+     
+@import url('https://fonts.googleapis.com/css?family=Poppins: wght@100;200;300;400; 500;600;700; 800;900&display=swap');
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+}
+body {
+width: 100%;
+background:#E5E7EB;
+position: relative;
+display: flex;
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid #ccc;
-        }
+}
 
-        th, td {
-            padding: 8px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
+#menu {
+background: #111827;
+width: 300px;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+}
 
-        th {
-            background-color: #f2f2f2;
-            color: #333;
-        }
+#menu .logo{
+display: flex;
+align-items: center;
+color: #fff;
+padding: 30px 0 0 30px;
+ }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
+ #menu .logo img {
+     width: 40px;
+     margin-right: 15px;
+}
 
-        img {
-            max-width: 100px;
-            max-height: 100px;
-            display: block;
-            margin: auto;
-        }
+#menu .items {
+    margin-top: 40px;
+}
 
-        .detail-button {
-            cursor: pointer;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
+
+#menu .items li{
+list-style: none; 
+padding: 3px 0;
+transition: 0.3s ease;
+}
+
+#menu .items li i{
+color: rgb(134, 141, 151);
+width: 30px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+font-size: 14px;
+margin: 10px 0 25px;
+
+}
+
+#menu .items li i a{
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+}
+
+
+#menu .items li:hover{
+    background: #253847; 
+    cursor: pointer;
+}
+
+#menu .items li:nth-child(1)
+{ 
+    border-left: 4px solid #fff;
+}
+
+
+#menu .items li:hover i,
+#menu .items li:hover a { 
+    color: #F3F4F6;
+}
+#menu .items li a {
+    text-decoration: none;
+color: rgb(134, 141, 151);
+font-weight: 300px;
+transition: 0.3s ease;
+}
+
+
+#interface {
+width: calc(100% - 300px);
+margin-left: 300px;
+position: relative;
+}
+
+#interface .navigation {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #fff;
+padding: 15px 30px;
+border-bottom: 3px solid #594ef7;
+position: fixed;
+width: calc(100% - 300px);
+ }
+
+ 
+#interface .navigation .search {
+    display: flex;
+justify-content: flex-start; align-items: center;
+padding: 10px 14px;
+border: 1px solid #d7dbe6;
+border-radius: 4px;
+}
+
+#interface .navigation .search i {
+margin-right: 14px;
+}
+
+
+#interface .navigation .search input {
+border: none; outline: none;
+font-size: 14px;
+}
+
+
+#interface .navigation .profile {
+display: flex;
+justify-content: flex-start; 
+align-items: center;
+}
+
+#interface .navigation .profile i {
+margin-right: 20px;
+font-size: 19px; 
+font-weight: 400;
+}
+
+
+#interface .navigation .profile img {
+    width: 55px; 
+    height: 55px;
+    object-fit: cover; 
+    border-radius: 50%;
+}
+
+.n1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#menu-btn{
+    color: #2b2b2b;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 50px;
+}
+
+.i-name {
+color: #444a53;
+padding: 30px 30px 0 30px;
+font-size: 24px;
+font-weight: 700;
+margin-top: 70px;
+}
+
+.values {
+padding: 30px 30px 0 30px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap:wrap ;
+}
+
+
+.values .val-box { 
+    background: #fff; 
+    width: 235px;
+    padding: 16px 20px;
+    border-radius: 5px; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.values .val-box i { 
+font-size: 25px; width: 60px; height: 60px;
+line-height: 60px; border-radius: 50%;
+text-align: center;
+color: #fff;
+
+margin-right: 15px;
+}
+
+.values .val-box:nth-child(1) i{
+    background: #111827;
+}
+
+.values .val-box:nth-child(2) i{
+    background: #4b6aad;
+}
+
+.values .val-box:nth-child(3) i{
+    background: #0a3288;
+}
+
+
+
+
+.values .val-box h3 { 
+    font-size: 18px; 
+    font-weight: 600;
+}
+
+.values .val-box span {
+   font-size: 15px;
+   color: #828997;
+}
+
+
+.board {
+width: 94%;
+margin: 30px 0 30px 30px;
+overflow: auto;
+background: #fff; 
+border-radius: 8px;
+
+}
+
+
+
+.board img { 
+width: 45px;
+height: 45px;
+object-fit: cover; border-radius: 50%;
+margin-right: 15px;
+}
+
+.board h5{
+font-weight: 600; 
+font-size: 14px;
+ }
+
+ 
+.board p {
+font-weight: 400; 
+font-size: 13px; 
+color: #787d8d;
+}
+
+.board .people{
+    display: flex;
+}
+
+
+.board .people {
+display: flex;
+justify-content: flex-start;
+ align-items: center; 
+ text-align: start;
+}
+
+table{
+border-collapse: collapse;
+}
+
+tr{
+border-bottom: 1px solid #eef0f3;
+}
+
+
+thead td {
+font-size: 14px;
+text-transform: uppercase;
+font-weight: 400;
+background:#F9FAFB;
+text-align: start;
+padding: 15px;
+}
+
+tbody tr td{
+    padding: 10px 15px;
+}
+
+ 
     </style>
 </head>
 <body>
-    <h1>Finance report</h1>
     
-    <table>
-        <thead>
-            <tr>
-                <th>Customer Name</th>
-                <th>Customer Email</th>
-                <th>Amount Paid</th>
-                <th>Remaining Amount</th>
-                <th>Date of Purchase</th>
-                <th>Property Size</th>
-                <th>Property Status</th>
-          
-                <th>Property Image</th>
-                <th>Actions</th> <!-- New column for detail button -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for finance_entry in finance_entries %}
-            <tr>
-                <td>{{ finance_entry.customer_name }}</td>
-                <td>{{ finance_entry.customer_email }}</td>
-                <td>{{ finance_entry.price }}</td>
-                <td>{{ finance_entry.remaining_amount }}</td>
-                <td>{{ finance_entry.date_of_purchase }}</td>
-                <td>{{ finance_entry.property.size }}</td>
-                <td>{{ finance_entry.property.status }}</td>
-               
-                <td><img src="{{ finance_entry.property.image.url }}" alt="Property Image"></td>
-                <td><button class="detail-button" onclick="showDetails('{{ finance_entry.id }}')">Details</button></td> <!-- Detail button -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <section id="menu">
+
+           <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="Logo">
+             
+           </div>
+
+          <div class="items">
+                <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+                <li><i class="fas fa-th-large"></i><a href="{% url 'finance_with_property_data' %}">Report</a></li>
+                <li><i class="fas fa-edit"></i></i><a href="{% url 'finance_form' %}">form </a></li>
+                <li><i class="fa-solid fa-message"></i><a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">send email </a></li>
+                <li> <i class="fa-sharp fa-solid fa-circle-info"></i></i><a href="https://dashboard.stripe.com/test/dashboard">Detail</a></li>
+                <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+          </div>
+
+        </section>
+
+        
+        <section id="interface"> 
+            <div class="navigation"> 
+                <div class="n1">
+
+                    <div>
+                        <i id="menu-btn" class="fa-fa-bars"></i>
+                    </div>
+
+
+                   
+               </div>
+
+               <div class="profile">
+                  
+                  <img src="img/sp1.jpg" alt="">
+              </div>
+            </div>
+
+            
+        <h3 class="i-name"> 
+            Dashboard
+        </h3>
+I
+
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Customer info </td>
+                        <td>Amount price </td>
+                        <td>Status</td>
+                        <td>Date of purchase </td>
+                        <td>Size  </td>
+                        <td>Photo  </td>
+                        <td>Detail  </td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for finance_entry in finance_entries %}
+                  <tr>
+
+                    
+                    <td class="people">
+                     
+                        <div class="people-de">
+                            <h5>{{ finance_entry.customer_name }}</h5>
+                            <p>{{ finance_entry.customer_email }}</p>
+                        </div>
+                    </td>
+
+                    <td class="people-des">
+                            <h5>{{ finance_entry.price }}</h5>
+                            <p> {{ finance_entry.remaining_amount }}</p>
+                    </td>
+
+                    <td class="active">
+                        <p>{{ finance_entry.property.status }}</p>
+                    </td>
+
+                    <td class="role">
+                        <p>{{ finance_entry.date_of_purchase }}</p>
+           
+                    </td>
+                    <td class="role">
+                
+                  <P>{{ finance_entry.property.size }}</p>
+                </td>
+                <td class="people">
+                    <img src="{{ finance_entry.property.image.url }}">
+                    <div class="people-de">
+                       
+                    </div>
+                </td>
+                <td class="role">
+                  
+                    
+                        <button class="detail-button" onclick="showDetails('{{ finance_entry.id }}')">Details</button>
+            
+                </td>
+                  </tr>
+
+                  {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+       
+
+      </section>
+        
+</body>
+</html>
+    
+</head>
+
+ 
+    
+   
 
     <div id="details-modal" style="display: none;"> <!-- Modal for displaying details -->
         <!-- Details will be displayed here -->

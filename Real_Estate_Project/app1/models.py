@@ -256,7 +256,10 @@ class Finance(models.Model):
     purchase_or_rent = models.CharField(max_length=10, choices=[('buy', 'Buy'), ('rent', 'Rent')])
     remaining_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     rent_duration = models.CharField(max_length=100, null=True, blank=True)
-
+    def update_property_status(self, new_status):
+        # Update the status of the associated property
+        self.property.status = new_status
+        self.property.save()
     def __str__(self):
         return f"{self.customer_name}'s Finance"
 
