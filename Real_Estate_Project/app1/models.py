@@ -127,6 +127,10 @@ class Properties(models.Model):
     wifi = models.BooleanField(default=False)
 
    # add_map = models.URLField(max_length=200, blank=True, null=True)
+
+
+
+
 def validate_no_space(value):
     if ' ' in value:
         raise ValidationError("Kebele cannot contain spaces.")   
@@ -156,7 +160,7 @@ class Applicationrent(models.Model):
                                     validators=[RegexValidator(r'^\d{10,15}$',
                                                                message="Phone number should be 10 to 15 digits.")])
 
-    email = models.EmailField(validators=[EmailValidator(message="Enter a valid email address.")],unique=True)
+    email = models.EmailField(validators=[EmailValidator(message="Enter a valid email address.")])
     def clean(self):
       
         super().clean()
@@ -219,7 +223,7 @@ class Applicationrent(models.Model):
  
 
         
-
+"""
 
 class Application(models.Model):
     property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='application_sale', default=0)
@@ -328,6 +332,107 @@ class Application(models.Model):
                                      message="Phone number should be 10 to 15 digits.")
                                      ])                     
     partner_work_status = models.CharField(max_length=100, blank=True, null=True,choices=WORK_CHOICES)
+   # date_added = models.DateTimeField(default=datetime.now, blank=True)
+
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+"""
+     
+
+class Application(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='application_sale', default=0)
+
+    first_name = models.CharField(max_length=100, validators=[
+        RegexValidator(r'^[A-Za-z]*$', message="First name should contain only alphabetic characters."),
+        RegexValidator(r'^[^\s]+$', message="First name should not contain spaces.")
+    ])
+    middle_name = models.CharField(max_length=100, default="middle name", validators=[
+        RegexValidator(r'^[A-Za-z]*$', message="Middle name should contain only alphabetic characters."),
+        RegexValidator(r'^[^\s]+$', message="Middle name should not contain spaces.")
+    ])
+    last_name = models.CharField(max_length=100, validators=[
+        RegexValidator(r'^[A-Za-z]*$', message="Last name should contain only alphabetic characters."),
+        RegexValidator(r'^[^\s]+$', message="Last name should not contain spaces.")
+    ])
+    email = models.EmailField(validators=[EmailValidator(message="Enter a valid email address.")])
+
+    phone_number = models.CharField(max_length=150, validators=[
+        RegexValidator(r'^\d{10,15}$', message="Phone number should be 10 to 15 digits.")
+    ])
+
+    NATIONALITY_CHOICES = [
+        ('Ethiopian', 'Ethiopian'),
+        ('Other', 'Other'),
+    ]
+    nationality = models.CharField(max_length=100, choices=NATIONALITY_CHOICES, default='Ethiopian')
+
+    city = models.CharField(
+        max_length=200,
+        validators=[
+            RegexValidator(
+                regex=r'^[a-zA-Z\s]+$',
+                message='City name can only contain letters.',
+                code='invalid_city_name'
+            )
+        ]
+    )
+
+    sub_city = models.CharField(
+        max_length=200,
+        default="sub city",
+        validators=[
+            RegexValidator(
+                regex=r'^[a-zA-Z\s]+$',
+                message='Sub City name can only contain letters.',
+                code='invalid_sub_city_name'
+            )
+        ]
+    )
+
+    kebele = models.CharField(
+        max_length=200,
+        default="Kebele",
+        validators=[validate_no_space]
+    )
+
+    WORK_CHOICES = [
+        ('Employed', 'Employed'),
+        ('Self-employed', 'Self-employed'),
+    ]
+    work_status = models.CharField(max_length=100, choices=WORK_CHOICES)
+
+    GENDER_CHOICES = [
+        ('Female', 'Female'),
+        ('Male', 'Male'),
+    ]
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+
+    MARITAL_STATUS_CHOICES = [
+        ('Single', 'Single'),
+        ('Married', 'Married'),
+    ]
+    marital_status = models.CharField(max_length=100, choices=MARITAL_STATUS_CHOICES)
+
+    partner_first_name = models.CharField(max_length=100, blank=True, null=True, validators=[
+        RegexValidator(r'^[A-Za-z]*$', message="First name should contain only alphabetic characters."),
+        RegexValidator(r'^[^\s]+$', message="Partner First name should not contain spaces.")
+    ])
+
+    partner_last_name = models.CharField(max_length=100, blank=True, null=True, validators=[
+        RegexValidator(r'^[A-Za-z]*$', message="First name should contain only alphabetic characters."),
+        RegexValidator(r'^[^\s]+$', message="Partner Last name should not contain spaces.")
+    ])
+
+    partner_phone_number = models.CharField(max_length=150, blank=True, null=True, validators=[
+        RegexValidator(r'^\d{10,15}$', message="Phone number should be 10 to 15 digits.")
+    ])
+
+    partner_work_status = models.CharField(max_length=100, blank=True, null=True, choices=WORK_CHOICES)
+
     date_added = models.DateTimeField(default=datetime.now, blank=True)
 
     STATUS_CHOICES = [
@@ -337,7 +442,7 @@ class Application(models.Model):
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
-     
+
 class Maintenance(models.Model):
     email = models.EmailField()
     building_number = models.CharField(max_length=100)

@@ -1,5 +1,206 @@
-<form id="myForm" method="POST" action="{% url 'application_for_sale' property.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+<style>
+    /* Form container */
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top:10px;
+    }
+    
+    /* Form labels */
+    .form-container label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    
+    /* Form input fields */
+    .form-container input,
+    .form-container select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    
+    /* Error messages */
+    .form-container .errors {
+        color: red;
+        margin-top: -8px;
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+    
+    /* Submit button */
+    .form-container button[type="submit"] {
+        background-color: #c7c73a;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    
+    
+    /* Married fields */
+    .married-fields {
+        display: none;
+    }
+    
+  </style>
+
+</head>
+
+<header class="header">
+    <nav class="nav container">
+       <div class="nav__data">
+          
+          <a href="/" class="nav__logo">
+           <img src="{% static 'img/logo.png' %}" alt="logo" >
+          </a>
+          
+          <div class="nav__toggle" id="nav-toggle">
+             <i class="ri-menu-line nav__burger"></i>
+             <i class="ri-close-line nav__close"></i>
+          </div>
+
+       </div>
+
+       
+       <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+             <li><a href="/" class="nav__link">Home</a></li>
+             <li><a href="{% url 'property_listing' %}" class="nav__link">listing</a></li>
+             <li><a href="/salespersons" class="nav__link">salesperson</a></li>
+            
+             <li><a href="{% url 'contact_us' %}" class="nav__link">Contact</a></li>
+             <li><a href="{% url 'about' %}" class="nav__link">About</a></li>
+             
+
+              
+
+             
+          </ul>
+       </div>
+    </nav>
+</header>
+
+  
+  <div class="form-container">
+    
+    <form id="myForm" method="POST" action="{% url 'application_for_sale' property.id %}">
+        
+      {% csrf_token %}
+      
+      <select name="property" id="id_property">
+        {% for property in properties %}
+          <option value="{{ property.id }}" {% if property.id == selected_property_id %}selected{% endif %}>
+            {{ property.name }}
+          </option>
+        {% endfor %}
+      </select>
+      
+      {% for field in form.visible_fields %}
+      {% if field.name != 'status' %}
+          <div class="form-group {% if field.name == 'partner_first_name' or field.name == 'partner_last_name' or field.name == 'partner_phone_number' or field.name == 'partner_work_status' %}married-fields{% endif %}">
+              <label for="{{ field.auto_id }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                  <ul class="errors">
+                      {% for error in field.errors %}
+                          <li>{{ error }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          </div>
+      {% endif %}
+  {% endfor %}
+  
+      
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  
+  <footer class="footer" style="margin-top:30%">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <p>Monday - Friday: 8:00AM-5:00PM</p>
+                <p>Saturday: 8:00AM-12:00PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Address</h3>
+                <p>Behar Building, 9th floor, Africa Avenue,</p>
+                <p>Addis Ababa, Ethiopia</p>
+                <p>Tel: +251-114670669</p>
+                <p>Fax: +251-114652154</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/giftatofficial/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@GIFTBusinessGroup"><i class="fab fa-youtube"></i></a>
+                    <a href="https://t.me/giftbusinessgroup"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+  </footer>
+
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const maritalStatusField = document.querySelector('#id_marital_status');
+      const marriedFields = document.querySelectorAll('.married-fields');
+  
+      // Initially hide married fields
+      marriedFields.forEach(function(field) {
+        field.style.display = 'none';
+      });
+  
+      // Function to toggle visibility of married fields
+      function toggleMarriedFields() {
+        if (maritalStatusField.value === 'Married') {
+          marriedFields.forEach(function(field) {
+            field.style.display = 'block';
+          });
+        } else {
+          marriedFields.forEach(function(field) {
+            field.style.display = 'none';
+          });
+        }
+      }
+  
+      // Call toggleMarriedFields on page load
+      toggleMarriedFields();
+  
+      // Listen for changes in marital status field
+      maritalStatusField.addEventListener('change', toggleMarriedFields);
+    });
+  </script>
+  

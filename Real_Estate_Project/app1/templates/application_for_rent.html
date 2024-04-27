@@ -1,5 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+<style>
+    /* Form container */
+#myForm {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top:60px;
+}
+
+/* Form fields */
+.form-field {
+  margin-bottom: 20px;
+}
+
+.form-field label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Error message */
+.error {
+    color: red;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    font-size: 12px;
+   
+}
+
+/* Submit button */
+button[type="submit"] {
+    background-color: #c7c73a;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+
+
+
+</style>
+
+</head>
+
+<header class="header">
+    <nav class="nav container">
+       <div class="nav__data">
+          
+          <a href="/" class="nav__logo">
+           <img src="{% static 'img/logo.png' %}" alt="logo" >
+          </a>
+          
+          <div class="nav__toggle" id="nav-toggle">
+             <i class="ri-menu-line nav__burger"></i>
+             <i class="ri-close-line nav__close"></i>
+          </div>
+
+       </div>
+
+       
+       <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+             <li><a href="/" class="nav__link">Home</a></li>
+             <li><a href="{% url 'property_listing' %}" class="nav__link">listing</a></li>
+             <li><a href="/salespersons" class="nav__link">salesperson</a></li>
+             
+             <li><a href="{% url 'contact_us' %}" class="nav__link">Contact</a></li>
+             <li><a href="{% url 'about' %}" class="nav__link">About</a></li>
+            
+              
+
+             
+          </ul>
+       </div>
+    </nav>
+</header>
+
 <form id="myForm" method="POST" action="{% url 'application_for_rent' property.id %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    
+    <div class="form-field">
+        <label for="id_property">Select Property:</label>
+        {{ form.property }}
+    </div>
+    
+    <div class="form-field">
+        <label for="id_first_name">First Name:</label>
+        {{ form.first_name }}
+        <span class="error">{{ form.first_name.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_middle_name">Middle Name:</label>
+        {{ form.middle_name }}
+        <span class="error">{{ form.middle_name.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_last_name">Last Name:</label>
+        {{ form.last_name }}
+        <span class="error">{{ form.last_name.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_phone_number">Phone Number:</label>
+        {{ form.phone_number }}
+        <span class="error">{{ form.phone_number.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_email">Email:</label>
+        {{ form.email }}
+        <span class="error">{{ form.email.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_city">City:</label>
+        {{ form.city }}
+        <span class="error">{{ form.city.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_sub_city">Sub City:</label>
+        {{ form.sub_city }}
+        <span class="error">{{ form.sub_city.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_kebele">Kebele:</label>
+        {{ form.kebele }}
+        <span class="error">{{ form.kebele.errors }}</span>
+    </div>
+    
+    <div class="form-field">
+        <label for="id_work_status">Work Status:</label>
+        {{ form.work_status }}
+    </div>
+    
+    <div class="form-field">
+        <label for="id_gender">Gender:</label>
+        {{ form.gender }}
+    </div>
+    
+   
+    
     <button type="submit">Submit</button>
 </form>
+
+
+
+<footer class="footer" style="margin-top:30%">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <p>Monday - Friday: 8:00AM-5:00PM</p>
+                <p>Saturday: 8:00AM-12:00PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Address</h3>
+                <p>Behar Building, 9th floor, Africa Avenue,</p>
+                <p>Addis Ababa, Ethiopia</p>
+                <p>Tel: +251-114670669</p>
+                <p>Fax: +251-114652154</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/giftatofficial/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@GIFTBusinessGroup"><i class="fab fa-youtube"></i></a>
+                    <a href="https://t.me/giftbusinessgroup"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+  </footer>
+

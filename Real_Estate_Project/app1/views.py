@@ -171,7 +171,8 @@ def application_for_sale(request,property_id):
 
         if form.is_valid():
             form.save()  # Save the form data as a new Application instance
-            # Additional logic after successful form submission
+            return redirect('property_listing')
+
 
      context = {
         'property': property,
@@ -189,7 +190,8 @@ def application_for_rent(request,property_id):
 
         if form.is_valid():
             form.save()  # Save the form data as a new Application instance
-            # Additional logic after successful form submission
+            return redirect('property_listing')
+
 
      context = {
         'property': property,
