@@ -59,7 +59,10 @@ urlpatterns = [
     path('mng/', views.mng, name='mng'),
     path('mng_rent/', views.mng_rent, name='mng_rent'),
     path('application_detail/<int:application_id>/', views.application_detail, name='application_detail'),
-     path('rent_application_detail/<int:application_id>/', views.rent_application_detail, name='rent_application_detail'),
+    path('rent_application_detail/<int:application_id>/', views.rent_application_detail, name='rent_application_detail'),
+    path('update_application/<int:application_id>/', views.update_application, name='update_application'),
+    path('update_application_rent/<int:application_id>/', views.update_application_rent, name='update_application_rent'),
+ 
     # Add other URLs as needed
 
 ]

@@ -436,13 +436,13 @@ tbody tr td{
 
                             <td class="role">
                                 <p>
-                                    <a href="#">Status</a>  
+                                    <a href="{% url 'update_application_rent' application_id=x.id %}">{{x.status}}</a> 
                                 </p>
                             </td>
 
                             <td class="role">
                                 <p>
-                                    <a href="{% url 'rent_application_detail' application_id=x.id %}">detail</a>
+                                    <a href="{% url 'rent_application_detail' application_id=x.id %}"><i class="fa-solid fa-eye" style="color: #787d8d;"></i> </a>
                                 </p>
                             </td>
                         </tr>

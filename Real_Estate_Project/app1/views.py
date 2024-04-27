@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
 from .models import Employee, MarketingManager, Registration
-from .forms import ApplicationForRentForm, ProfileForm, RegistrationForm 
+from .forms import ApplicationForRentForm, ApplicationForRentFormUp, ApplicationFormUp, ProfileForm, RegistrationForm 
 
 from .forms import ContactForm, ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
@@ -966,3 +966,34 @@ def application_detail(request, application_id):
 def rent_application_detail(request, application_id):
     application_obj = get_object_or_404(Applicationrent, id=application_id)
     return render(request, 'rent_application_detail.html', {'application_obj': application_obj})
+
+def update_application(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+
+    if request.method == 'POST':
+        form = ApplicationFormUp(request.POST, instance=application)
+        if form.is_valid():
+            application.status = form.cleaned_data['status']
+            application.save()
+            return redirect('mng')
+    else:
+        form = ApplicationFormUp(instance=application)
+
+    return render(request, 'update_application.html', {'form': form})
+
+
+def update_application_rent(request, application_id):
+    application = get_object_or_404(Applicationrent, id=application_id)
+
+    if request.method == 'POST':
+        form = ApplicationForRentFormUp(request.POST, instance=application)
+        if form.is_valid():
+            application.status = form.cleaned_data['status']
+            application.save()
+            return redirect('mng_rent')
+    else:
+        form = ApplicationForRentFormUp(instance=application)
+
+    return render(request, 'update_application_rent.html', {'form': form})
+
+
