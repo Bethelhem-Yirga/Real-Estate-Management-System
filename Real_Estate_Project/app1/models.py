@@ -470,7 +470,7 @@ class ContactMessage(models.Model):
     message = models.TextField()
    
     created_at = models.DateTimeField(auto_now_add=True)
-
+"""
     def clean(self):
         # Call custom validation methods for specific fields
         self.validate_email()
@@ -495,9 +495,9 @@ class ContactMessage(models.Model):
     def validate_message(self):
         if len(self.message) < 10:
             raise ValidationError("Message must be at least 10 characters long.")
+"""
+    
 
-    def __str__(self):
-        return self.subject
 from django.db import models
 
 class Maintenance(models.Model):

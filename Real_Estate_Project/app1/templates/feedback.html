@@ -65,95 +65,44 @@
             Dashboard
         </h3>
 .
-        <div class="values">
-            <div class="val-box">
-                <i class="fa-solid fa-house-chimney"></i>
-                <div>
-                    <a href="{% url 'mrk_mng' %}"><h3>{{ total_properties }}</h3></a>
-                   <span>total_properties</span>
-                </div>
-            </div>
-
-            <div class="val-box for-sale">
-                <i class="fa-solid fa-house-chimney"></i>
-                <div>
-                    <a href="{% url 'forsale' %}"><h3>For sale</h3></a>
-                   <span>{{ sale_properties }}</span>
-                </div>
-            </div>
-
-            <div class="val-box">
-             
-                <i class="fa-solid fa-house-chimney"></i>
-                <div>
-                    <a href="{% url 'forent' %}"> <h3>For rent</h3></a> 
-                   <span>{{ rent_properties }}</span>
-                </div>
-            </div>
      
-
-        </div>
-
-        
-        <div class="values">
-            <div class="val-box">
-                <i class="fa-solid fa-house-circle-check"></i>
-                <div>
-                <a href="{% url 'soled' %}"><h3>{{ soled_properties }}</h3></a>
-                   <span>Soled</span>
-                </div>
-            </div>
-
-            <div class="val-box">
-                <i class="fa-solid fa-house-circle-check"></i>
-                <div>
-                    <a href="{% url 'rented' %}"><h3>Rented</h3></a>
-                   <span>{{rented_properties}}</span>
-                </div>
-            </div>
-
-            
-        </div>
-
-
         <div class="board">
             <table width="100%">
                 <thead>
                     <tr>
-                        <td>Type</td>
-                        <td>Address</td>
-                        <td>Status</td>
-                        <td>Action</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Subject</td>
+                        <td>Messages</td>
                         
                     </tr>
                 </thead>
 
                 <tbody>
-                    {% for x in all_info %}
+                    {% for x in feedback %}
                   <tr>
 
                     
                     <td class="people">
-                        <img src="{{ x.image.url }}">
+                        
                         <div class="people-de">
-                            <h5>{{x.propertyType}}</h5>
-                            <p>id {{ x.id}}</p>
+                            <h5>{{x.name}} {{x.last_name}}</h5>
+                          
                         </div>
                     </td>
 
                     <td class="people-des">
-                            <h5>{{ x.city}}</h5>
-                            <p>{{ x.area}}</p>
+                            <h5>{{ x.email}}</h5>
+                         
                     </td>
 
                     <td class="active">
-                        <p>{{ x.status}}</p>
+                        <h5>{{ x.subject}}</h5>
                     </td>
 
                     <td class="role">
                         <p>
-                            <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square "  style="color: #787d8d;"></i></a>
-                            <a href="{% url 'property_detail' property_id=x.id %}"><i class="fa-solid fa-eye" style="color: #787d8d;"></i></a>
+                            <h5>{{ x.message}}</h5> 
                         </p>
                     </td>
 

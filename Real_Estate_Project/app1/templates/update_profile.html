@@ -1,0 +1,13 @@
+<form method="post" action="{% url 'update_profile' employee.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" value="{{ employee.first_name }}" required>
+    
+    <!-- Other form fields for updating the profile -->
+    
+    <label for="img">Profile Image:</label>
+    <input type="file" id="img" name="img">
+    
+    <button type="submit">Update Profile</button>
+</form>

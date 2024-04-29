@@ -3,6 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/salesperson.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
     <style>
@@ -22,28 +23,52 @@
             align-items: center;
       
         }
-      
+        body{
+            background:#ffffff;
+        }
+        .invalid {
+            border: 1px solid red;
+          }
        
     </style>
 </head>
 <body>
 
+    <header class="header">
+        <nav class="nav container">
+           <div class="nav__data">
+              
+              <a href="#" class="nav__logo">
+               <img src="{% static 'img/logo.png' %}" alt="logo" >
+              </a>
+              
+              <div class="nav__toggle" id="nav-toggle">
+                 <i class="ri-menu-line nav__burger"></i>
+                 <i class="ri-close-line nav__close"></i>
+              </div>
+           </div>
 
-  <section class="contact-section">
+           
+           <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li><a href="/" class="nav__link">Home</a></li>
+               
+               <li><a href="/salespersons" class="nav__link">salesperson</a></li>
+               
+               <li><a href="{% url 'contact_us' %}" class="nav__link">feedback</a></li>
+               <li><a href="{% url 'about' %}" class="nav__link">About</a></li>
+
+               
+
+               
+            </ul>
+         </div>
+        </nav>
+     </header>
+
+  <section class="contact-section" style="margin-top:20%">
        
-    <div class="contact-bg">
-        <h3>Get in Touch With Us</h3>
-        <h2>contact us</h2>
-    
-        <div class="line">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <p class="txt">
-            <a href="/" >Home</a> / contact_us
-        </p>
-    </div>
+  
 
     {% if messages %}
         <ul class="messages">
@@ -58,25 +83,25 @@
         <div class="contact-form">
 
     
-            <form method="post">
+            <form method="post" onsubmit="return validateForm()">
                 
-                 {% csrf_token %}
+                {% csrf_token %}
+                
                  
                  <div >
                    
-                    <input type="text" name="name" placeholder="First_Name">
-                    <input type="text" name="last_name" placeholder="Last_Name">
-                   
+                    <input type="text" id="first_name" name="name" placeholder="First_Name">
+                    <input type="text" id="last_name" name="last_name" placeholder="Last_Name">
+
                  </div>
                  
                  <div >
-                    
-                     <input type="email" name="email" placeholder="Your Email">
-                     <input type="text" name="subject" placeholder="Subject">
+                    <input type="email" id="email" name="email" placeholder="Your Email">
+                    <input type="text" id="subject" name="subject" placeholder="Subject">
                     
                  </div>
 
-                     <textarea name="message" rows="4" placeholder="Message"></textarea>
+                     <textarea id="message" name="message" rows="4" placeholder="Your feedback"></textarea>
                      <button type="submit" class="send-btn">SEND MESSAGE</button>
              </form>
 
@@ -121,6 +146,57 @@
         
     </div>
 </footer>
+<script>
+    function validateForm() {
+        var firstName = document.getElementById("first_name");
+        var lastName = document.getElementById("last_name");
+        var email = document.getElementById("email");
+        var subject = document.getElementById("subject");
+        var message = document.getElementById("message");
 
+        var isValid = true;
+
+        if (firstName.value.trim() === "") {
+            firstName.classList.add("invalid");
+            isValid = false;
+        } else {
+            firstName.classList.remove("invalid");
+        }
+
+        if (lastName.value.trim() === "") {
+            lastName.classList.add("invalid");
+            isValid = false;
+        } else {
+            lastName.classList.remove("invalid");
+        }
+
+        if (email.value.trim() === "") {
+            email.classList.add("invalid");
+            isValid = false;
+        } else {
+            email.classList.remove("invalid");
+        }
+
+        if (subject.value.trim() === "") {
+            subject.classList.add("invalid");
+            isValid = false;
+        } else {
+            subject.classList.remove("invalid");
+        }
+
+        if (message.value.trim() === "") {
+            message.classList.add("invalid");
+            isValid = false;
+        } else {
+            message.classList.remove("invalid");
+        }
+
+        if (!isValid) {
+            alert("Please fill in all required fields.");
+        }
+
+        return isValid;
+    }
+</script>
 </body>
 </html>

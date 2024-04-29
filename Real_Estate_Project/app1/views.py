@@ -998,4 +998,38 @@ def update_application_rent(request, application_id):
 
     return render(request, 'update_application_rent.html', {'form': form})
 
+from django.shortcuts import render
 
+"""def send_email_to(request, email):
+    return render(request, 'send_email_to.html', {'email': email})"""""
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import HttpResponse
+
+def send_email_to(request, email, payment_link,first_name):
+    subject = 'Congratulations! Your Application Has Been Accepted.'
+    name = email.split('@')[0]  # Extract the part before '@'
+    name = name.split('.')[0]
+    message = f"Dear [{first_name}],   We are delighted to inform you that your application for Gift real estate  has been accepted! Congratulations on this significant milestone. We look forward to working with you on this exciting venture.To facilitate the payment process and ensure a seamless experience, we have created a personalized payment link exclusively for you. You can conveniently make payments by clicking on the secure payment portal below: {payment_link}"
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [email]
+
+    send_mail(subject, message, from_email, recipient_list)
+
+    return HttpResponse('Email sent successfully')  # Return a response
+    # Add any further logic or redirect the user to an appropriate page
+
+def feedback(request):
+    feedback = ContactMessage.objects.all()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
+    context = {
+        'feedback': feedback,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'feedback.html', context)
+   

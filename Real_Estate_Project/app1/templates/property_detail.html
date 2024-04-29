@@ -5,6 +5,7 @@
     <title>Property Detail</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/property_detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
     <style>
       .contact-bg {
         height: 48vh;
@@ -24,21 +25,40 @@
   </style>
 </head>
 <body>
+  <header class="header">
+    <nav class="nav container">
+       <div class="nav__data">
+          
+          <a href="/" class="nav__logo">
+           <img src="{% static 'img/logo.png' %}" alt="logo" >
+          </a>
+          
+          <div class="nav__toggle" id="nav-toggle">
+             <i class="ri-menu-line nav__burger"></i>
+             <i class="ri-close-line nav__close"></i>
+          </div>
 
-  <div class="contact-bg">
-    <h1>Property Detail</h1>
+       </div>
 
-    <div class="line">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <p class="txt">
-        <a href="/" >Home</a> / property_detail
-    </p>
-</div>
+       
+       <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+             <li><a href="/" class="nav__link">Home</a></li>
+             <li><a href="{% url 'property_listing' %}" class="nav__link">listing</a></li>
+             <li><a href="/salespersons" class="nav__link">salesperson</a></li>
 
-  
+             <li><a href="{% url 'contact_us' %}" class="nav__link">feedback</a></li>
+             <li><a href="{% url 'about' %}" class="nav__link">About</a></li>
+          
+
+              
+
+             
+          </ul>
+       </div>
+    </nav>
+</header>
+
 <div class="responsive-div gallery" style="width: 100%; max-width:120%;">
   {% if property.image %}
   <div class="gallery-item">

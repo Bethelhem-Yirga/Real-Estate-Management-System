@@ -67,4 +67,8 @@ path('api/finance/<int:finance_id>/', views.finance_detail_api, name='finance_de
     path('update_application/<int:application_id>/', views.update_application, name='update_application'),
     path('update_application_rent/<int:application_id>/', views.update_application_rent, name='update_application_rent'),
 
+path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.send_email_to, name='send_email_to'),
+
+    path('feedback/', views.feedback, name='feedback'),
+
 ]

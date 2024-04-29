@@ -307,19 +307,24 @@ tbody tr td{
                 
              </div>
 
-          <div class="items">
+         
+             <div class="items">
             
-            <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
-            <li><i class="fab fa-uikit"></i><a href="{% url 'mrk_mng' %}">Properties</a></li>
-            <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Property</a></li>
-            <li><i class="fas fa-th-large"></i><a href="{% url 'mng' %}">Appliation for sale</a></li>
-            <li><i class="fas fa-th-large"></i><a href="{% url 'mng_rent' %}">Appliation for rent</a></li>
-            <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
-            <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Profile</a></li>
-            <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
-            <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+                <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+                <li><i class="fab fa-uikit"></i><a href="{% url 'mrk_mng' %}">Properties</a></li>
+                <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Property</a></li>
+                <li><i class="fas fa-th-large"></i><a href="{% url 'mng' %}">Appliation for sale</a></li>
+                <li><i class="fas fa-th-large"></i><a href="{% url 'mng_rent' %}">Appliation for rent</a></li>
+                <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
+                <li><i class="fa-solid fa-comments"></i><a href="{% url 'feedback' %}">Feedback</a></li>
+
+                <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
+                <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
+                <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+               
                 
           </div>
+         
 
         </section>
 
@@ -439,6 +444,13 @@ tbody tr td{
                                     <a href="{% url 'update_application_rent' application_id=x.id %}">{{x.status}}</a> 
                                 </p>
                             </td>
+
+                            <td class="role">
+                                <p>
+                                    <a href="{% url 'send_email_to' email=x.email payment_link=x.property.payment_link  first_name=x.first_name%}">Send Email</a>
+                                </p>
+                            </td>
+
 
                             <td class="role">
                                 <p>

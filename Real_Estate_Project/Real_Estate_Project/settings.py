@@ -132,6 +132,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'giftrealestate24@gmail.com'
 EMAIL_HOST_PASSWORD = 'qzcd shmm bxkt pobd'
 
+DEFAULT_FROM_EMAIL = 'giftrealestate24@gmail.com'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
