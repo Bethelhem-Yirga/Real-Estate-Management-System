@@ -1,45 +1,43 @@
+<!-- property_form.html -->
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Update Property</title>
+    <title>Property Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/add_property.css' %}">
     
 </head>
-
 <body>
-
 
     <section id="menu">
         
-        <div class="logo">
-           <img src="{% static 'img/logo.png' %}" alt="">
-           
-        </div>
-      
- 
-        <div class="items">
-            
-            <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
-            <li><i class="fab fa-uikit"></i><a href="{% url 'mrk_mng' %}">Properties</a></li>
-            <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Residential Property</a></li>
-            <li><i class="fas fa-plus"></i><a href="{% url 'add_rent_property' %}">Add Commercial Property</a></li>
-    
-            <li><i class="fas fa-th-large"></i><a href="{% url 'mng' %}">Appliation for sale</a></li>
-            <li><i class="fas fa-th-large"></i><a href="{% url 'mng_rent' %}">Appliation for rent</a></li>
-            <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
-            <li><i class="fa-solid fa-comments"></i><a href="{% url 'feedback' %}">Feedback</a></li>
-    
-            <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
-            <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
-            <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
-           
-            
-           </div>
+       <div class="logo">
+          <img src="{% static 'img/logo.png' %}" alt="">
+          
+       </div>
      
-      
+
+       <div class="items">
+            
+        <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+        <li><i class="fab fa-uikit"></i><a href="{% url 'mrk_mng' %}">Properties</a></li>
+        <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Residential Property</a></li>
+        <li><i class="fas fa-plus"></i><a href="{% url 'add_rent_property' %}">Add Commercial Property</a></li>
+
+        <li><i class="fas fa-th-large"></i><a href="{% url 'mng' %}">Appliation for sale</a></li>
+        <li><i class="fas fa-th-large"></i><a href="{% url 'mng_rent' %}">Appliation for rent</a></li>
+        <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
+        <li><i class="fa-solid fa-comments"></i><a href="{% url 'feedback' %}">Feedback</a></li>
+
+        <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
+        <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
+        <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+       
+        
+       </div>
+ 
     </section>
 
     <section id="interface"> 
@@ -57,39 +55,58 @@
            <div class="profile">
               
             <img src="{{ marketing_manager_profile.img.url }}" alt="">
-            <p style="font-size:13px">  &nbsp {{ marketing_manager_profile.first_name }} {{ marketing_manager_profile.last_name }}
-            <br> &nbsp {{ marketing_manager_profile.email }} </p>
+                    <p style="font-size:13px">  &nbsp {{ marketing_manager_profile.first_name }} {{ marketing_manager_profile.last_name }}
+                    <br> &nbsp {{ marketing_manager_profile.email }} </p>
           </div>
           {% endif %}
         </div>
 
+
+    
+    <h1></h1>
+
+    
+   
+
+
+
+
+<!--
+    <form method="POST" enctype="multipart/form-data" id="property-form">
+
+        {% csrf_token %}
+
+        
     {% if messages %}
-    <ul class="messages">
+    <ul class="my-messages">
         {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.tags == 'success' %}
+            <div class="success-message">{{ message }}</div>
+            {% elif message.tags == 'error' %}
+            <div class="error-message">{{ message }}</div>
+            {% else %}
+            <div class="other-message">{{ message }}</div>
+            {% endif %}
+        </li>
         {% endfor %}
     </ul>
-   {% endif %} 
-   
-   
-    <h1>Update Property</h1>
-    <form id="property-form" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    {% endif %}
+        
+         
         <div class="form-step" id="step1">
             <div class="form-group">
                 <label for="id_propertyType">Property Type:</label>
                 {{ form.propertyType }}
             </div>
 
-             
-            
-            <!-- Add a "Next" button to navigate to the next step -->
+      > 
             <div class="form-group">
                 <button type="button" onclick="nextStep(2)">Next</button>
             </div>
         </div>
         
-        <!-- Step 2: Location -->
+        
         <div class="form-step" id="step2" style="display: none;">
             <div class="form-group">
                 <label for="id_country">Country:</label>
@@ -106,14 +123,14 @@
                 {{ form.area }}
             </div>
             
-            <!-- Add buttons to navigate between steps -->
+           
             <div class="form-group">
                 <button type="button" onclick="prevStep(1)">Previous</button>
                 <button type="button" onclick="nextStep(3)">Next</button>
             </div>
         </div>
         
-        <!-- Step 3: Description and Size -->
+     
         <div class="form-step" id="step3" style="display: none;">
             <div class="form-group">
                 <label for="id_description">Description:</label>
@@ -126,14 +143,14 @@
                 {{ form.image }}
             </div>
             
-            <!-- Add buttons to navigate between steps -->
+            
             <div class="form-group">
                 <button type="button" onclick="prevStep(2)">Previous</button>
                 <button type="button" onclick="nextStep(4)">Next</button>
             </div>
         </div>
         
-        <!-- Step 4: Price and Status -->
+     
         <div class="form-step" id="step4" style="display: none;">
               
             <div class="form-group">
@@ -158,14 +175,14 @@
             </div>
             
 
-            <!-- Add buttons to navigate between steps -->
+         
             <div class="form-group">
                 <button type="button" onclick="prevStep(3)">Previous</button>
                 <button type="button" onclick="nextStep(5)">Next</button>
             </div>
         </div>
         
-        <!-- Step 5: Rooms and Amenities -->
+     
         <div class="form-step" id="step5" style="display: none;">
             <div class="form-group">
                 <label for="id_noOfRooms">Number of Rooms:</label>
@@ -193,7 +210,7 @@
             </div>
            
             
-            <!-- Add buttons to navigate between steps -->
+             
             <div class="form-group">
                 <button type="button" onclick="prevStep(4)">Previous</button>
                 <button type="button" onclick="nextStep(6)">Next</button>
@@ -203,7 +220,7 @@
         <div class="form-step" id="step5-2" style="display: none;">
        
             
-            <!-- Add checkboxes for amenities -->
+         
             <div class="form-group">
                 <label>Amenities:</label><br>
                 <input type="checkbox" id="id_air_conditioning" name="air_conditioning" {% if form.air_conditioning.value %}checked{% endif %}>
@@ -218,19 +235,22 @@
                 <label class="checkbox-label" for="id_swimming_pool">Swimming Pool</label><br>
                 <input type="checkbox" id="id_wifi" name="wifi" {% if form.wifi.value %}checked{% endif %}>
                 <label class="checkbox-label" for="id_wifi">Wi-Fi</label>
-                <!-- Add more checkboxes for other amenities -->
+
             </div>
             
-            <!-- Add buttons to navigate between steps -->
+          
             <div class="form-group">
-                <input type="submit" value="Update Property">
+                <button type="button" onclick="prevStep(7)">Previous</button>
+                <button type="submit">Submit</button>
             </div>
         </div>
 
         
+    
+    
     </form>
-</section>
-
+    </section>
+    
     <script>
         // JavaScript code for handling the multi-step form
         const form = document.getElementById('property-form');
@@ -250,16 +270,16 @@
         
         // Function to navigate to the next step
         function nextStep() {
-           if (validateStep(currentStep)) {
-                  currentStep++;
-                  showStep(currentStep);
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
             }
         }
-
+        
         function prevStep() {
-              currentStep--;
-              showStep(currentStep);
-             }
+            currentStep--;
+            showStep(currentStep);
+        }
         
         // Function to validate a step (you can implement your own validation logic)
         function validateStep(step) {
@@ -278,10 +298,182 @@
             
             return true;
         }
-
-        
         // Show the initial step
         showStep(currentStep);
     </script>
+
+
+
+ 
+-->
+<form method="POST" enctype="multipart/form-data" id="property-form">
+
+    {% csrf_token %}
+
+    {% if messages %}
+        <ul class="my-messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.tags == 'success' %}
+                        <div class="success-message">{{ message }}</div>
+                    {% elif message.tags == 'error' %}
+                        <div class="error-message">{{ message }}</div>
+                    {% else %}
+                        <div class="other-message">{{ message }}</div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div id="step1" class="form-step">
+        <div class="form-group" style="display:none">
+            <label for="id_propertyType">Property Type:</label>
+            {{ form.propertyType }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_country">Country:</label>
+            {{ form.country }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_city">City:</label>
+            {{ form.city }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_area">Area:</label>
+            {{ form.area }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_description">Description:</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_image">Image:</label>
+            {{ form.image }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_size">Size:</label>
+            {{ form.size }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_price">Price:</label>
+            {{ form.price }}
+        </div>
+
+        <div class="form-group" style="display:none">
+            
+            <label for="id_status">Status:</label>
+            {{ form.status }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_payment_link">Payment Link:</label>
+            {{ form.payment_link }}
+        </div>
+
+        <div class="form-group" style="display:none">
+            <label for="id_noOfRooms">Number of Rooms:</label>
+            {{ form.noOfRooms }}
+        </div>
+        
+        <div class="form-group" style="display:none">
+            <label for="id_bedrooms">Bedrooms:</label>
+            {{ form.bedrooms }}
+        </div>
+        
+        <div class="form-group" style="display:none">
+            <label for="id_bathrooms">Bathrooms:</label>
+            {{ form.bathrooms }}
+        </div>
+        
+        <div class="form-group" style="display:none">
+            <label for="id_roomFloor">Room Floor:</label>
+            {{ form.roomFloor }}
+        </div>
+        
+        <div class="form-group" style="display:none">
+            <label for="id_TotalFloor">Total Floor:</label>
+            {{ form.TotalFloor }}
+        </div>
+        
+        <script>
+            // Customize or remove the error message
+            var requiredFields = document.querySelectorAll('[required]');
+            requiredFields.forEach(function(field) {
+                field.addEventListener('invalid', function(event) {
+                    event.preventDefault();
+                    // Customize the error message or remove it
+                    // Example: field.setCustomValidity('Please provide a value for this field');
+                    // Example: field.setCustomValidity('');
+                });
+            });
+        </script>
+       
+        
+
+        <div class="form-group">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+   
+</form>
+
+<script>
+    // JavaScript code for handling the multi-step form
+    document.getElementById("id_TotalFloor").value = 0;
+    document.getElementById("id_roomFloor").value = 0;
+    document.getElementById("id_bathrooms").value = 0;
+    document.getElementById("id_bedrooms").value = 0;
+    document.getElementById("id_noOfRooms").value = 0;
+    document.getElementById("id_propertyType").value = "Commercial";
+    document.getElementById("id_status").value = "For Rent";
+
+
+    const form = document.getElementById('property-form');
+    const steps = document.getElementsByClassName('form-step');
+    let currentStep = 1;
+    
+    // Function to show the specified step and hide the others
+    function showStep(step) {
+        for (let i = 0; i < steps.length; i++) {
+            if (i + 1 === step) {
+                steps[i].style.display = 'block';
+            } else {
+                steps[i].style.display = 'none';
+            }
+        }
+    }
+    
+    // Function to navigate to the next step
+    function nextStep() {
+        if (validateStep(currentStep)) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+    
+    // Function to validate a step (you can implement your own validation logic)
+    function validateStep(step) {
+        if (step === 1) {
+            if (!form.propertyType.value) {
+                alert('Please select a property type.');
+                return false;
+            }
+        }
+        // Add validation logic for other steps
+        
+        return true;
+    }
+    // Show the initial step
+    showStep(currentStep);
+</script>
+
 </body>
 </html>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/salesperson.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .contact-bg {
             height: 48vh;
@@ -146,57 +147,110 @@
         
     </div>
 </footer>
-<script>
+<!-- Add the Bootstrap CSS and JavaScript files to your HTML -->
+
+<!-- HTML code for the modal -->
+<div class="modal" id="errorModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Error</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="errorMessage"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
     function validateForm() {
         var firstName = document.getElementById("first_name");
         var lastName = document.getElementById("last_name");
         var email = document.getElementById("email");
         var subject = document.getElementById("subject");
         var message = document.getElementById("message");
-
+    
         var isValid = true;
-
+    
         if (firstName.value.trim() === "") {
             firstName.classList.add("invalid");
             isValid = false;
+            showErrorModal("Please enter your first name.");
+        } else if (!isValidName(firstName.value.trim())) {
+            firstName.classList.add("invalid");
+            isValid = false;
+            showErrorModal("Please enter a valid first name.");
         } else {
             firstName.classList.remove("invalid");
         }
-
+    
         if (lastName.value.trim() === "") {
             lastName.classList.add("invalid");
             isValid = false;
+            showErrorModal("Please enter your last name.");
+        } else if (!isValidName(lastName.value.trim())) {
+            lastName.classList.add("invalid");
+            isValid = false;
+            showErrorModal("Please enter a valid last name.");
         } else {
             lastName.classList.remove("invalid");
         }
-
+    
         if (email.value.trim() === "") {
             email.classList.add("invalid");
             isValid = false;
+            showErrorModal("Please enter your email address.");
+        } else if (!isValidEmail(email.value.trim())) {
+            email.classList.add("invalid");
+            isValid = false;
+            showErrorModal("Please enter a valid email address.");
         } else {
             email.classList.remove("invalid");
         }
-
+    
         if (subject.value.trim() === "") {
             subject.classList.add("invalid");
             isValid = false;
+            showErrorModal("Please enter the subject of your message.");
         } else {
             subject.classList.remove("invalid");
         }
-
+    
         if (message.value.trim() === "") {
             message.classList.add("invalid");
             isValid = false;
+            showErrorModal("Please enter your message.");
         } else {
             message.classList.remove("invalid");
         }
-
-        if (!isValid) {
-            alert("Please fill in all required fields.");
-        }
-
+    
+        // Rest of the code...
+    
         return isValid;
     }
-</script>
+    
+    function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    function isValidName(name) {
+        var nameRegex = /^[a-zA-Z]+$/;
+        return nameRegex.test(name);
+    }
+    
+    function showErrorModal(message) {
+        var errorMessageElement = document.getElementById("errorMessage");
+        errorMessageElement.textContent = message;
+        $('#errorModal').modal('show');
+    }
+  </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

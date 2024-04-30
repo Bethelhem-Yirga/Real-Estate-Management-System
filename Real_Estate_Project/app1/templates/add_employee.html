@@ -59,11 +59,13 @@
          
      </div>
      {% if admin_profile %}
-     <div class="profile">
-        
-        <img src="{{ admin_profile.img.url }}" alt="">
-    </div>
-    {% endif %}
+               <div class="profile">
+                  
+                  <img src="{{ admin_profile.img.url }}" alt="">
+                  <p style="font-size:13px">  &nbsp {{ admin_profile.first_name }} {{admin_profile.last_name }}
+                    <br> &nbsp {{ admin_profile.email }} </p>
+              </div>
+              {% endif %}
   </div>
 
   {% if messages %}
@@ -84,149 +86,122 @@
   <div class="form-container">
     
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.non_field_errors }} <!-- Display non-field errors, if any -->
+      <form method="post">
+  {% csrf_token %}
+  {{ form.non_field_errors }} <!-- Display non-field errors, if any -->
 
-      <!-- Step 1 -->
-      <div class="step active" id="step-1">
-        <div>
-          <label for="{{ form.first_name.id_for_label }}">First Name:</label>
-          {{ form.first_name }}
-          {% if form.first_name.errors %}
-            <p class="error">{{ form.first_name.errors }}</p>
-          {% endif %}
-        </div>
+  <!-- Step 1 -->
+  <div class="step active" id="step-1">
+    <div>
+      <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+      {{ form.first_name }}
+      {% if form.first_name.errors %}
+        <p class="error">{{ form.first_name.errors }}</p>
+      {% endif %}
+    </div>
 
-        <div>
-          <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
-          {{ form.last_name }}
-          {% if form.last_name.errors %}
-            <p class="error">{{ form.last_name.errors }}</p>
-          {% endif %}
-        </div>
+    <div>
+      <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+      {{ form.last_name }}
+      {% if form.last_name.errors %}
+        <p class="error">{{ form.last_name.errors }}</p>
+      {% endif %}
+    </div>
 
-        <div class="buttons">
-          <button type="button" onclick="nextStep(1)">Next</button>
-        </div>
-      </div>
+    <div>
+      <label for="{{ form.email.id_for_label }}">Email:</label>
+      {{ form.email }}
+      {% if form.email.errors %}
+        <p class="error">{{ form.email.errors }}</p>
+      {% endif %}
+    </div>
 
-      <!-- Step 2 -->
-      <div class="step" id="step-2">
-        <div>
-          <label for="{{ form.email.id_for_label }}">Email:</label>
-          {{ form.email }}
-          {% if form.email.errors %}
-            <p class="error">{{ form.email.errors }}</p>
-          {% endif %}
-        </div>
+    <div>
+      <label for="{{ form.gender.id_for_label }}">Gender:</label>
+      {{ form.gender }}
+      {% if form.gender.errors %}
+        <p class="error">{{ form.gender.errors }}</p>
+      {% endif %}
+    </div>
 
-        <div>
-          <label for="{{ form.gender.id_for_label }}">Gender:</label>
-          {{ form.gender }}
-          {% if form.gender.errors %}
-            <p class="error">{{ form.gender.errors }}</p>
-          {% endif %}
-        </div>
-
-        <div class="buttons">
-          <button type="button" onclick="prevStep(2)">Previous</button>
-          <button type="button" onclick="nextStep(2)">Next</button>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="step" id="step-3">
-        <div>
-          <label for="{{ form.address.id_for_label }}">Address:</label>
-          {{ form.address }}
-          {% if form.address.errors %}
-            <p class="error">{{ form.address.errors }}</p>
-          {% endif %}
-        </div>
-
-        <div>
-          <label for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
-          {{ form.phone_number }}
-          {% if form.phone_number.errors %}
-            <p class="error">{{ form.phone_number.errors }}</p>
-          {% endif %}
-        </div>
-
-        <div class="buttons">
-          <button type="button" onclick="prevStep(3)">Previous</button>
-          <button type="button" onclick="nextStep(3)">Next</button>
-        </div>
-      </div>
-
-      <!-- Step 4 -->
-<div class="step" id="step-4">
-  <div>
-    <label for="{{ form.password.id_for_label }}">Password:</label>
-    {{ form.password }}
-    {% if form.password.errors %}
-      <p class="error">{{ form.password.errors }}</p>
+    <label for="{{ form.address.id_for_label }}">Address:</label>
+    {{ form.address }}
+    {% if form.address.errors %}
+      <p class="error">{{ form.address.errors }}</p>
     {% endif %}
+
+    <div>
+      <label for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
+      {{ form.phone_number }}
+      {% if form.phone_number.errors %}
+        <p class="error">{{ form.phone_number.errors }}</p>
+      {% endif %}
+    </div>
+
+    <div class="buttons">
+      <button type="button" onclick="nextStep(1)">Next</button>
+    </div>
   </div>
 
-  <div>
-    <label for="{{ form.confirm_password.id_for_label }}">Confirm Password:</label>
-    {{ form.confirm_password }}
-    {% if form.confirm_password.errors %}
-      <p class="error">{{ form.confirm_password.errors }}</p>
-    {% endif %}
-  </div>
+  <!-- Step 2 -->
+  <div class="step" id="step-2">
+    <div>
+      <label for="{{ form.password.id_for_label }}">Password:</label>
+      <input type="password" name="{{ form.password.name }}" value="{{ form.password.value }}">
+      {% if form.password.errors %}
+        <p class="error">{{ form.password.errors }}</p>
+      {% endif %}
+    </div>
 
-  <div class="buttons">
-    <button type="button" onclick="prevStep(4)">Previous</button>
-    <button type="button" onclick="nextStep(4)">Next</button>
-  </div>
-</div>
+    <div>
+      <label for="{{ form.confirm_password.id_for_label }}">Confirm Password:</label>
+      <input type="password" name="{{ form.confirm_password.name }}" value="{{ form.confirm_password.value }}">
+      {% if form.confirm_password.errors %}
+        <p class="error">{{ form.confirm_password.errors }}</p>
+      {% endif %}
+    </div>
 
-      <!-- Step 5 -->
-      <!-- Step 5 -->
-<div class="step" id="step-5">
-  <div>
-    <label for="{{ form.role.id_for_label }}">Role:</label>
-    {{ form.role }}
-    {% if form.role.errors %}
-      <p class="error">{{ form.role.errors }}</p>
-    {% endif %}
-  </div>
+    <div>
+      <label for="{{ form.role.id_for_label }}">Role:</label>
+      {{ form.role }}
+      {% if form.role.errors %}
+        <p class="error">{{ form.role.errors }}</p>
+      {% endif %}
+    </div>
 
-  <div>
-    <label for="{{ form.is_active.id_for_label }}">Is Active:</label>
-    {{ form.is_active }}
-    {% if form.is_active.errors %}
-      <p class="error">{{ form.is_active.errors }}</p>
-    {% endif %}
-  </div>
+    <div>
+      <label for="{{ form.is_active.id_for_label }}">Is Active:</label>
+      {{ form.is_active }}
+      {% if form.is_active.errors %}
+        <p class="error">{{ form.is_active.errors }}</p>
+      {% endif %}
+    </div>
 
-  <div>
-    <label for="{{ form.img.id_for_label }}">Image:</label>
-    {{ form.img }}
-    {% if form.img.errors %}
-      <p class="error">{{ form.img.errors }}</p>
-    {% endif %}
-  </div>
-  <div class="buttons">
-    <button type="button" onclick="prevStep(5)">Previous</button>
-    <input type="submit" value="Add Employee">
-  </div>
-</div>
-    </form>
-  </div>
-  </section>
+    <div>
+      <label for="{{ form.img.id_for_label }}">Image:</label>
+      {{ form.img }}
+      {% if form.img.errors %}
+        <p class="error">{{ form.img.errors }}</p>
+      {% endif %}
+    </div>
 
-  <script>
-    function nextStep(step) {
-      document.getElementById('step-' + step).classList.remove('active');
-      document.getElementById('step-' + (step + 1)).classList.add('active');
-    }
+    <div class="buttons">
+      <button type="button" onclick="prevStep(2)">Previous</button>
+      <input type="submit" value="Add Employee">
+    </div>
+  </div>
+</form>
 
-    function prevStep(step) {
-      document.getElementById('step-' + step).classList.remove('active');
-      document.getElementById('step-' + (step - 1)).classList.add('active');
-    }
-  </script>
+<script>
+  function nextStep(step) {
+    document.getElementById('step-' + step).classList.remove('active');
+    document.getElementById('step-' + (step + 1)).classList.add('active');
+  }
+
+  function prevStep(step) {
+    document.getElementById('step-' + step).classList.remove('active');
+    document.getElementById('step-' + (step - 1)).classList.add('active');
+  }
+</script>
 </body>
 </html>
