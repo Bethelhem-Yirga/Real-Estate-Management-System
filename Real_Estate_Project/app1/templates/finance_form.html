@@ -367,32 +367,72 @@ tbody tr td{
        
 
   
-<body>
-    <h1>Report Form</h1>
-    <form method="post">
-        {% csrf_token %}
-        
-        <label for="id_property_id">Property ID:</label><br>
-        {{ form.property_id }}
-        <label for="id_customer_name">Customer Name:</label><br>
-        {{ form.customer_name }}
-        <label for="id_customer_email">Customer Email:</label><br>
-        {{ form.customer_email }}
-
-        <label for="id_price">Amout of paid:</label><br>
-        {{ form.price }}
-
-        <label for="id_remaining_amount">Remaining Amount:</label><br>
-        {{ form.remaining_amount }}
-
-        <label for="id_date_of_purchase">Date of Purchase:</label><br>
-        {{ form.date_of_purchase }}
-
-        
-     
-        <button type="submit">Submit</button>
-    </form>
+        <body>
     
-</head>
-</body>
-</html>
+            <section id="menu">
+            
+               <div class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Logo">
+               </div>
+            
+              <div class="items">
+                    <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+                    <li><i class="fas fa-th-large"></i><a href="{% url 'finance_with_property_data' %}">Report</a></li>
+                    <li><i class="fas fa-edit"></i><a href="{% url 'finance_form' %}">Form</a></li>
+                    <li><i class="fa-solid fa-message"></i><a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">Send email</a></li>
+                    <li><i class="fa-sharp fa-solid fa-circle-info"></i><a href="https://dashboard.stripe.com/test/dashboard">Detail</a></li>
+                    <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+              </div>
+            
+            </section>
+            
+            <h1>Report Form</h1>
+            <form method="post" id="finance-form">
+                {% csrf_token %}
+                
+                <label for="id_property_id">Property ID:</label><br>
+                {{ form.property_id }}
+                <label for="id_customer_name">Customer Name:</label><br>
+                {{ form.customer_name }}
+                <label for="id_customer_email">Customer Email:</label><br>
+                {{ form.customer_email }}
+            
+                <label for="id_price">Amount Paid:</label><br>
+                {{ form.price }}
+            
+                <label for="id_remaining_amount">Remaining Amount:</label><br>
+                {{ form.remaining_amount }}
+            
+                <label for="id_date_of_purchase">Date of Purchase:</label><br>
+<input type="date" id="id_date_of_purchase" name="date_of_purchase" value="{{ form.date_of_purchase.value }}">
+
+                <button type="submit" onclick="validateForm()">Submit</button>
+            </form>
+            
+            <!-- Your JavaScript code for validation and pop-up message -->
+            <script>
+                function validateForm() {
+                    var form = document.getElementById('finance-form');
+                    // Check if the form is valid
+                    if (!form.checkValidity()) {
+                        // If not valid, prevent form submission and display error messages
+                        event.preventDefault();
+                        event.stopPropagation();
+                        // Display error messages in a pop-up
+                        var errorMessage = "";
+                        // Check if Property ID is empty
+                        if (!form['id_property_id'].value.trim()) {
+                            errorMessage += "Property ID is required.\n";
+                        }
+                        // Check if Date of Purchase is empty
+                        if (!form['id_date_of_purchase'].value.trim()) {
+                            errorMessage += "Date of Purchase is required.\n";
+                        }
+                        alert(errorMessage);
+                    }
+                    // If form is valid, submit the form
+                    form.classList.add('was-validated');
+                }
+            </script>
+            </body>
+            </html>

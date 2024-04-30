@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Properties For Sale</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            max-width: 200px;
+            max-height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Properties For Sale</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Area</th>
+                <th>Description</th>
+                <th>Size (sqft)</th>
+                <th>Price</th>
+                <th>Number of Rooms</th>
+                <th>Bedrooms</th>
+                <th>Bathrooms</th>
+                <th>Year Built</th>
+                <th>Image</th>
+                <!-- Add more fields as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for property in properties %}
+                <tr>
+                    <td>{{ property.id }}</td>
+                    <td>{{ property.propertyType }}</td>
+                    <td>{{ property.country }}</td>
+                    <td>{{ property.city }}</td>
+                    <td>{{ property.area }}</td>
+                    <td>{{ property.description }}</td>
+                    <td>{{ property.size }}</td>
+                    <td>${{ property.price }}</td>
+                    <td>{{ property.noOfRooms }}</td>
+                    <td>{{ property.bedrooms }}</td>
+                    <td>{{ property.bathrooms }}</td>
+                    <td>{{ property.year_built }}</td>
+                    <td><img src="{{ property.image.url }}" alt="Property Image"></td>
+                    <!-- Add more fields as needed -->
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="13">No properties available for sale</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

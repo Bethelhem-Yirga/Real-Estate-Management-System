@@ -223,124 +223,7 @@ class Applicationrent(models.Model):
  
 
         
-"""
 
-class Application(models.Model):
-    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='application_sale', default=0)
-
-    first_name = models.CharField(max_length=100,validators=[RegexValidator(r'^[A-Za-z]*$', message="First name should contain only alphabetic characters."),
-                                      RegexValidator(r'^[^\s]+$',
-                                                     message="First name should not contain spaces.")
-                                  ])
-    middle_name = models.CharField(max_length=100, default="middle name",
-                                   validators=[
-                                       RegexValidator(r'^[A-Za-z]*$',
-                                                      message="Middle name should contain only alphabetic characters."),
-                                       RegexValidator(r'^[^\s]+$',
-                                                      message="Middle name should not contain spaces.")
-                                   ])
-    last_name = models.CharField(max_length=100,
-                                 validators=[
-                                     RegexValidator(r'^[A-Za-z]*$',
-                                                    message="Last name should contain only alphabetic characters."),
-                                     RegexValidator(r'^[^\s]+$',
-                                                    message="Last name should not contain spaces.")
-                                 ])
-    email = models.EmailField(validators=[EmailValidator(message="Enter a valid email address.")],unique=True)
-
-    def clean(self):
-      
-        super().clean()
-
-        # Check if there is another application with the same email
-        if Application.objects.filter(email=self.email).exclude(id=self.id).exists():
-            raise ValidationError("This email is already being used by another application.")
-
-    phone_number = models.CharField(max_length=150,
-                                    validators=[RegexValidator(r'^\d{10,15}$',
-                                                               message="Phone number should be 10 to 15 digits.")])
-    NATIONALITY_CHOICES = [
-        ('Ethiopian', 'Ethiopian'),
-        ('Other', 'Other'),
-        
-    ]
-
-    nationality = models.CharField(max_length=100,  choices= NATIONALITY_CHOICES , default='Ethiopian')
-    city = models.CharField(
-        max_length=200,
-        validators=[
-            RegexValidator(
-                regex=r'^[a-zA-Z\s]+$',
-                message='City name can only contain letters .',
-                code='invalid_city_name'
-            )
-        ]
-    )
-    def clean(self):
-        self.city = self.city.lstrip()
-        super().clean()
-    
-    sub_city = models.CharField(max_length=200, default="sub city",
-            validators=[
-            RegexValidator(
-                regex=r'^[a-zA-Z\s]+$',
-                message='Sub City name can only contain letters .',
-                code='invalid_sub_city_name'
-            )
-        ]                     
-                                
-    )
-    def clean(self):
-        self.city = self.city.lstrip()
-        super().clean()
-    kebele = models.CharField(
-        max_length=200,
-        default="Kebele",
-        validators=[validate_no_space]
-    )
-    WORK_CHOICES = [
-        ('Employed', 'Employed'),
-        ('Self-employed', 'Self-employed'),
-        
-    ]
-    work_status= models.CharField(max_length=100, choices= WORK_CHOICES)
-    GENDER_CHOICES = [
-        ('Female', 'Female'),
-        ('Male', 'Male'),
-        
-    ]
-    gender = models.CharField(max_length=10,choices=GENDER_CHOICES)
-    MARITAL_STATUS_CHOICES = [
-        ('Single', 'Single'),
-        ('Married', 'Married'),
-        
-    ]
-    marital_status = models.CharField(max_length=100,choices=MARITAL_STATUS_CHOICES)
-    partner_first_name = models.CharField(max_length=100, blank=True, null=True,
-          validators=[RegexValidator(r'^[A-Za-z]*$', message="First name should contain only alphabetic characters."),
-                                      RegexValidator(r'^[^\s]+$',
-                                                     message="Partner First name should not contain spaces.")
-                                  ])                            
-    
-    partner_last_name = models.CharField(max_length=100, blank=True, null=True,
-            validators=[RegexValidator(r'^[A-Za-z]*$', message="First name should contain only alphabetic characters."),
-                                      RegexValidator(r'^[^\s]+$',
-                                                     message="Partner Last name should not contain spaces.")
-                                  ]) 
-    partner_phone_number = models.CharField(max_length=150, blank=True, null=True,
-            validators=[RegexValidator(r'^\d{10,15}$',
-                                     message="Phone number should be 10 to 15 digits.")
-                                     ])                     
-    partner_work_status = models.CharField(max_length=100, blank=True, null=True,choices=WORK_CHOICES)
-   # date_added = models.DateTimeField(default=datetime.now, blank=True)
-
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('accepted', 'Accepted'),
-        ('rejected', 'Rejected'),
-    ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-"""
      
 
 class Application(models.Model):
@@ -536,23 +419,37 @@ class Report(models.Model):
 from django.db import models
 
 
+from django.db import models
+
+
 class Finance(models.Model):
-    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='Finance', default=0)
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='finance', default=0)
     customer_name = models.CharField(max_length=100)
     customer_email = models.EmailField()
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
-   
     date_of_purchase = models.DateField()
     purchase_or_rent = models.CharField(max_length=10, choices=[('buy', 'Buy'), ('rent', 'Rent')])
     remaining_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     rent_duration = models.CharField(max_length=100, null=True, blank=True)
-    def update_property_status(self, new_status):
-        # Update the status of the associated property
-        self.property.status = new_status
-        self.property.save()
+
+    def save(self, *args, **kwargs):
+        # Get the associated property
+        associated_property = self.property
+
+        # Update the status of the associated property based on the status in the Properties model
+        if associated_property.status == 'For Sale' :
+            associated_property.status = 'Sold'
+        elif associated_property.status == 'For Rent':
+            associated_property.status = 'Rented'
+
+        # Save the updated status of the property
+        associated_property.save()
+
+        # Call the super save method to save the finance instance
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.customer_name}'s Finance"
 
-    
     
     
