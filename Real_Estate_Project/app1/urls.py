@@ -4,6 +4,7 @@ from .views import change_password
 from .views import contact_view, payment_view, add_employee, update_employee_active_status, accept_or_reject_application
 from .views import finance_form, success_page
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from .views import finance_with_property_data
 urlpatterns = [
     path('', views.property_listing, name='index'),
@@ -74,4 +75,16 @@ path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.se
     path('feedback/', views.feedback, name='feedback'),
     
 
+ # Password reset request form
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    
+    # Password reset confirm form
+    path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    
+    # Password reset done page
+    path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+
+
+    # Password reset complete page
+    path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]

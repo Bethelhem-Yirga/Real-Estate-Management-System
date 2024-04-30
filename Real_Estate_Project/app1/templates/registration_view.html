@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -6,41 +7,55 @@
     <style>
         /* CSS styles */
         body {
-          font-family: Arial, sans-serif;
-          background-color: #f1f1f1;
-          background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('{% static "img/abt2.jpg" %}');
-          margin: 0;
-          padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('{% static "img/eje.jpg" %}');
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            animation: backgroundAnimation 10s infinite alternate;
         }
-  
-        .container {
-          max-width: 600px;
-          margin: 0 auto;
-          margin-top: 60px;
-          padding: 60px;
-          background-color: rgba(0.0000001, 0.002, 0, 0)
 
-          background
-          border-radius: 4;
-          box-shadow: 0 0 10px rgba(1, 1, 1, 1);
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('{% static "img/sofa.jpg" %}');
+            }
+
+            50% {
+                background-image: url('{% static "img/sofa.jpg" %}');
+            }
+
+            100% {
+                background-image: url('{% static "img/sofa.jpg" %}');
+            }
         }
-  
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 60px;
+            padding: 60px;
+            background-color: rgba(0.1, 0.9, 1, 0.1); /* Corrected RGBA value */
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(1, 1, 1, 0.1); /* Corrected RGBA value */
+        }
+
         .form-title {
-          text-align: center;
-          margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 20px;
         }
-  
+
         .form-row {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
-  
+
         .form-column {
-          flex-basis: calc(50% - 10px);
-          margin-bottom: 20px;
+            flex-basis: calc(50% - 10px);
+            margin-bottom: 20px;
         }
-  
+
         label {
             display: block;
             margin-bottom: 5px;
@@ -48,181 +63,210 @@
             margin-right: 5px;
             font-weight: bold;
             color: black;
-          }
-  
+        }
+
         input[type="text"],
         input[type="email"],
         input[type="password"] {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-  
+
         .gender-category {
-          display: flex;
-          align-items: center;
+            display: flex;
+            align-items: center;
         }
-  
+
         .gender-category input[type="radio"],
         .gender-category label {
-          margin-right: 10px;
+            margin-right: 10px;
         }
-  
+
         .form-submit-btn {
-          text-align: center;
-          margin-top: 20px;
+            text-align: center;
+            margin-top: 20px;
         }
-  
+
         input[type="submit"] {
-          padding: 17px 40px;
-          background-color: #4caf50;
-          color: #fff;
-          border: none;
-          border-radius: 20px;
-          cursor: pointer;
+            padding: 17px 40px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
         }
-  
+
         input[type="submit"]:hover {
-          background-color: #33cc33;
+            background-color: #33cc33;
         }
-      </style>
 
-      
-      
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
 
-  
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            text-align: center;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <script>
+<div class="container">
+    <h1 class="form-title">Registration</h1>
+    <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-column">
+                <div class="user-input-box">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter First Name" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Enter Address" required />
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="user-input-box">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number" required />
+                </div>
+                <div class="user-input-box">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required />
+                </div>
+            </div>
+        </div>
+        <div class="form-submit-btn">
+            <input type="submit" value="Register">
+        </div>
+    </form>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-message"></p>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
     function validateForm() {
-      var firstName = document.getElementById("first_name").value;
-      var phoneNumber = document.getElementById("phone_number").value;
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
-      var confirmPassword = document.getElementById("confirm_password").value;
-      var errorMessages = [];
+        var firstName = document.getElementById("first_name").value;
+        var lastName = document.getElementById("last_name").value;
+        var phoneNumber = document.getElementById("phone_number").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        var errorMessages = [];
 
-      if (!/^[a-zA-Z]+$/.test(firstName)) {
-        errorMessages.push("First name can only contain alphabetic characters without spaces.");
-      }
+        if (!/^[a-zA-Z]+$/.test(firstName)) {
+            errorMessages.push("First name can only contain alphabetic characters without spaces.");
+        }
+        if (!/^[a-zA-Z]+$/.test(lastName)) {
+            errorMessages.push("last name can only contain alphabetic characters without spaces.");
+        }
 
-      if (!/^\d+$/.test(phoneNumber)) {
-        errorMessages.push("Phone number can only contain numeric characters without spaces.");
-      }
+        if (!/^\d+$/.test(phoneNumber)) {
+            errorMessages.push("Phone number can only contain numeric characters without spaces.");
+        }
 
-      if (password !== confirmPassword) {
-        errorMessages.push("Passwords do not match.");
-      }
+        if (password !== confirmPassword) {
+            errorMessages.push("Passwords do not match.");
+        }
 
-      if (errorMessages.length > 0) {
-        alert(errorMessages.join("\n"));
-        return false;
-      }
+        if (errorMessages.length > 0) {
+            displayModal(errorMessages.join("<br>"));
+            return false;
+        }
+        if (emailAlreadyExists(email)) {
+            displayModal("Email is already in use.");
+            return false;
+        }
 
-      // Additional validation logic or form submission can be added here
+        // No client-side errors, allow form submission
+        return true;
+    }
 
-      return true;
+    // Function to check if the email already exists (replace with your actual logic)
+    function emailAlreadyExists(email) {
+        // Dummy logic - replace with actual implementation using AJAX or other means
+        var existingEmails = ["user1@example.com", "user2@example.com"]; // Example existing emails
+        return existingEmails.includes(email);
+    }
+
+    // Function to display modal with message
+    function displayModal(message) {
+        var modalMessage = document.getElementById("modal-message");
+        modalMessage.innerHTML = message;
+        modal.style.display = "block";
     }
 </script>
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-  
-            <div class="container">
-              <h1 class="form-title">Registration</h1>
-              <form action="#">
-                <div class="form-row">
-                  <div class="form-column">
-                    <div class="user-input-box">
-                      <label for="first_name">First Name</label>
-                      <input
-                        type="text"
-                        id="first_name"
-                        name="first_name"
-                        placeholder="Enter First Name"
-                        required
-                      />
-                    </div>
-                    <div class="user-input-box">
-                      <label for="email">Email</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter Email"
-                        required
-                      />
-                    </div>
-                    
-
-                    <div class="user-input-box">
-                      <label for="password">Password</label>
-                      <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter Password"
-                        required
-                      />
-                   
-                      </div>
-                      <div class="user-input-box">
-                        <label for="address">Address</label>
-                        <input
-                          type="text"
-                          id="address"
-                          name="address"
-                          placeholder="Enter Address"
-                          required
-                        />
-                      </div>
-                  </div>
-                  
-                  <div class="form-column">
-                    <div class="user-input-box">
-                      <label for="last_name">Last Name</label>
-                      <input
-                        type="text"
-                        id="last_name"
-                        name="last_name"
-                        placeholder="Enter Last Name"
-                        required
-                      />
-                    </div>
-                    <div class="user-input-box">
-                      <label for="phone_number">Phone Number</label>
-                      <input
-                        type="text"
-                        id="phone_number"
-                        name="phone_number"
-                        placeholder="Enter Phone Number"
-                        required
-                      />
-                    </div>
-
-                    <div class="user-input-box">
-                      <label for="confirm_password">Confirm Password</label>
-                      <input
-                        type="password"
-                        id="confirm_password"
-                        name="confirm_password"
-                        placeholder="Confirm Password"
-                        required
-                      />
-                    </div>
-                    
-                    
-                    </div>
-                  </div>
-             
-                <div class="form-submit-btn">
-                    <input type="submit" value="Register">
-                </div>
-                </div>
-              </form>
-              
-            </div>
-  
-        </html>
+</body>
+</html>
