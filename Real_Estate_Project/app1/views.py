@@ -846,7 +846,7 @@ def change_password(request):
 
 from django.shortcuts import render, redirect
 from .forms import FinanceForm
-
+@login_required
 def finance_form(request):
     if request.method == 'POST':
         form = FinanceForm(request.POST)
@@ -865,7 +865,7 @@ def success_page(request):
 
 # views.py in app1 directory
 from .models import Finance
-
+@login_required
 
 def finance_with_property_data(request):
   
@@ -908,7 +908,7 @@ def finance_detail_api(request, finance_id):
 
 from django.shortcuts import render, get_object_or_404
 from .models import Finance
-
+@login_required
 def finance_detail_view(request, finance_id):
     finance_entry = get_object_or_404(Finance, id=finance_id)
     return render(request, 'finance_detail.html', {'finance_entry': finance_entry})
@@ -1032,4 +1032,46 @@ def feedback(request):
         'marketing_manager_profile':marketing_manager_profile
     }
     return render(request, 'feedback.html', context)
-   
+
+
+from django.shortcuts import render, get_object_or_404, get_list_or_404
+from .models import Registration, Finance
+
+def registration_info(request):
+    if request.method == 'POST':
+        property_id = request.POST.get('property_id')
+        registration_email = request.POST.get('email')
+        
+        # Get registration info
+        registration = get_object_or_404(Registration, email=registration_email, role='salesperson')
+
+        # Get finance info based on property ID
+        finances = get_list_or_404(Finance, property__id=property_id)
+        
+        return render(request, 'registration_info.html', {'registration': registration, 'finances': finances})
+    return render(request, 'insert_registration_id.html')
+
+
+
+from django.shortcuts import render
+from .models import Properties
+
+def rental_properties(request):
+    # Query properties with status for rent
+    properties_for_rent = Properties.objects.filter(status='For Rent')
+    
+    context = {
+        'properties': properties_for_rent,
+        'title': 'Rental Properties',
+    }
+    return render(request, 'rental_properties.html', context)
+
+def sale_properties(request):
+    # Query properties with status for sale
+    properties_for_sale = Properties.objects.filter(status='For Sale')
+    
+    context = {
+        'properties': properties_for_sale,
+        'title': 'Properties For Sale',
+    }
+    return render(request, 'sale_properties.html', context)

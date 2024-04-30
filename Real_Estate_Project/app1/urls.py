@@ -6,6 +6,13 @@ from .views import finance_form, success_page
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import finance_with_property_data
+from django.urls import path
+from . import views
+from django.urls import path
+from .views import rental_properties
+
+from .views import sale_properties
+
 urlpatterns = [
     path('', views.property_listing, name='index'),
     path('register/', views.registration_view, name='registration'),
@@ -22,7 +29,7 @@ urlpatterns = [
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
 
-    
+    path('rental-properties/', rental_properties, name='rental_properties'),
       path('logincustemer/', views.logincustemer, name='logincustemer'),
 
     path('manager/', views.manager, name='manager'),
@@ -83,4 +90,9 @@ path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.se
 
     # Password reset complete page
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    
+    
+    
+    path('salesperson/registration/', views.registration_info, name='registration_info'),
+     path('sale-properties/', sale_properties, name='sale_properties'),
 ]
