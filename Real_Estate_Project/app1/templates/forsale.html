@@ -7,12 +7,40 @@
     <title>Marketing Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
- 
- 
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px; /* Adjust the maximum width as desired */
+            width: 80%; /* Adjust the width as desired */
+            max-height: 600px; /* Adjust the maximum height as desired */
+            height: 80%; /* Adjust the height as desired */
+            overflow: auto;
+        }
+    
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
    
 </head>
 <body>
-    
+
         <section id="menu">
             {% if marketing_manager_profile %}
            <div class="logo">
@@ -21,24 +49,24 @@
            </div>
            {% endif %}
 
-        
            <div class="items">
             
             <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
             <li><i class="fab fa-uikit"></i><a href="{% url 'mrk_mng' %}">Properties</a></li>
-            <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Property</a></li>
+            <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Residential Property</a></li>
+            <li><i class="fas fa-plus"></i><a href="{% url 'add_rent_property' %}">Add Commercial Property</a></li>
+    
             <li><i class="fas fa-th-large"></i><a href="{% url 'mng' %}">Appliation for sale</a></li>
             <li><i class="fas fa-th-large"></i><a href="{% url 'mng_rent' %}">Appliation for rent</a></li>
             <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
             <li><i class="fa-solid fa-comments"></i><a href="{% url 'feedback' %}">Feedback</a></li>
-
+    
             <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
             <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
             <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
            
             
-      </div>
-     
+           </div>
          
         </section>
 
@@ -57,7 +85,9 @@
                {% if marketing_manager_profile %}
                <div class="profile">
                   
-                  <img src="{{ marketing_manager_profile.img.url }}" alt="">
+                <img src="{{ marketing_manager_profile.img.url }}" alt="">
+                <p style="font-size:13px">  &nbsp {{ marketing_manager_profile.first_name }} {{ marketing_manager_profile.last_name }}
+                <br> &nbsp {{ marketing_manager_profile.email }} </p>
               </div>
               {% endif %}
             </div>
@@ -92,6 +122,7 @@
                    <span>{{ rent_properties }}</span>
                 </div>
             </div>
+     
 
         </div>
 
@@ -116,57 +147,125 @@
             
         </div>
 
-
+        
 
         <div class="board">
-            <table width="100%" class="for-sale-table">
+            <table width="100%">
                 <thead>
                     <tr>
                         <td>Type</td>
                         <td>Address</td>
                         <td>Status</td>
                         <td>Action</td>
+                        
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for x in all_info %}
                     {% if x.status == 'For Sale' %}
-                    <tr>
-                        <td class="people">
-                            <img src="{{ x.image.url }}">
-                            <div class="people-de">
-                                <h5>{{ x.propertyType }}</h5>
-                                <p>id {{ x.id }}</p>
-                            </div>
-                        </td>
-                        <td class="people-des">
-                            <h5>{{ x.city }}</h5>
-                            <p>{{ x.area }}</p>
-                        </td>
-                        <td class="active">
-                            <p>{{ x.status }}</p>
-                        </td>
-                        <td class="role">
-                            <p>
-                                <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square" style="color: #787d8d;"></i></a>
-                                <a href="{% url 'property_detail' property_id=x.id %}"><i class="fa-solid fa-eye" style="color: #787d8d;"></i></a>
-                            </p>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
+                  <tr>
+
+                    
+                    <td class="people">
+                        <img src="{{ x.image.url }}">
+                        <div class="people-de">
+                            <h5>{{x.propertyType}}</h5>
+                            <p>id {{ x.id}}</p>
+                        </div>
+                    </td>
+
+                    <td class="people-des">
+                            <h5>{{ x.city}}</h5>
+                            <p>{{ x.area}}</p>
+                    </td>
+
+                    <td class="active">
+                        <p>{{ x.status}}</p>
+                    </td>
+
+                    <td class="role">
+                        <p>
+                            <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square "  style="color: #787d8d;"></i></a>
+                            <a href="#" onclick="openPopup('{{ x.image.url }}', '{{ x.propertyType }}', '{{ x.country }}', '{{ x.city }}', '{{ x.area }}', '{{ x.description }}'
+                            ,'{{ x.noOfRooms }}','{{ x.bedrooms }}','{{ x.bathrooms }}','{{ x.roomFloor }}','{{ x.TotalFloor }}','{{ x.year_built }}','{{ x.roomFloor }}','{{ x.status }}')">
+                                <i class="fa-solid fa-eye" style="color: #787d8d;"></i>
+                            </a>                        </p>
+                    </td>
+
+                  </tr>
+                  {% endif %}
+
+                   {% endfor %}
+
+                 
+                 
+
                 </tbody>
+
             </table>
+
         </div>
-
-
-
 
        
 
       </section>
 
-  
-        
+      
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <span class="close-button" onclick="closePopup()">&times;</span>
+            <!-- property_detail.html -->
+<h1>Property Detail</h1>
+<h2 id="propertyType"></h2>
+<p id="country"></p>
+<p id="city"></p>
+<p id="area"></p>
+<p id="description"></p>
+<p id="noOfRooms"></p>
+<p id="bedrooms"></p>
+<p id="bathrooms"></p>
+<p id="roomFloor"></p>
+<p id="TotalFloor"></p>
+<p id="yearBuilt"></p>
+<p id="airConditioning"></p>
+<p id="gym"></p>
+<p id="laundry"></p>
+<p id="lawn"></p>
+<p id="swimmingPool"></p>
+<p id="wifi"></p>
+<!-- Add more property details as needed -->
+<img id="propertyImage" src="" alt="Property Image" height="200px" width="200px">
+
+
+        </div>
+    </div>
+    
+    <script>
+        function openPopup(imageUrl, propertyType, country, city, area, description, noOfRooms, bedrooms, bathrooms, roomFloor, TotalFloor, yearBuilt, airConditioning, gym, laundry, lawn, swimmingPool, wifi, status) {
+            document.getElementById("propertyImage").src = imageUrl;
+            document.getElementById("propertyType").innerText = propertyType;
+            document.getElementById("country").innerText = "Country: " + country;
+            document.getElementById("city").innerText = "City: " + city;
+            document.getElementById("area").innerText = "Area: " + area;
+            document.getElementById("description").innerText = "Description: " + description;
+            document.getElementById("noOfRooms").innerText = "No. of Rooms: " + noOfRooms;
+            document.getElementById("bedrooms").innerText = "Bedrooms: " + bedrooms;
+            document.getElementById("bathrooms").innerText = "Bathrooms: " + bathrooms;
+            document.getElementById("roomFloor").innerText = "Room Floor: " + roomFloor;
+            document.getElementById("TotalFloor").innerText = "Total Floors: " + TotalFloor;
+            document.getElementById("yearBuilt").innerText = "Year Built: " + yearBuilt;
+            
+            document.getElementById("airConditioning").innerText = "Air Conditioning: " + (airConditioning ? "Yes" : "No");
+            document.getElementById("gym").innerText = "Gym: " + (gym ? "Yes" : "No");
+            document.getElementById("laundry").innerText = "Laundry: " + (laundry ? "Yes" : "No");
+            document.getElementById("lawn").innerText = "Lawn: " + (lawn ? "Yes" : "No");
+            document.getElementById("swimmingPool").innerText = "Swimming Pool: " + (swimmingPool ? "Yes" : "No");
+            document.getElementById("wifi").innerText = "Wifi: " + (wifi ? "Yes" : "No");
+            document.getElementById("popupOverlay").style.display = "flex";
+        }
+    
+        // Rest of the code remains the same
+    </script>
 </body>
 </html>

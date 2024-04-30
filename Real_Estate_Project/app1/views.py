@@ -164,7 +164,7 @@ def appform(request,property_id):
 
 def application_for_sale(request,property_id):
      property = Properties.objects.get(id=property_id)
-     form = ApplicationForm()  # Initialize the form
+     form = ApplicationForm(initial={'property': property})  # Initialize the form
 
      if request.method == 'POST':
         form = ApplicationForm(request.POST)  # Bind form data from POST request
@@ -181,7 +181,7 @@ def application_for_sale(request,property_id):
      return render(request, 'application_for_sale.html', context)
 
 
-def application_for_rent(request,property_id):
+"""def application_for_rent(request,property_id):
      property = Properties.objects.get(id=property_id)
      form = ApplicationForRentForm()  # Initialize the form
 
@@ -197,7 +197,26 @@ def application_for_rent(request,property_id):
         'property': property,
         'form': form,  # Pass the form to the template context
     }
-     return render(request, 'application_for_rent.html', context)
+     return render(request, 'application_for_rent.html', context)"""
+
+def application_for_rent(request, property_id):
+    property = Properties.objects.get(id=property_id)
+    form = ApplicationForRentForm(initial={'property': property})  # Pass the property instance to the form
+
+    if request.method == 'POST':
+        form = ApplicationForRentForm(request.POST)  # Bind form data from POST request
+
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.property = property  # Set the property for the application
+            application.save()  # Save the form data as a new Application instance
+            return redirect('property_listing')
+
+    context = {
+        'property': property,
+        'form': form,  # Pass the form to the template context
+    }
+    return render(request, 'application_for_rent.html', context)
 
 def apptorent(request):
     if request.method == 'POST':
@@ -467,6 +486,29 @@ def add_property(request):
     }
 
     return render(request, 'add_property.html', context)
+
+def add_rent_property(request):
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+    form = PropertyForm(request.POST or None, request.FILES or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data added successfully.')
+            
+        else:
+            # Add form errors to Django messages
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {form[field].label}: {error}")
+
+    context = {
+        'marketing_manager_profile': marketing_manager_profile,
+        'form': form,
+    }
+
+    return render(request, 'add_rent_property.html', context)
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -964,10 +1006,25 @@ def mng_rent(request):
 def application_detail(request, application_id):
     application_obj = get_object_or_404(Application, id=application_id)
     return render(request, 'application_detail.html', {'application_obj': application_obj})
+# views.py
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 
+def application_detail(request, application_id):
+    application_obj = get_object_or_404(Application, id=application_id)
+    return render(request, 'application_popup.html', {'application': application_obj})
+    
+"""
 def rent_application_detail(request, application_id):
     application_obj = get_object_or_404(Applicationrent, id=application_id)
     return render(request, 'rent_application_detail.html', {'application_obj': application_obj})
+"""
+def rent_application_detail(request, application_id):
+    application_obj = get_object_or_404(Applicationrent, id=application_id)
+    return render(request, 'rent_application_detail.html', {'application_obj': application_obj})
+
+from django.shortcuts import get_object_or_404, render
+
 
 def update_application(request, application_id):
     application = get_object_or_404(Application, id=application_id)

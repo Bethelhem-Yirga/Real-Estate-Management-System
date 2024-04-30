@@ -108,7 +108,8 @@ button[type="submit"] {
 <form id="myForm" method="POST" action="{% url 'application_for_rent' property.id %}">
     {% csrf_token %}
     
-    <div class="form-field">
+    
+    <div class="form-field" style="display: none;">
         <label for="id_property">Select Property:</label>
         {{ form.property }}
     </div>

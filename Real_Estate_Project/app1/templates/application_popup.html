@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Application Detail</title>
+    <!-- Add any required CSS styles for the popup window -->
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .column {
+            flex-basis: 45%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+           
+        }
+    </style>
+</head>
+<body>
+    <h1>Application Detail</h1>
+    <div class="container">
+        <div class="column">
+            <h2>Property Information</h2>
+            <table>
+                <tr>
+                    <th>Property Type</th>
+                    <td>{{ application.property.propertyType }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ application.property.city }}</td>
+                </tr>
+                <tr>
+                    <th>Area</th>
+                    <td>{{ application.property.area }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ application.property.status }}</td>
+                </tr>
+                <tr>
+                    <th>Size</th>
+                    <td>{{ application.property.size }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ application.property.price }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ application.property.description }}</td>
+                </tr>
+                <tr>
+                    <th>Number of rooms</th>
+                    <td>{{ application.property.noOfRooms }}</td>
+                </tr>
+                <tr>
+                    <th>Bedrooms</th>
+                    <td>{{ application.property.bedrooms }}</td>
+                </tr>
+               
+                <tr>
+                    <th>Room Floor</th>
+                    <td>{{ application.property.roomFloor }}</td>
+                </tr>
+                <tr>
+                    <th>Total Floor</th>
+                    <td>{{ application.property.TotalFloor }}</td>
+                </tr>
+               
+                <tr>
+                    <th>Description</th>
+                    <td>{{ application.property.description }}</td>
+                </tr>
+
+                
+               
+                <tr>
+                    <th>Room Floor</th>
+                    <td>{{ application.property.roomFloor }}</td>
+                </tr>
+                <tr>
+                    <th>Total Floor</th>
+                    <td>{{ application.property.TotalFloor }}</td>
+                </tr>
+               
+              
+                <tr>
+                    <th>Bedrooms</th>
+                    <td>{{ application.property.bedrooms }}</td>
+                </tr>
+               
+                <tr>
+                    <th>Room Floor</th>
+                    <td>{{ application.property.roomFloor }}</td>
+                </tr>
+                <tr>
+                    <th>Total Floor</th>
+                    <td>{{ application.property.TotalFloor }}</td>
+                </tr>
+                <tr>
+                    <th>image</th>
+                    
+                    <td><img src="{{ application.property.image.url }}" alt="" height="200px" width="200px"></td>
+                </tr>
+               
+                              <!-- Add other property details here -->
+            </table>
+        </div>
+        <div class="column">
+            <h2>Customer Information</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ application.first_name }} {{ application.middle_name }} {{ application.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ application.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>{{ application.phone_number }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td> {{ application.city }}</td>
+                </tr>
+                <tr>
+                    <th>Sub City</th>
+                    <td>{{ application.sub_city }}</td>
+                </tr>
+                <tr>
+                    <th>Kebele</th>
+                    <td>{{ application.kebele }}</td>
+                </tr>
+                <tr>
+                    <th>Nationality</th>
+                    <td>{{ application.nationality }}</td>
+                </tr>
+                <tr>
+                    <th>work_status</th>
+                    <td>{{ application.work_status }}</td>
+                </tr>
+                <tr>
+                    <th>marital_status</th>
+                    <td>{{ application.marital_status }}</td>
+                </tr>
+                <tr>
+                    <th>Partner Name</th>
+                    <td>{{ application.partner_first_name }} {{ application.partner_last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Partner phone number</th>
+                    <td>{{ application.partner_phone_number }}</td>
+                </tr>
+                <tr>
+                    <th>Partner work status</th>
+                    <td>{{ application.partner_work_status }} </td>
+                </tr>
+                <!-- Add other customer details here -->
+            </table>
+        </div>
+    </div>
+</body>
+</html><!-- application_popup.html -->

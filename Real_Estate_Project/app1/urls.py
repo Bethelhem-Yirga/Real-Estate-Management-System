@@ -25,6 +25,8 @@ urlpatterns = [
     path('registration_view/', views.registration_view, name='registration_view'),
     path('dashboard/', views.marketing_manager, name='marketing_manager_dashboard'),
     path('add_property/', views.add_property, name='add_property'),
+    path('add_rent_property/', views.add_rent_property, name='add_rent_property'),
+
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
     path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
     path('profile_view/', views.profile_view, name='profile_view'),
@@ -79,6 +81,7 @@ path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.se
 
     path('feedback/', views.feedback, name='feedback'),
     
+
  # Password reset request form
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     
@@ -87,6 +90,7 @@ path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.se
     
     # Password reset done page
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+
 
     # Password reset complete page
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),

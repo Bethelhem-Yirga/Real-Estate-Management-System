@@ -61,6 +61,14 @@
 
                    
                </div>
+               {% if admin_profile %}
+               <div class="profile">
+                  
+                  <img src="{{ admin_profile.img.url }}" alt="">
+                  <p style="font-size:13px">  &nbsp {{ admin_profile.first_name }} {{admin_profile.last_name }}
+                    <br> &nbsp {{ admin_profile.email }} </p>
+              </div>
+              {% endif %}
               
             </div>
 
@@ -86,14 +94,7 @@
                 </div>
             </div>
 
-            <div class="val-box">
-                <i class="fas fa-users"></i>
-                <div>
-                   <h3>Maintenance Staff</h3>
-                   <span>{{maintenance_staff}}</span>
-                </div>
-            </div>
-
+          
         </div>
 
         

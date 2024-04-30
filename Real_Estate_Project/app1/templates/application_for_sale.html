@@ -19,7 +19,7 @@
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-top:10px;
+        margin-top:-12px;
     }
     
     /* Form labels */
@@ -112,13 +112,14 @@
         
       {% csrf_token %}
       
-      <select name="property" id="id_property">
+      
+      <select name="property" id="id_property" hidden>
         {% for property in properties %}
-          <option value="{{ property.id }}" {% if property.id == selected_property_id %}selected{% endif %}>
-            {{ property.name }}
-          </option>
+            <option value="{{ property.id }}" {% if property.id == selected_property_id %}selected{% endif %}>
+                {{ property.name }}
+            </option>
         {% endfor %}
-      </select>
+    </select>
       
       {% for field in form.visible_fields %}
       {% if field.name != 'status' %}
