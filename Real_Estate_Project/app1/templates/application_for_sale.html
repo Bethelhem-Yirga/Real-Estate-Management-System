@@ -90,7 +90,7 @@
        <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
              <li><a href="/" class="nav__link">Home</a></li>
-             <li><a href="{% url 'property_listing' %}" class="nav__link">listing</a></li>
+             <li><a href="{% url 'property_listing' email=email %}" class="nav__link">listing</a></li>
              <li><a href="/salespersons" class="nav__link">salesperson</a></li>
             
              <li><a href="{% url 'contact_us' %}" class="nav__link">feedback</a></li>
@@ -108,7 +108,7 @@
   
   <div class="form-container">
     
-    <form id="myForm" method="POST" action="{% url 'application_for_sale' property.id %}">
+    <form id="myForm" method="POST" action="{% url 'application_for_sale' property_id=property.id email=email %}">
         
       {% csrf_token %}
       

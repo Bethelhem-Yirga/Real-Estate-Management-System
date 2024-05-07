@@ -1,7 +1,7 @@
 from cProfile import Profile
 import re
 from django import forms
-from .models import Application, Applicationrent, Employee, MarketingManager, Properties,Registration,ContactMessage
+from .models import Application, Applicationrent, AskMaintenance, Employee, MarketingManager, Properties,Registration,ContactMessage
 from django.conf import settings
 import stripe
 
@@ -113,14 +113,31 @@ class FinanceForm(forms.ModelForm):
             raise forms.ValidationError("Property ID does not exist")
         return property_obj
 
+class AskMaintenanceForm(forms.ModelForm):
+    registration_email = forms.EmailField(label='Registration Email',required=False)
+    employee_email = forms.EmailField(label='Employee Email',required=False)
+    property_id = forms.IntegerField(label='Property ID',required=False)
+
+    class Meta:
+        model = AskMaintenance
+        fields = ['property_id', 'registration_email', 'service']
 
 
+class AskMaintenanceFormM(forms.ModelForm):
+    registration_email = forms.EmailField(label='Registration Email',required=False)
+    employee_email = forms.EmailField(label='Employee Email',required=False)
+    property_id = forms.IntegerField(label='Property ID',required=False)
+
+    class Meta:
+        model = AskMaintenance
+        fields = ['employee_email']
 
 
+class AskMaintenanceFormMs(forms.ModelForm):
+    registration_email = forms.EmailField(label='Registration Email',required=False)
+    employee_email = forms.EmailField(label='Employee Email',required=False)
+    property_id = forms.IntegerField(label='Property ID',required=False)
 
-        
-        
-        
-        
-        
-        
+    class Meta:
+        model = AskMaintenance
+        fields = ['status']

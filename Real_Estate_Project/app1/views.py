@@ -3,8 +3,8 @@ from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.contrib import messages
-from .models import Employee, MarketingManager, Registration
-from .forms import ApplicationForRentForm, ApplicationForRentFormUp, ApplicationFormUp, ProfileForm, RegistrationForm 
+from .models import AskMaintenance, Employee, MarketingManager, Registration
+from .forms import ApplicationForRentForm, ApplicationForRentFormUp, ApplicationFormUp, AskMaintenanceFormM, AskMaintenanceFormMs, ProfileForm, RegistrationForm 
 
 from .forms import ContactForm, ProfileForm, RegistrationForm
 from app1.forms import PropertyForm
@@ -91,13 +91,26 @@ def loginn(request):
 def property_listing(request):
     properties = Properties.objects.all()
     salespersons = Employee.objects.filter(role='salesperson')
-    context = {'properties': properties, 'salespersons': salespersons}
+    
+    
+    context = {
+        'properties': properties, 
+        'salespersons': salespersons,
+        
+        }
     return render(request, 'home.html', context)
 
 
-def property_listing_page(request):
+def property_listing_page(request,email):
     properties = Properties.objects.all()
-    context = {'properties': properties}
+    all_emails = Registration.objects.get(email=email)
+    context = {
+        'properties': properties,
+        'all_emails': all_emails,
+        'email': email,
+        'first_name': all_emails.first_name,  # Assuming 'name' is an attribute of the MarketingManager model
+        'last_name': all_emails.last_name,
+        }
     return render(request, 'property_listing.html', context)
     
 
@@ -162,7 +175,7 @@ def appform(request,property_id):
     
     return render(request, 'appform.html')
 
-def application_for_sale(request,property_id):
+def application_for_sale(request,property_id,email):
      property = Properties.objects.get(id=property_id)
      form = ApplicationForm(initial={'property': property})  # Initialize the form
 
@@ -171,12 +184,14 @@ def application_for_sale(request,property_id):
 
         if form.is_valid():
             form.save()  # Save the form data as a new Application instance
-            return redirect('property_listing')
+           # return redirect('property_listing')
 
 
      context = {
         'property': property,
-        'form': form,  # Pass the form to the template context
+        'form': form,
+        'email':email,
+          # Pass the form to the template context
     }
      return render(request, 'application_for_sale.html', context)
 
@@ -199,7 +214,7 @@ def application_for_sale(request,property_id):
     }
      return render(request, 'application_for_rent.html', context)"""
 
-def application_for_rent(request, property_id):
+def application_for_rent(request, property_id,email):
     property = Properties.objects.get(id=property_id)
     form = ApplicationForRentForm(initial={'property': property})  # Pass the property instance to the form
 
@@ -210,11 +225,12 @@ def application_for_rent(request, property_id):
             application = form.save(commit=False)
             application.property = property  # Set the property for the application
             application.save()  # Save the form data as a new Application instance
-            return redirect('property_listing')
+#            return redirect('property_listing')
 
     context = {
         'property': property,
-        'form': form,  # Pass the form to the template context
+        'form': form,
+        'email':email,  # Pass the form to the template context
     }
     return render(request, 'application_for_rent.html', context)
 
@@ -316,6 +332,7 @@ def contact(request):
     return render(request, 'contact.html')
 
 def mrkMng(request):
+    
     all_info = Properties.objects.all()
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
@@ -323,7 +340,7 @@ def mrkMng(request):
     soled_properties = Properties.objects.filter(status='Soled').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
-
+    
     context = {
         'all_info': all_info,
         'total_properties': total_properties,
@@ -331,7 +348,9 @@ def mrkMng(request):
         'soled_properties':soled_properties,
         'rent_properties': rent_properties,
         'rented_properties': rented_properties,
-        'marketing_manager_profile':marketing_manager_profile
+        'marketing_manager_profile':marketing_manager_profile,
+        
+
     }
     return render(request, 'mrk_mng.html', context)
    
@@ -449,6 +468,7 @@ def add_property(request):
         context ={
             'marketing_manager_profile' : marketing_manager_profile,
              'form' : form, 
+             
         }
         if form.is_valid():
             form.save()
@@ -536,13 +556,16 @@ def update_property(request, property_id):
     }
 
     return render(request, 'update_property.html', context)
-
-def property_detail(request, property_id):
+def property_detail(request, property_id, email):
     property_obj = get_object_or_404(Properties, id=property_id)
-    return render(request, 'property_detail.html', {'property': property_obj})
-
-
-
+    
+    context = {
+        'email': email,
+        'property': property_obj,
+        # Other context variables
+    }
+    
+    return render(request, 'property_detail.html', context)
 
 
 def custemer(request):
@@ -645,13 +668,25 @@ def login(request):
                     'customer': 'property_listing',
                     'salesperson': 'salespersons',
                     'marketing_manager': 'mrk_mng',
-                    'maintenance_staff': 'maintenance_staff_page',
+                    'maintenance_staff/plumber': 'maintenance_staff_page',
+                    'maintenance_staff/electrician': 'maintenance_staff_page',
+
                     'finance': 'https://dashboard.stripe.com/login'
                 }
                 # Check if the user's role is in the map
                 if user.role in role_page_map:
-                    # Redirect to the appropriate page based on the role
-                    return redirect(role_page_map[user.role])
+                    
+                     if user.role == 'maintenance_staff/plumber' or user.role == 'maintenance_staff/electrician':
+        # Reverse the URL for 'mrk_mng' view and pass the email parameter
+                           url = reverse('maintenance_staff_page', args=[user.email])
+                           return redirect(url)
+                     elif user.role == 'customer':
+        # Reverse the URL for 'mrk_mng' view and pass the email parameter
+                           url = reverse('property_listing', args=[user.email])
+                           return redirect(url)
+                     else:
+        # Redirect to other views based on role
+                           return redirect(role_page_map[user.role])
                 else:
                     # If role is not found in the map, render failure page
                     return render(request, 'failure.html')
@@ -1132,3 +1167,137 @@ def sale_properties(request):
         'title': 'Properties For Sale',
     }
     return render(request, 'sale_properties.html', context)
+
+
+
+def maintenance_staff(request, email):
+    all_emails = Employee.objects.get(email=email)
+    
+    all_info = AskMaintenance.objects.all()
+
+    context = {
+        'all_info': all_info,
+        'all_emails': all_emails,
+        'email': email,
+        'first_name': all_emails.first_name,  # Assuming 'name' is an attribute of the MarketingManager model
+        'img': all_emails.img, 
+        'last_name': all_emails.last_name, 
+
+    }
+    return render(request, 'maintenance_staff_page.html', context)
+
+from django.shortcuts import render, redirect
+from .forms import AskMaintenanceForm
+from .models import AskMaintenance, Registration, Properties
+
+def ask_maintenance(request):
+    if request.method == 'POST':
+        form = AskMaintenanceForm(request.POST)
+
+        if form.is_valid():
+            property_id = form.cleaned_data['property_id']
+            registration_email = form.cleaned_data['registration_email']
+            service = form.cleaned_data['service']
+            
+            try:
+                # Retrieve the Registration object based on the provided email address
+                registration = Registration.objects.get(email=registration_email)
+                
+                try:
+                    # Retrieve the Property object based on the provided property_id
+                    property = Properties.objects.get(id=property_id)
+                    
+                    # Create and save the AskMaintenance instance
+                    ask_maintenance = AskMaintenance(
+                        property_id=property_id,
+                        registration=registration,
+                        service=service,
+                        status='pending'
+                    )
+                    ask_maintenance.save()
+                    
+                    # Redirect to a success page or do something else
+                    
+                except Properties.DoesNotExist:
+                    # Handle the case when the property does not exist
+                    form.add_error('property_id', 'Invalid property ID')
+                    return render(request, 'ask_maintenance.html', {'form': form})
+            
+            except Registration.DoesNotExist:
+                # Handle the case when the registration does not exist
+                form.add_error('registration_email', 'Invalid registration email')
+                return render(request, 'ask_maintenance.html', {'form': form})
+
+    else:
+        form = AskMaintenanceForm()
+    
+    return render(request, 'ask_maintenance.html', {'form': form})
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import AskMaintenance, Properties, Employee, Registration
+from .forms import AskMaintenanceForm
+
+def update_askmaintenance(request, askmaintenance_id):
+    askmaintenance = get_object_or_404(AskMaintenance, id=askmaintenance_id)
+
+    if request.method == 'POST':
+        form = AskMaintenanceFormM(request.POST, instance=askmaintenance)
+        if form.is_valid():
+            # Retrieve the updated property, employee, and registration objects
+            employee_email = form.cleaned_data['employee_email']
+
+            try:
+                employee_obj = Employee.objects.get(email=employee_email)
+
+                # Update the related fields
+                askmaintenance.employee = employee_obj
+                # Save the updated AskMaintenance instance
+                askmaintenance.save()
+
+                # Redirect to a success page or do something else
+
+         
+
+            except Employee.DoesNotExist:
+                # Handle the case when the employee does not exist
+                form.add_error('employee_email', 'Invalid employee email')
+
+          
+
+    else:
+        form = AskMaintenanceForm(instance=askmaintenance)
+
+    return render(request, 'update_askmaintenance.html', {'form': form})
+
+def update_work(request, askmaintenance_id):
+    askmaintenance = get_object_or_404(AskMaintenance, id=askmaintenance_id)
+    if request.method == 'POST':
+        form = AskMaintenanceFormMs(request.POST, instance=askmaintenance)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or perform any other actions
+    else:
+        form = AskMaintenanceFormMs(instance=askmaintenance)
+    
+    return render(request, 'update_work.html', {'form': form})
+
+
+
+
+def Manager(request):
+    
+    all_info = AskMaintenance.objects.all()
+    employees = Employee.objects.all()
+    
+    manager_profile = Employee.objects.filter(role='manager').first()
+    
+    context = {
+        'all_info': all_info,
+        'manager_profile':manager_profile,
+        'employees':employees,
+        
+    }
+    return render(request, 'manager_page.html', context)
+   

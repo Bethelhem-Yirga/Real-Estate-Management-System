@@ -1,0 +1,44 @@
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="property_id">Property ID</label>
+        {{ form.property_id }}
+        {% if form.property_id.errors %}
+            <ul>
+                {% for error in form.property_id.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+   
+
+    <div>
+        <label for="registration_email">Registration Email</label>
+        {{ form.registration_email }}
+        {% if form.registration_email.errors %}
+            <ul>
+                {% for error in form.registration_email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="{{ form.service.id_for_label }}">{{ form.service.label }}</label>
+        {{ form.service }}
+        {% if form.service.errors %}
+            <ul>
+                {% for error in form.service.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    
+
+    <button type="submit">Submit</button>
+</form>

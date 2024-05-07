@@ -23,8 +23,10 @@ class Registration(models.Model):
         ('finace', 'finace'),
         ('salesperson', 'Salesperson'),
         ('marketing_manager', 'Marketing Manager'),
-        ('maintenance_staff', 'Maintenance Staff'),
-        
+        ('maintenance_staff/electrician', 'Maintenance Staff/electrician'),
+        ('maintenance_staff/plumber', 'Maintenance Staff/plumber'),
+
+
     ]
     GENDER_CHOICES = [
         ('male', 'Male'),
@@ -44,7 +46,7 @@ class Registration(models.Model):
         ]
     )
     confirm_password = models.CharField(max_length=100)
-    role = models.CharField(max_length=20, default='customer', choices=ROLE_CHOICES)
+    role = models.CharField(max_length=30, default='customer', choices=ROLE_CHOICES)
     is_active = models.BooleanField(default=True)
     def clean(self):
         # Check if the first name contains only alphabetic characters without spaces
@@ -451,5 +453,29 @@ class Finance(models.Model):
     def __str__(self):
         return f"{self.customer_name}'s Finance"
 
+
+
+class AskMaintenance(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='askmaintenance',null=True, blank=True)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='askmaintenance_employee',null=True, blank=True)
+    registration = models.ForeignKey(Registration, on_delete=models.CASCADE, related_name='askmaintenance_registration',null=True, blank=True)
     
+    SERVICE_CHOICES = [
+        ('Electrical', 'Electrical'),
+        ('Plumbing', 'Plumbing'),
+    ]
+    service=models.CharField(max_length=50, choices=SERVICE_CHOICES,default='Electrical Maintenance')
+    
+ 
+        
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+        
+    date_added = models.DateTimeField(default=datetime.now, blank=True)
+
+    
+
     

@@ -44,7 +44,7 @@
        <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
              <li><a href="/" class="nav__link">Home</a></li>
-             <li><a href="{% url 'property_listing' %}" class="nav__link">listing</a></li>
+             <li><a href="{% url 'property_listing' email=email %}" class="nav__link">listing</a></li>
              <li><a href="/salespersons" class="nav__link">salesperson</a></li>
 
              <li><a href="{% url 'contact_us' %}" class="nav__link">feedback</a></li>
@@ -64,11 +64,11 @@
   <div class="gallery-item">
       <h3 class="property-title">{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }} Apartment</h3>
       {% if property.status == 'For Rent' %}
-          <a href="{% url 'application_for_rent' property_id=property.id %}">
+          <a href="{% url 'application_for_rent' property_id=property.id email=email%}">
               <h3 class="property-status">{{ property.status }}</h3>
           </a>
       {% elif property.status == 'For Sale' %}
-          <a href="{% url 'application_for_sale' property_id=property.id %}">
+          <a href="{% url 'application_for_sale' property_id=property.id email=email %}">
               <h3 class="property-status">{{ property.status }}</h3>
           </a>
       {% endif %}

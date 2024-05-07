@@ -1,0 +1,22 @@
+<form method="post">
+    {% csrf_token %}
+  
+
+   
+
+    <div>
+        <label for="employee_email">Employee Email</label>
+        {{ form.employee_email }}
+        {% if form.employee_email.errors %}
+            <ul>
+                {% for error in form.employee_email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    
+
+    <button type="submit">Submit</button>
+</form>

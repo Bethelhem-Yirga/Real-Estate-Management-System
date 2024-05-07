@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ContactMessage, Employee, MarketingManager, Properties, Registration
+from .models import AskMaintenance, ContactMessage, Employee, MarketingManager, Properties, Registration
 
 
 from .models import Properties, Registration,Application,Report
@@ -19,5 +19,6 @@ admin.site.register(Employee)
 admin.site.register(ContactMessage)
 admin.site.register(Applicationrent)
 admin.site.register(Finance)
+admin.site.register(AskMaintenance)
 
 # Register your models here.

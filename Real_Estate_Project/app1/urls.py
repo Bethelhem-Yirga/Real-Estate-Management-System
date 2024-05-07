@@ -16,7 +16,7 @@ from .views import sale_properties
 urlpatterns = [
     path('', views.property_listing, name='index'),
     path('register/', views.registration_view, name='registration'),
-    path('property_listing/', views.property_listing_page, name='property_listing'),
+    path('property_listing/<str:email>/', views.property_listing_page, name='property_listing'),
     path('salespersons/', views.salespersons, name='salespersons'),
     path('contact/', views.contact, name='contact'),
     path('accept/<int:application_id>/', accept_or_reject_application, {'decision': 'accept'}, name='accept_application'),
@@ -28,8 +28,7 @@ urlpatterns = [
     path('add_rent_property/', views.add_rent_property, name='add_rent_property'),
 
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
-    path('property_detail/<int:property_id>/', views.property_detail, name='property_detail'),
-    path('profile_view/', views.profile_view, name='profile_view'),
+path('property_detail/<int:property_id>/<str:email>/', views.property_detail, name='property_detail'),    path('profile_view/', views.profile_view, name='profile_view'),
 
     path('rental-properties/', rental_properties, name='rental_properties'),
       path('logincustemer/', views.logincustemer, name='logincustemer'),
@@ -37,8 +36,8 @@ urlpatterns = [
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
     
-    path('application_for_sale/<int:property_id>/', views.application_for_sale, name='application_for_sale'),
-    path('application_for_rent/<int:property_id>/', views.application_for_rent, name='application_for_rent'),
+    path('application_for_sale/<int:property_id>/<str:email>/', views.application_for_sale, name='application_for_sale'),
+    path('application_for_rent/<int:property_id>/<str:email>/', views.application_for_rent, name='application_for_rent'),
     path('addemploy/', views.addemploy, name='addemploy'),
     path('rent/', views.rent, name='rent'),
     path('buy/', views.buy, name='buy'),
@@ -66,7 +65,7 @@ urlpatterns = [
     path('financedata/', finance_with_property_data, name='finance_with_property_data'),
 
     
-path('api/finance/<int:finance_id>/', views.finance_detail_api, name='finance_detail_api'),
+    path('api/finance/<int:finance_id>/', views.finance_detail_api, name='finance_detail_api'),
 
     path('api/finance/<int:finance_id>/', views.finance_detail_api, name='finance_detail_api'),
 
@@ -77,7 +76,7 @@ path('api/finance/<int:finance_id>/', views.finance_detail_api, name='finance_de
     path('update_application/<int:application_id>/', views.update_application, name='update_application'),
     path('update_application_rent/<int:application_id>/', views.update_application_rent, name='update_application_rent'),
 
-path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.send_email_to, name='send_email_to'),
+    path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.send_email_to, name='send_email_to'),
 
     path('feedback/', views.feedback, name='feedback'),
     
@@ -98,5 +97,14 @@ path('send_email_to/<str:email>/<path:payment_link>/<path:first_name>', views.se
     
     
     path('salesperson/registration/', views.registration_info, name='registration_info'),
-     path('sale-properties/', sale_properties, name='sale_properties'),
+    path('sale-properties/', sale_properties, name='sale_properties'),
+    path('maintenance_staff_page/<str:email>/', views.maintenance_staff, name='maintenance_staff_page'),
+    path('ask_maintenance/', views.ask_maintenance, name='ask_maintenance'),
+    path('update_askmaintenance/<int:askmaintenance_id>/', views.update_askmaintenance, name='update_askmaintenance'),
+    path('update_work/<int:askmaintenance_id>/', views.update_work, name='update_work'),
+    path('manager_page/', views.Manager, name='manager_page'),
+
+
+
+
 ]

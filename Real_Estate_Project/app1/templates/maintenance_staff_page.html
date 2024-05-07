@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Manager</title>
+    <title>Maintenance Staff</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
     <style>
@@ -42,24 +42,19 @@
 <body>
 
         <section id="menu">
-            {% if marketing_manager_profile %}
+           
            <div class="logo">
               <img src="{% static 'img/logo.png' %}" alt="">
               
            </div>
-           {% endif %}
+         
 
            <div class="items">
             
             <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
-            <li><i class="fab fa-uikit"></i><a href="{% url 'mrk_mng'  %}">Properties</a></li>
-            <li><i class="fas fa-plus"></i><a href="{% url 'add_property' %}">Add Residential Property</a></li>
-            <li><i class="fas fa-plus"></i><a href="{% url 'add_rent_property' %}">Add Commercial Property</a></li>
-    
-            <li><i class="fas fa-th-large"></i><a href="{% url 'mng' %}">Appliation for sale</a></li>
-            <li><i class="fas fa-th-large"></i><a href="{% url 'mng_rent' %}">Appliation for rent</a></li>
+            <li><i class="fab fa-uikit"></i><a href="{% url 'maintenance_staff_page' email=email %}">Work Order</a></li>
+
             <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
-            <li><i class="fa-solid fa-comments"></i><a href="{% url 'feedback' %}">Feedback</a></li>
     
             <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
             <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
@@ -82,14 +77,14 @@
 
                    
                </div>
-               {% if marketing_manager_profile %}
+               
                <div class="profile">
                   
-                <img src="{{ marketing_manager_profile.img.url }}" alt="">
-                <p style="font-size:13px">  &nbsp {{ marketing_manager_profile.first_name }} {{ marketing_manager_profile.last_name }}
-                <br> &nbsp {{ marketing_manager_profile.email }} </p>
+                <img src="{{ img.url }}" alt="">
+                <p style="font-size:13px">  &nbsp {{first_name}} {{ last_name }}
+                <br> &nbsp {{email}} </p>
               </div>
-              {% endif %}
+              
             </div>
 
             
@@ -97,56 +92,7 @@
             Dashboard
         </h3>
 .
-        <div class="values">
-            <div class="val-box">
-                <i class="fa-solid fa-house-chimney"></i>
-                <div>
-                    <a href="{% url 'mrk_mng'  %}"><h3>{{ total_properties }}</h3></a>
-                   <span>total_properties</span>
-                </div>
-            </div>
-
-            <div class="val-box for-sale">
-                <i class="fa-solid fa-house-chimney"></i>
-                <div>
-                    <a href="{% url 'forsale' %}"><h3>For sale</h3></a>
-                   <span>{{ sale_properties }}</span>
-                </div>
-            </div>
-
-            <div class="val-box">
-             
-                <i class="fa-solid fa-house-chimney"></i>
-                <div>
-                    <a href="{% url 'forent' %}"> <h3>For rent</h3></a> 
-                   <span>{{ rent_properties }}</span>
-                </div>
-            </div>
-     
-
-        </div>
-
-        
-        <div class="values">
-            <div class="val-box">
-                <i class="fa-solid fa-house-circle-check"></i>
-                <div>
-                <a href="{% url 'soled' %}"><h3>{{ soled_properties }}</h3></a>
-                   <span>Soled</span>
-                </div>
-            </div>
-
-            <div class="val-box">
-                <i class="fa-solid fa-house-circle-check"></i>
-                <div>
-                    <a href="{% url 'rented' %}"><h3>Rented</h3></a>
-                   <span>{{rented_properties}}</span>
-                </div>
-            </div>
-
-            
-        </div>
-
+   
         
 
         <div class="board">
@@ -154,45 +100,67 @@
                 <thead>
                     <tr>
                         <td>Type</td>
-                        <td>Address</td>
+                        <td>Property Adress</td>
+                        <td>Service</td>
+
+                        <td>Customer Info</td>
+                        <td>Employee name</td>
                         <td>Status</td>
-                        <td>Action</td>
+
+                        
                         
                     </tr>
                 </thead>
 
                 <tbody>
+                   
                     {% for x in all_info %}
-                  <tr>
+                    {% if email == x.employee.email %}
+                   <tr>
 
                     
                     <td class="people">
-                        <img src="{{ x.image.url }}">
+                        <img src="{{ x.property.image.url }}">
                         <div class="people-de">
-                            <h5>{{x.propertyType}}</h5>
-                            <p>id {{ x.id}}</p>
+                            <h5>{{x.property.propertyType}}</h5>
+                            <p>id {{ x.property.id}}</p>
                         </div>
                     </td>
 
                     <td class="people-des">
-                            <h5>{{ x.city}}</h5>
-                            <p>{{ x.area}}</p>
+                        <h5>{{ x.property.city}}</h5>
+                        <p>{{ x.property.area}}</p>
                     </td>
+
+                    
+                    <td class="people-des">
+                        <h5>{{ x.service}}</h5>
+                    </td>
+                    <td class="people-des">
+                            <h5>{{ x.registration.email}}</h5>
+                            <p>{{ x.registration.first_name}} {{ x.registration.last_name}}</p>
+                            <p>{{ x.registration.phone_number}}</p>
+                    </td>
+
+                    <td class="people-des">
+                        <h5>{{ x.employee.email}}</h5>
+                        <p>{{ x.employee.first_name}} {{ x.employee.last_name}}</p>
+                        <p>{{ x.employee.phone_number}}</p>
+                    </td>
+
+                 
+                    
 
                     <td class="active">
-                        <p>{{ x.status}}</p>
+                        
+                        <a href="{% url 'update_work' askmaintenance_id=x.id %}">{{ x.status}}</a>                          
+                       
                     </td>
 
-                    <td class="role">
-                        <p>
-                            <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square "  style="color: #787d8d;"></i></a>
-                            <a href="#" onclick="openPopup('{{ x.image.url }}', '{{ x.propertyType }}', '{{ x.country }}', '{{ x.city }}', '{{ x.area }}', '{{ x.description }}'
-                            ,'{{ x.noOfRooms }}','{{ x.bedrooms }}','{{ x.bathrooms }}','{{ x.roomFloor }}','{{ x.TotalFloor }}','{{ x.year_built }}','{{ x.roomFloor }}','{{ x.status }}')">
-                                <i class="fa-solid fa-eye" style="color: #787d8d;"></i>
-                            </a>                        </p>
-                    </td>
+                   
 
                   </tr>
+                   {% endif %}
                    {% endfor %}
 
                  

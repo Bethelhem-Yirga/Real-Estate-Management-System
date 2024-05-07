@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px; /* Adjust the maximum width as desired */
+            width: 80%; /* Adjust the width as desired */
+            max-height: 600px; /* Adjust the maximum height as desired */
+            height: 80%; /* Adjust the height as desired */
+            overflow: auto;
+        }
+    
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+   
+</head>
+<body>
+
+        <section id="menu">
+            
+           <div class="logo">
+              <img src="{% static 'img/logo.png' %}" alt="">
+              
+           </div>
+
+           <div class="items">
+            
+            <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+
+            <li><i class="fab fa-uikit"></i><a href="{% url 'manager_page' %}">maintenance request</a></li>
+            <li><i class="fas fa-users"></i></i><a href="#">maintenance staffs</a></li>
+
+    
+            <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
+    
+            <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
+            <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
+            <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+           
+            
+           </div>
+         
+        </section>
+
+        
+      <section id="interface"> 
+            <div class="navigation"> 
+                <div class="n1">
+
+                    <div>
+                        <i id="menu-btn" class="fa-fa-bars"></i>
+                    </div>
+
+
+                   
+               </div>
+               
+               {% if manager_profile %}
+               <div class="profile">
+                  
+                <img src="{{manager_profile.img.url }}" alt="">
+                <p style="font-size:13px">  &nbsp {{ manager_profile.first_name }} {{ manager_profile.last_name }}
+                <br> &nbsp {{manager_profile.email }} </p>
+              </div>
+              {% endif %}
+              
+            </div>
+
+            
+        <h3 class="i-name"> 
+            Dashboard
+        </h3>
+.
+   
+        
+
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Type</td>
+                        <td>Property Adress</td>
+                        <td>Service</td>
+                        <td>Customer Info</td>
+                        <td>Employee name</td>
+                        <td>Status</td>
+
+                        <td>Assign Employee</td>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for x in all_info %}
+                  <tr>
+
+                    
+                    <td class="people">
+                        <img src="{{ x.property.image.url }}">
+                        <div class="people-de">
+                            <h5>{{x.property.propertyType}}</h5>
+                            <p>id {{ x.property.id}}</p>
+                        </div>
+                    </td>
+
+                    <td class="people-des">
+                        <h5>{{ x.property.city}}</h5>
+                        <p>{{ x.property.area}}</p>
+                    </td>
+
+                    <td class="people-des">
+                        <h5>{{ x.service}}</h5>
+                    </td>
+
+
+                    <td class="people-des">
+                            <h5>{{ x.registration.email}}</h5>
+                            <p>{{ x.registration.first_name}} {{ x.registration.last_name}}</p>
+                            <p>{{ x.registration.phone_number}}</p>
+                    </td>
+
+                    <td class="people-des">
+                        <h5>{{ x.employee.email}}</h5>
+                        <p>{{ x.employee.first_name}} {{ x.employee.last_name}}</p>
+                        <p>{{ x.employee.phone_number}}</p>
+                    </td>
+
+                 
+                    
+
+                    <td class="active">
+                        
+                        <p>{{ x.status}}</p>                          
+                       
+                    </td>
+
+                    <td class="role">
+                        
+                            <a href="{% url 'update_askmaintenance' askmaintenance_id=x.id %}">
+                                Assign Employee
+                            </a>
+                        
+                    </td>
+
+                  </tr>
+                   {% endfor %}
+
+                 
+                 
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        
+        <div class="board" id="maintenanceStaffTable">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Address</td>
+                        <td>Status</td>
+                        <td>Role</td>
+                        <td>Action</td>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for employee in employees %}
+                    {% if employee.role == 'maintenance_staff/electrician' or employee.role == 'maintenance_staff/plumber' %}
+                  <tr>
+
+                    
+                    <td class="people">
+                        <img src="{{ employee.img.url }}">
+                        <div class="people-de">
+                            <h5>{{ employee.first_name }} {{ employee.last_name }}</h5>
+                            <p>{{ employee.email }}</p>
+                        </div>
+                    </td>
+
+                    <td class="people-des">
+                            <h5>{{ employee.address }}</h5>
+                            
+                    </td>
+
+                    <td class="active">
+                      <a href="{% url 'update_employee_active_status' employee.id %}">
+                        {% if employee.is_active %}
+                           <span class="active">Active</span>
+                        {% else %}
+                           <span class="inactive">Inactive</span>
+                        {% endif %}
+                      </a>
+                    </td>
+
+                    <td class="role">
+                        <p>{{ employee.role }}</p>
+                    </td>
+
+                    
+                    <td>
+                      <a href="{% url 'employee_detail' employee.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
+                    </td>
+                  </tr>
+                 
+
+                  {% endif %}
+
+                   {% endfor %}
+
+                 
+                 
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+       
+
+       
+
+      </section>
+
+  
+</body>
+</html>
