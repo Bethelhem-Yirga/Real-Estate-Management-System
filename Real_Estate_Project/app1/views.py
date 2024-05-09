@@ -671,7 +671,7 @@ def login(request):
                     'maintenance_staff/plumber': 'maintenance_staff_page',
                     'maintenance_staff/electrician': 'maintenance_staff_page',
 
-                    'finance': 'https://dashboard.stripe.com/login'
+                    'finace': 'finance_with_property_data'
                 }
                 # Check if the user's role is in the map
                 if user.role in role_page_map:
@@ -795,7 +795,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ChangePasswordForm
 
-@login_required
+
 def change_password_view(request):
     if request.method == 'POST':
         form = ChangePasswordForm(request.user, request.POST)
@@ -900,7 +900,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
-@login_required
+
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -923,7 +923,7 @@ def change_password(request):
 
 from django.shortcuts import render, redirect
 from .forms import FinanceForm
-@login_required
+
 def finance_form(request):
     if request.method == 'POST':
         form = FinanceForm(request.POST)
@@ -942,7 +942,7 @@ def success_page(request):
 
 # views.py in app1 directory
 from .models import Finance
-@login_required
+
 
 def finance_with_property_data(request):
   
@@ -985,7 +985,7 @@ def finance_detail_api(request, finance_id):
 
 from django.shortcuts import render, get_object_or_404
 from .models import Finance
-@login_required
+
 def finance_detail_view(request, finance_id):
     finance_entry = get_object_or_404(Finance, id=finance_id)
     return render(request, 'finance_detail.html', {'finance_entry': finance_entry})
