@@ -7,11 +7,7 @@ import stripe
 
 
 class RegistrationForm(forms.ModelForm):
-    noOfRooms = forms.IntegerField(initial=0)
-    bedrooms = forms.IntegerField(initial=0)
-    bathrooms = forms.IntegerField(initial=0)
-    roomFloor = forms.IntegerField(initial=0)
-    TotalFloor = forms.IntegerField(initial=0)
+    
     
     class Meta:
         model = Registration
