@@ -28,10 +28,13 @@ urlpatterns = [
     path('add_rent_property/', views.add_rent_property, name='add_rent_property'),
 
     path('update_property/<int:property_id>/', views.update_property, name='update_property'),
-path('property_detail/<int:property_id>/<str:email>/', views.property_detail, name='property_detail'),    path('profile_view/', views.profile_view, name='profile_view'),
+    path('property_detail/<int:property_id>/<str:email>/', views.property_detail, name='property_detail'),  
+    path('my_property/<str:email>/', views.my_property, name='my_property'),
+ 
+    path('profile_view/', views.profile_view, name='profile_view'),
 
     path('rental-properties/', rental_properties, name='rental_properties'),
-      path('logincustemer/', views.logincustemer, name='logincustemer'),
+    path('logincustemer/', views.logincustemer, name='logincustemer'),
 
     path('manager/', views.manager, name='manager'),
     path('payment/', payment_view, name='payment'),
@@ -99,7 +102,7 @@ path('property_detail/<int:property_id>/<str:email>/', views.property_detail, na
     path('salesperson/registration/', views.registration_info, name='registration_info'),
     path('sale-properties/', sale_properties, name='sale_properties'),
     path('maintenance_staff_page/<str:email>/', views.maintenance_staff, name='maintenance_staff_page'),
-    path('ask_maintenance/', views.ask_maintenance, name='ask_maintenance'),
+    path('ask_maintenance/<str:email>/<int:property_id>/', views.ask_maintenance, name='ask_maintenance'),
     path('update_askmaintenance/<int:askmaintenance_id>/', views.update_askmaintenance, name='update_askmaintenance'),
     path('update_work/<int:askmaintenance_id>/', views.update_work, name='update_work'),
     path('manager_page/', views.Manager, name='manager_page'),

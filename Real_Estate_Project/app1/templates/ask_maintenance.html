@@ -2,7 +2,7 @@
     {% csrf_token %}
     <div>
         <label for="property_id">Property ID</label>
-        {{ form.property_id }}
+        <input type="text" id="property_id" name="property_id" value="{{ property_id }}" readonly>
         {% if form.property_id.errors %}
             <ul>
                 {% for error in form.property_id.errors %}
@@ -12,11 +12,9 @@
         {% endif %}
     </div>
 
-   
-
     <div>
         <label for="registration_email">Registration Email</label>
-        {{ form.registration_email }}
+        <input type="email" id="registration_email" name="registration_email" value="{{ email }}" readonly>
         {% if form.registration_email.errors %}
             <ul>
                 {% for error in form.registration_email.errors %}
@@ -37,8 +35,6 @@
             </ul>
         {% endif %}
     </div>
-
-    
 
     <button type="submit">Submit</button>
 </form>

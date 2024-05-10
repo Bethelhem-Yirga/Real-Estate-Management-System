@@ -52,13 +52,13 @@
             
             <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
 
-            <li><i class="fab fa-uikit"></i><a href="{% url 'manager_page' %}">maintenance request</a></li>
-            <li><i class="fas fa-users"></i></i><a href="#">maintenance staffs</a></li>
-
+            <li><i class="fab fa-uikit"></i><a onclick="showWorkOrderPage()" href="#">maintenance request</a></li>
+            <li><i class="fas fa-users"></i></i><a onclick="showCompletedWorksPage()" href="#">maintenance staffs</a></li>
     
-            <li><i class="fas fa-edit"></i></i><a href="#">Report</a></li>
+            <li><i class="fa-solid fa-clipboard-list"></i><a onclick="showReportTable()" href="#">Completed Works</a></li>
     
-            <li><i class="fas fa-user"></i></i><a href="{% url 'profile_view' %}">Update Profile</a></li>
+            <li><i class="fa-solid fa-clipboard-list"></i><a onclick="financeReportTable()" href="#">Finance Report</a></li>
+           
             <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
             <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
            
@@ -99,7 +99,7 @@
    
         
 
-        <div class="board">
+        <div class="board" id="work-order-board">
             <table width="100%">
                 <thead>
                     <tr>
@@ -117,6 +117,7 @@
 
                 <tbody>
                     {% for x in all_info %}
+                    {% if  x.status == 'pending' %}
                   <tr>
 
                     
@@ -168,6 +169,7 @@
                     </td>
 
                   </tr>
+                  {% endif %}
                    {% endfor %}
 
                  
@@ -180,23 +182,23 @@
         </div>
 
 
-
+      
         
-        <div class="board" id="maintenanceStaffTable">
+        <div class="board" id="completed-works-board" style="display: none;">
             <table width="100%">
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Address</td>
-                        <td>Status</td>
+                       
                         <td>Role</td>
-                        <td>Action</td>
+                        <td>phone number</td>
                         
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for employee in employees %}
+                    {% if employee.is_active %}
                     {% if employee.role == 'maintenance_staff/electrician' or employee.role == 'maintenance_staff/plumber' %}
                   <tr>
 
@@ -209,20 +211,9 @@
                         </div>
                     </td>
 
-                    <td class="people-des">
-                            <h5>{{ employee.address }}</h5>
-                            
-                    </td>
+                   
 
-                    <td class="active">
-                      <a href="{% url 'update_employee_active_status' employee.id %}">
-                        {% if employee.is_active %}
-                           <span class="active">Active</span>
-                        {% else %}
-                           <span class="inactive">Inactive</span>
-                        {% endif %}
-                      </a>
-                    </td>
+                 
 
                     <td class="role">
                         <p>{{ employee.role }}</p>
@@ -230,16 +221,17 @@
 
                     
                     <td>
-                      <a href="{% url 'employee_detail' employee.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
+                        <p>{{ employee.phone_number }}</p>
                     </td>
                   </tr>
                  
 
                   {% endif %}
+                  {% endif %}
 
                    {% endfor %}
 
-                 
+                   
                  
 
                 </tbody>
@@ -248,11 +240,204 @@
 
         </div>
 
+
+        
+        
+        <div class="board" id="report-board" style="display: none;">          
+            <table width="100%">
+              <thead>
+                  <tr>
+                      <td>Type</td>
+                      <td>Property Adress</td>
+                      <td>Service</td>
+
+                      <td>Customer Info</td>
+                      <td>Employee name</td>
+                      <td>Status</td>
+
+                      
+                      
+                  </tr>
+              </thead>
+
+              <tbody>
+                 
+                  {% for x in all_info %}
+                 
+                  {% if  x.status == 'completed' %}
+                 <tr>
+
+                  
+                  <td class="people">
+                      <img src="{{ x.property.image.url }}">
+                      <div class="people-de">
+                          <h5>{{x.property.propertyType}}</h5>
+                          <p>id {{ x.property.id}}</p>
+                      </div>
+                  </td>
+
+                  <td class="people-des">
+                      <h5>{{ x.property.city}}</h5>
+                      <p>{{ x.property.area}}</p>
+                  </td>
+
+                  
+                  <td class="people-des">
+                      <h5>{{ x.service}}</h5>
+                  </td>
+                  <td class="people-des">
+                          <h5>{{ x.registration.email}}</h5>
+                          <p>{{ x.registration.first_name}} {{ x.registration.last_name}}</p>
+                          <p>{{ x.registration.phone_number}}</p>
+                  </td>
+
+                  <td class="people-des">
+                      <h5>{{ x.employee.email}}</h5>
+                      <p>{{ x.employee.first_name}} {{ x.employee.last_name}}</p>
+                      <p>{{ x.employee.phone_number}}</p>
+                  </td>
+
+               
+                  
+
+                  <td class="active">
+                      
+                      
+                      <p>{{ x.status}}</p>    
+                      
+                     
+                     
+                  </td>
+
+                 
+
+                </tr>
+                 {% endif %}
+                 {% endfor %}
+
+               
+               
+
+              </tbody>
+
+          </table>
+
+       </div>
+
+
+       <div class="board" id="finance-report-board" style="display: none;">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Customer info </td>
+                    <td>Amount price </td>
+                    <td>Status</td>
+                    <td>Date of purchase </td>
+                    <td>Size  </td>
+                    <td>Photo  </td>
+                    <td>Detail  </td>
+                    <td></td>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for finance_entry in finance_entries %}
+             
+    
+              <tr>
+    
+                
+                <td class="people">
+                 
+                    <div class="people-de">
+                        <h5>{{ finance_entry.customer_name }}</h5>
+                        <p>{{ finance_entry.customer_email }}</p>
+                    </div>
+                </td>
+    
+                <td class="people-des">
+                        <h5>{{ finance_entry.price }}</h5>
+                        <p> {{ finance_entry.remaining_amount }}</p>
+                </td>
+    
+                <td class="active">
+                    <p>{{ finance_entry.property.status }}</p>
+                    
+    
+    
+                </td>
+    
+                <td class="role">
+                    <p>{{ finance_entry.date_of_purchase }}</p>
+       
+                </td>
+                <td class="role">
+            
+              <P>{{ finance_entry.property.size }}</p>
+            </td>
+            <td class="people">
+                <img src="{{ finance_entry.property.image.url }}">
+                 </br>
+                <p>id {{ finance_entry.property.id }}</p>
+                <div class="people-de">
+                   
+                </div>
+            </td>
+            <td class="role">
+              
+                
+                    <button class="detail-button" onclick="showDetails('{{ finance_entry.id }}')">Details</button>
+        
+            </td>
+              </tr>
+             
+              {% endfor %}
+            </tbody>
+    
+        </table>
+    
+    </div>
+    
+
+        
        
 
        
 
       </section>
+
+      <script>
+        // Function to switch to the Maintenance Request board
+        function showWorkOrderPage() {
+            document.getElementById("work-order-board").style.display = "block";
+            document.getElementById("completed-works-board").style.display = "none";
+            document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("report-board").style.display = "none";
+        }
+    
+        // Function to show the Completed Works page and hide the Work Order page
+        function showCompletedWorksPage() {
+            document.getElementById("work-order-board").style.display = "none";
+            document.getElementById("report-board").style.display = "none";
+            document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("completed-works-board").style.display = "block";
+            
+        }
+
+        function showReportTable() {
+            document.getElementById("work-order-board").style.display = "none";
+            document.getElementById("completed-works-board").style.display = "none";
+            document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("report-board").style.display = "block";
+        }
+
+        function financeReportTable(){
+            document.getElementById("work-order-board").style.display = "none";
+            document.getElementById("completed-works-board").style.display = "none";
+            document.getElementById("report-board").style.display = "none";
+            document.getElementById("finance-report-board").style.display = "block";
+        }
+      </script>
 
   
 </body>

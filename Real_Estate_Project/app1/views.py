@@ -671,7 +671,7 @@ def login(request):
                     'maintenance_staff/plumber': 'maintenance_staff_page',
                     'maintenance_staff/electrician': 'maintenance_staff_page',
 
-                    'finance': 'https://dashboard.stripe.com/login'
+                    'finance': 'https://dashboaloginrd.stripe.com/'
                 }
                 # Check if the user's role is in the map
                 if user.role in role_page_map:
@@ -923,7 +923,7 @@ def change_password(request):
 
 from django.shortcuts import render, redirect
 from .forms import FinanceForm
-@login_required
+
 def finance_form(request):
     if request.method == 'POST':
         form = FinanceForm(request.POST)
@@ -942,7 +942,7 @@ def success_page(request):
 
 # views.py in app1 directory
 from .models import Finance
-@login_required
+
 
 def finance_with_property_data(request):
   
@@ -985,7 +985,7 @@ def finance_detail_api(request, finance_id):
 
 from django.shortcuts import render, get_object_or_404
 from .models import Finance
-@login_required
+
 def finance_detail_view(request, finance_id):
     finance_entry = get_object_or_404(Finance, id=finance_id)
     return render(request, 'finance_detail.html', {'finance_entry': finance_entry})
@@ -1190,39 +1190,39 @@ from django.shortcuts import render, redirect
 from .forms import AskMaintenanceForm
 from .models import AskMaintenance, Registration, Properties
 
-def ask_maintenance(request):
+def ask_maintenance(request, email, property_id):
     if request.method == 'POST':
         form = AskMaintenanceForm(request.POST)
+        property = Properties.objects.get(id=property_id)
 
         if form.is_valid():
-            property_id = form.cleaned_data['property_id']
             registration_email = form.cleaned_data['registration_email']
             service = form.cleaned_data['service']
-            
+
             try:
                 # Retrieve the Registration object based on the provided email address
                 registration = Registration.objects.get(email=registration_email)
-                
+
                 try:
                     # Retrieve the Property object based on the provided property_id
                     property = Properties.objects.get(id=property_id)
-                    
+
                     # Create and save the AskMaintenance instance
                     ask_maintenance = AskMaintenance(
-                        property_id=property_id,
+                        property=property,
                         registration=registration,
                         service=service,
                         status='pending'
                     )
                     ask_maintenance.save()
-                    
+
                     # Redirect to a success page or do something else
-                    
+
                 except Properties.DoesNotExist:
                     # Handle the case when the property does not exist
                     form.add_error('property_id', 'Invalid property ID')
                     return render(request, 'ask_maintenance.html', {'form': form})
-            
+
             except Registration.DoesNotExist:
                 # Handle the case when the registration does not exist
                 form.add_error('registration_email', 'Invalid registration email')
@@ -1230,10 +1230,14 @@ def ask_maintenance(request):
 
     else:
         form = AskMaintenanceForm()
-    
-    return render(request, 'ask_maintenance.html', {'form': form})
 
+    context = {
+        'email': email,
+        'property_id': property_id,
+        'form': form,
+    }
 
+    return render(request, 'ask_maintenance.html', context)
 
 from django.shortcuts import render, get_object_or_404
 from .models import AskMaintenance, Properties, Employee, Registration
@@ -1290,6 +1294,8 @@ def Manager(request):
     
     all_info = AskMaintenance.objects.all()
     employees = Employee.objects.all()
+    all_objects = Finance.objects.all()
+
     
     manager_profile = Employee.objects.filter(role='manager').first()
     
@@ -1297,7 +1303,22 @@ def Manager(request):
         'all_info': all_info,
         'manager_profile':manager_profile,
         'employees':employees,
+        'finance_entries':all_objects,
         
     }
     return render(request, 'manager_page.html', context)
-   
+
+def my_property(request,email):
+  
+    all_objects = Finance.objects.all()
+    
+
+    context = {
+        'email': email,
+        'finance_entries': all_objects
+    
+        # Other context variables
+    }
+
+    print(all_objects)  # Add this line for debugging
+    return render(request, 'my_property.html',context)
