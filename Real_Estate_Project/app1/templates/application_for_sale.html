@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
     /* Form container */
     .form-container {
@@ -19,7 +20,7 @@
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-top:-12px;
+        margin-top:80px;
     }
     
     /* Form labels */
@@ -67,9 +68,10 @@
         display: none;
     }
     
-  </style>
+</style>
 
 </head>
+<body>
 
 <header class="header">
     <nav class="nav container">
@@ -111,32 +113,195 @@
     
     <form id="myForm" method="POST" action="{% url 'application_for_sale' property_id=property.id email=email %}">
         
+     
+    
       {% csrf_token %}
-      
-      
-      <select name="property" id="id_property" hidden>
-        {% for property in properties %}
-            <option value="{{ property.id }}" {% if property.id == selected_property_id %}selected{% endif %}>
-                {{ property.name }}
-            </option>
-        {% endfor %}
-    </select>
-      
-      {% for field in form.visible_fields %}
-      {% if field.name != 'status' %}
-          <div class="form-group {% if field.name == 'partner_first_name' or field.name == 'partner_last_name' or field.name == 'partner_phone_number' or field.name == 'partner_work_status' %}married-fields{% endif %}">
-              <label for="{{ field.auto_id }}">{{ field.label }}</label>
-              {{ field }}
-              {% if field.errors %}
-                  <ul class="errors">
-                      {% for error in field.errors %}
-                          <li>{{ error }}</li>
-                      {% endfor %}
-                  </ul>
-              {% endif %}
-          </div>
+    <input type="hidden" name="property" value="{{ property.id }}">
+    <input type="hidden" name="email" value="{{ email }}">
+
+    <div>
+        <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+        {{ form.first_name }}
+        {% if form.first_name.errors %}
+            <ul class="errorlist">
+                {% for error in form.first_name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="{{ form.middle_name.id_for_label }}">Middle Name:</label>
+        {{ form.middle_name }}
+        {% if form.middle_name.errors %}
+            <ul class="errorlist">
+                {% for error in form.middle_name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+  
+    <div>
+      <label for="{{ form.last_name.id_for_label }}" >Last Name:</label>
+      {{ form.last_name }}
+      {% if form.last_name.errors %}
+          <ul class="errorlist">
+              {% for error in form.last_name.errors %}
+                  <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
       {% endif %}
-  {% endfor %}
+    </div>
+
+    <div>
+          <label for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
+          {{ form.phone_number }}
+          {% if form.phone_number.errors %}
+              <ul class="errorlist">
+                  {% for error in form.phone_number.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+    </div>
+  
+    <div>
+          <label for="{{ form.nationality.id_for_label }}">Nationality:</label>
+          {{ form.nationality }}
+          {% if form.nationality.errors %}
+              <ul class="errorlist">
+                  {% for error in form.nationality.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+   </div>
+  
+   <div>
+          <label for="{{ form.city.id_for_label }}">City:</label>
+          {{ form.city }}
+          {% if form.city.errors %}
+              <ul class="errorlist">
+                  {% for error in form.city.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+    </div>
+  
+    <div>
+          <label for="{{ form.sub_city.id_for_label }}">Sub City:</label>
+          {{ form.sub_city }}
+          {% if form.sub_city.errors %}
+              <ul class="errorlist">
+                  {% for error in form.sub_city.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+    </div>
+  
+    <div>
+          <label for="{{ form.kebele.id_for_label }}">Kebele:</label>
+          {{ form.kebele }}
+          {% if form.kebele.errors %}
+              <ul class="errorlist">
+                  {% for error in form.kebele.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+    </div>
+  
+    <div>
+          <label for="{{ form.work_status.id_for_label }}">Work Status:</label>
+          {{ form.work_status }}
+          {% if form.work_status.errors %}
+              <ul class="errorlist">
+                  {% for error in form.work_status.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+    </div>
+  
+    <div>
+          <label for="{{ form.gender.id_for_label }}">Gender:</label>
+          {{ form.gender }}
+          {% if form.gender.errors %}
+              <ul class="errorlist">
+                  {% for error in form.gender.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+    </div>
+      
+    <div>
+        <label for="{{ form.marital_status.id_for_label }}">Marital Status:</label>
+        {{ form.marital_status }}
+        {% if form.marital_status.errors %}
+        <ul class="errorlist">
+          {% for error in form.marital_status.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    
+    <div id="partner-fields-container">
+        {% if form.marital_status.value == 'Married' %}
+          <div>
+            <label for="{{ form.partner_first_name.id_for_label }}">Partner First Name:</label>
+            {{ form.partner_first_name }}
+            {% if form.partner_first_name.errors %}
+            <ul class="errorlist">
+              {% for error in form.partner_first_name.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+      </div>
+    
+      <div>
+            <label for="{{ form.partner_last_name.id_for_label }}">Partner Last Name:</label>
+            {{ form.partner_last_name }}
+            {% if form.partner_last_name.errors %}
+            <ul class="errorlist">
+              {% for error in form.partner_last_name.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+      </div>
+    
+      <div>
+            <label for="{{ form.partner_phone_number.id_for_label }}">Partner Phone Number:</label>
+            {{ form.partner_phone_number }}
+            {% if form.partner_phone_number.errors %}
+            <ul class="errorlist">
+              {% for error in form.partner_phone_number.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+      </div>
+    
+      <div>
+            <label for="{{ form.partner_work_status.id_for_label }}">Partner Work Status:</label>
+            {{ form.partner_work_status }}
+            {% if form.partner_work_status.errors %}
+            <ul class="errorlist">
+              {% for error in form.partner_work_status.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
   
       
       <button type="submit">Submit</button>
@@ -173,36 +338,29 @@
     </div>
   </footer>
 
-
-  
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const maritalStatusField = document.querySelector('#id_marital_status');
-      const marriedFields = document.querySelectorAll('.married-fields');
+    // Get the marital status select element
+    var maritalStatusSelect = document.getElementById('id_marital_status');
   
-      // Initially hide married fields
-      marriedFields.forEach(function(field) {
-        field.style.display = 'none';
-      });
+    // Get the partner-related field containers
+    var partnerFieldsContainer = document.getElementById('partner-fields-container');
   
-      // Function to toggle visibility of married fields
-      function toggleMarriedFields() {
-        if (maritalStatusField.value === 'Married') {
-          marriedFields.forEach(function(field) {
-            field.style.display = 'block';
-          });
-        } else {
-          marriedFields.forEach(function(field) {
-            field.style.display = 'none';
-          });
-        }
+    // Hide the partner-related fields initially
+    partnerFieldsContainer.style.display = 'none';
+  
+    // Add an event listener to the marital status select element
+    maritalStatusSelect.addEventListener('change', function() {
+      // Check the selected value of the marital status
+      if (maritalStatusSelect.value === 'Married') {
+        // If the selected value is 'Married', display the partner-related fields
+        partnerFieldsContainer.style.display = 'block';
+      } else {
+        // Otherwise, hide the partner-related fields
+        partnerFieldsContainer.style.display = 'none';
       }
-  
-      // Call toggleMarriedFields on page load
-      toggleMarriedFields();
-  
-      // Listen for changes in marital status field
-      maritalStatusField.addEventListener('change', toggleMarriedFields);
     });
   </script>
-  
+
+</body>
+</html>
+

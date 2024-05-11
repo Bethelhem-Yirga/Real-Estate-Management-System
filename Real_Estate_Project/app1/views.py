@@ -337,7 +337,7 @@ def mrkMng(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
     
@@ -360,7 +360,7 @@ def forsale(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
@@ -382,7 +382,7 @@ def forent(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
@@ -402,7 +402,7 @@ def soled(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
@@ -423,7 +423,7 @@ def rented(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
@@ -1000,7 +1000,7 @@ def mng(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 
@@ -1023,7 +1023,7 @@ def mng_rent(request):
     total_properties = Properties.objects.count()
     sale_properties = Properties.objects.filter(status='For Sale').count()
     rent_properties = Properties.objects.filter(status='For Rent').count()
-    soled_properties = Properties.objects.filter(status='Soled').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
     rented_properties = Properties.objects.filter(status='Rented').count()
     marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
 

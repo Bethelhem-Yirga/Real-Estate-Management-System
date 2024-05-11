@@ -163,6 +163,7 @@
 
                 <tbody>
                     {% for x in all_info %}
+                    
                   <tr>
 
                     
@@ -185,7 +186,10 @@
 
                     <td class="role">
                         <p>
+                            {% if x.status == 'For Sale' or x.status == 'For Rent' %}
                             <a href="{% url 'update_property' property_id=x.id %}"><i class="fa-solid fa-pen-to-square "  style="color: #787d8d;"></i></a>
+                            {% endif %}
+
                             <a href="#" onclick="openPopup('{{ x.image.url }}', '{{ x.propertyType }}', '{{ x.country }}', '{{ x.city }}', '{{ x.area }}', '{{ x.description }}'
                             ,'{{ x.noOfRooms }}','{{ x.bedrooms }}','{{ x.bathrooms }}','{{ x.roomFloor }}','{{ x.TotalFloor }}','{{ x.year_built }}','{{ x.roomFloor }}','{{ x.status }}')">
                                 <i class="fa-solid fa-eye" style="color: #787d8d;"></i>

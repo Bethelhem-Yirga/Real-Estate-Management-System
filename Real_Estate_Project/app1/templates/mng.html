@@ -426,6 +426,9 @@ tbody tr td{
                 </thead>
                 <tbody>
                     {% for x in applications %}
+                    {% if x.property.status == 'For Sale' %}
+
+
                         <tr>
                             <td class="people">
                                 <img src="{{ x.property.image.url }}">
@@ -471,6 +474,7 @@ tbody tr td{
     </p>
 </td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

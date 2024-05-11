@@ -415,13 +415,17 @@ tbody tr td{
                         <td>Property</td>
                         <td>Property Address</td>
                         <td>Status</td>
+                        <td>Application Date</td>
 
-                        <td>contact information</td>
-                        <td>Action</td>
+                        <td>Customer information</td>
+                       
+                        <td>Accept</td>
                     </tr>
                 </thead>
                 <tbody>
                     {% for x in applicationrent %}
+                    {% if x.property.status == 'For Rent' %}
+
                         <tr>
                             <td class="people">
                                 <img src="{{ x.property.image.url }}">
@@ -439,15 +443,16 @@ tbody tr td{
                             </td>
 
                             <td class="active">
+                               
+                                <p>{{ x.date_added }}</p>
+                            </td>
+
+                            <td class="active">
                                 <h5>{{ x.first_name}} {{ x.last_name}}</h5>
                                 <p>{{ x.email }}</p>
                             </td>
 
-                            <td class="role">
-                                <p>
-                                    <a href="{% url 'update_application_rent' application_id=x.id %}">{{x.status}}</a> 
-                                </p>
-                            </td>
+                          
 
                             <td class="role">
                                 <p>
@@ -462,6 +467,8 @@ tbody tr td{
                                 </p>
                             </td>
                         </tr>
+                        {% endif %}
+
                     {% endfor %}
                 </tbody>
             </table>
