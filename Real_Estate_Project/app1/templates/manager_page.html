@@ -58,6 +58,8 @@
             <li><i class="fa-solid fa-clipboard-list"></i><a onclick="showReportTable()" href="#">Completed Works</a></li>
     
             <li><i class="fa-solid fa-clipboard-list"></i><a onclick="financeReportTable()" href="#">Finance Report</a></li>
+            <li><i class="fa-solid fa-clipboard-list"></i><a onclick="salespersonReportTable()" href="#">Salesperson Report</a></li>
+
            
             <li><i class="fa-solid fa-comments"></i><a onclick="feedbackTable()" href="#">Feedback</a></li>
             <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
@@ -332,10 +334,12 @@
                     <td>Customer info </td>
                     <td>Amount price </td>
                     <td>Status</td>
+                    <td>Price</td>
                     <td>Date of purchase </td>
-                    <td>Size  </td>
-                    <td>Photo  </td>
-                    <td>Detail  </td>
+                    
+                    <td>Size</td>
+                    <td>Photo</td>
+                   
                     <td></td>
                 </tr>
             </thead>
@@ -366,6 +370,10 @@
     
     
                 </td>
+
+                <td class="role">
+                    <P>{{ finance_entry.property.price }} birr</p>
+                </td>
     
                 <td class="role">
                     <p>{{ finance_entry.date_of_purchase }}</p>
@@ -373,7 +381,7 @@
                 </td>
                 <td class="role">
             
-              <P>{{ finance_entry.property.size }}</p>
+              <P>{{ finance_entry.property.size }} sq m</p>
             </td>
             <td class="people">
                 <img src="{{ finance_entry.property.image.url }}">
@@ -383,12 +391,7 @@
                    
                 </div>
             </td>
-            <td class="role">
-              
-                
-                    <button class="detail-button" onclick="showDetails('{{ finance_entry.id }}')">Details</button>
-        
-            </td>
+           
               </tr>
              
               {% endfor %}
@@ -449,13 +452,79 @@
         </table>
 
        </div>
-    
-
-        
-       
 
        
+       <div class="board" id="salesperson-board" style="display: none;">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Type</td>
+                    <td>Property Adress</td>
+                    <td>Price</td>
+                    <td>Size</td>
+                    <td>Date of Market</td>
+                    <td>salesperson</td>
+                                        
+                </tr>
+            </thead>
 
+            <tbody>
+                {% for x in salesperson %}
+
+              <tr>
+
+                
+                <td class="people">
+                    <img src="{{ x.property.image.url }}">
+                    <div class="people-de">
+                        <h5>{{x.property.propertyType}}</h5>
+                        <p>id {{ x.property.id}}</p>
+                    </div>
+                </td>
+
+                <td class="people-des">
+                    <h5>{{ x.property.city}}</h5>
+                    <p>{{ x.property.area}}</p>
+                </td>
+
+                <td class="people-des">  
+                    <p>{{ x.property.price}} birr</p>
+                </td>
+ 
+
+                <td class="people-des">
+                    
+                    <p>{{ x.property.size}} sq m</p>
+                </td>
+
+                <td class="people-des">
+                    <p>{{ x.date_of_markate }} 
+                </td>
+
+               
+
+                <td class="people-des">
+                        <h5>{{ x.registration.email}}</h5>
+                        <p>{{ x.registration.first_name}} {{ x.registration.last_name}}</p>
+                        <p>{{ x.registration.phone_number}}</p>
+                </td>
+
+              
+
+              </tr>
+
+               {% endfor %}
+
+             
+             
+
+            </tbody>
+
+        </table>
+
+       </div>
+
+  
       </section>
 
       <script>
@@ -466,6 +535,8 @@
             document.getElementById("finance-report-board").style.display = "none";
             document.getElementById("feedback-board").style.display = "none";
             document.getElementById("report-board").style.display = "none";
+            document.getElementById("salesperson-board").style.display = "none";
+
         }
     
         // Function to show the Completed Works page and hide the Work Order page
@@ -474,6 +545,7 @@
             document.getElementById("report-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "none";
             document.getElementById("feedback-board").style.display = "none";
+            document.getElementById("salesperson-board").style.display = "none";
             document.getElementById("completed-works-board").style.display = "block";
             
         }
@@ -483,6 +555,7 @@
             document.getElementById("completed-works-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "none";
             document.getElementById("feedback-board").style.display = "none";
+            document.getElementById("salesperson-board").style.display = "none";
             document.getElementById("report-board").style.display = "block";
         }
 
@@ -491,6 +564,7 @@
             document.getElementById("completed-works-board").style.display = "none";
             document.getElementById("report-board").style.display = "none";
             document.getElementById("feedback-board").style.display = "none";
+            document.getElementById("salesperson-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "block";
         }
 
@@ -499,7 +573,18 @@
             document.getElementById("completed-works-board").style.display = "none";
             document.getElementById("report-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("salesperson-board").style.display = "none";
             document.getElementById("feedback-board").style.display = "block";
+        }
+
+        function salespersonReportTable(){
+            document.getElementById("work-order-board").style.display = "none";
+            document.getElementById("completed-works-board").style.display = "none";
+            document.getElementById("report-board").style.display = "none";
+            document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("feedback-board").style.display = "none";
+            document.getElementById("salesperson-board").style.display = "block";
+
         }
       </script>
 

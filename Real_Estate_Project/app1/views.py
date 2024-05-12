@@ -183,7 +183,8 @@ def application_for_sale(request,property_id,email):
         form = ApplicationForm(request.POST)  # Bind form data from POST request
 
         if form.is_valid():
-            form.save()  # Save the form data as a new Application instance
+            form.save()
+            messages.success(request, 'Your application has been submitted successfully.')  # Save the form data as a new Application instance
            # return redirect('property_listing')
 
 
@@ -224,7 +225,9 @@ def application_for_rent(request, property_id,email):
         if form.is_valid():
             application = form.save(commit=False)
             application.property = property  # Set the property for the application
-            application.save()  # Save the form data as a new Application instance
+            application.save() 
+            messages.success(request, 'Your application has been submitted successfully.')  # Save the form data as a new Application instance
+ # Save the form data as a new Application instance
 #            return redirect('property_listing')
 
     context = {
@@ -732,6 +735,8 @@ def login(request):
 
 def system_admin(request):
     employees = Employee.objects.all()
+    customer = Registration.objects.all()
+    total_customers = Registration.objects.filter(role='customer').count() 
     total_employees = Employee.objects.count()
     salespersons = Employee.objects.filter(role='salesperson').count()
     maintenance_staff = Employee.objects.filter(role='maintenance_staff').count()
@@ -743,10 +748,35 @@ def system_admin(request):
         'admin_profile': admin_profile,
         'total_employees': total_employees,
         'salespersons': salespersons,
+        'customer': customer,
+        'total_customers' :  total_customers,
         'maintenance_staff': maintenance_staff
     }
 
     return render(request, 'system_admin.html', context)
+
+
+def customer(request):
+    employees = Employee.objects.all()
+    customer = Registration.objects.all()
+    total_employees = Employee.objects.count()
+    total_customers = Registration.objects.filter(role='customer').count() 
+  
+    admin_profile = Employee.objects.filter(role='admin').first()
+  
+    context = {
+        'employees': employees, 
+        'admin_profile': admin_profile,
+        'total_employees': total_employees,
+        'salespersons': salespersons,
+        'maintenance_staff': maintenance_staff,
+        'customer': customer,
+        'total_customers' :  total_customers,
+
+    }
+
+    return render(request, 'customer.html', context)
+
 
 from django.shortcuts import render, redirect
 from .models import Employee
@@ -1218,6 +1248,7 @@ def ask_maintenance(request, email, property_id):
                         status='pending'
                     )
                     ask_maintenance.save()
+                    messages.success(request, 'Your request has been submitted successfully.')
 
                     # Redirect to a success page or do something else
 
@@ -1262,6 +1293,9 @@ def update_askmaintenance(request, askmaintenance_id):
                 askmaintenance.employee = employee_obj
                 # Save the updated AskMaintenance instance
                 askmaintenance.save()
+                return redirect('manager_page')
+
+             
 
                 # Redirect to a success page or do something else
 
@@ -1277,6 +1311,11 @@ def update_askmaintenance(request, askmaintenance_id):
         form = AskMaintenanceForm(instance=askmaintenance)
 
     return render(request, 'update_askmaintenance.html', {'form': form})
+from django.urls import reverse
+from django.shortcuts import redirect
+
+from django.urls import reverse
+from django.shortcuts import redirect
 
 def update_work(request, askmaintenance_id):
     askmaintenance = get_object_or_404(AskMaintenance, id=askmaintenance_id)
@@ -1284,12 +1323,29 @@ def update_work(request, askmaintenance_id):
         form = AskMaintenanceFormMs(request.POST, instance=askmaintenance)
         if form.is_valid():
             form.save()
+            
+            # Use the correct field to retrieve the email
+            
             # Redirect to a success page or perform any other actions
     else:
         form = AskMaintenanceFormMs(instance=askmaintenance)
     
     return render(request, 'update_work.html', {'form': form})
-
+"""
+def update_work(request, askmaintenance_id):
+    askmaintenance = get_object_or_404(AskMaintenance, id=askmaintenance_id)
+    if request.method == 'POST':
+        form = AskMaintenanceFormMs(request.POST, instance=askmaintenance)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('maintenance_staff_page'))
+            
+            # Redirect to a success page or perform any other actions
+    else:
+        form = AskMaintenanceFormMs(instance=askmaintenance)
+    
+    return render(request, 'update_work.html', {'form': form})
+"""
 
 
 
@@ -1299,6 +1355,8 @@ def Manager(request):
     employees = Employee.objects.all()
     all_objects = Finance.objects.all()
     feedback = ContactMessage.objects.all()
+    salesperson = Salesperson.objects.all()
+
 
     
     manager_profile = Employee.objects.filter(role='manager').first()
@@ -1309,6 +1367,8 @@ def Manager(request):
         'employees':employees,
         'finance_entries':all_objects,
         'feedback':feedback,
+        'salesperson' : salesperson,
+        
         
     }
     return render(request, 'manager_page.html', context)

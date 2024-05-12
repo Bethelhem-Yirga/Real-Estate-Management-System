@@ -108,6 +108,7 @@ urlpatterns = [
     path('manager_page/', views.Manager, name='manager_page'),
 
 
- path('salesperson/', salesperson_view, name='salesperson_view'),
+    path('salesperson/', salesperson_view, name='salesperson_view'),
+    path('customer/', views.customer, name='customer'),
 
 ]

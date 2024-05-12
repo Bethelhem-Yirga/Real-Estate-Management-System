@@ -70,7 +70,10 @@ button[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-
+.my-messages{
+    color:green;
+    font-size:22px;
+}
 
 
 </style>
@@ -114,7 +117,22 @@ button[type="submit"] {
 <form id="myForm" method="POST" action="{% url 'application_for_rent' property_id=property.id email=email %}">
     {% csrf_token %}
     
-    
+    {% if messages %}
+        <ul class="my-messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.tags == 'success' %}
+                <div class="success-message">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                <div class="error-message">{{ message }}</div>
+                {% else %}
+                <div class="other-message">{{ message }}</div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+            
     <div class="form-field" style="display: none;">
         <label for="id_property">Select Property:</label>
         {{ form.property }}

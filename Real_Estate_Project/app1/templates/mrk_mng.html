@@ -40,14 +40,14 @@
    
 </head>
 <body>
-
+    {% if marketing_manager_profile %}
         <section id="menu">
-            {% if marketing_manager_profile %}
+          
            <div class="logo">
               <img src="{% static 'img/logo.png' %}" alt="">
               
            </div>
-           {% endif %}
+      
 
            <div class="items">
             
@@ -238,6 +238,7 @@
 
         </div>
     </div>
+    {% endif %}
     
     <script>
         function openPopup(imageUrl, propertyType, country, city, area, description, noOfRooms, bedrooms, bathrooms, roomFloor, TotalFloor, yearBuilt, airConditioning, gym, laundry, lawn, swimmingPool, wifi, status) {

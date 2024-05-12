@@ -33,19 +33,19 @@
            </div>
           
 
-           <div class="items">
+          <div class="items">
            
-            <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
-            <li><i class="fas fa-users"></i><a href="{% url 'system_admin'%}">Employees</a></li>
-            <li><i class="fas fa-users"></i><a href="{% url 'customer'%}">Customers</a></li>
-            <li><i class="fa-solid fa-user-plus"></i> <a href="{% url 'add_employee' %}">Add Employees</a></li>
-            
-            <li hidden><i class="fa-solid fa-message"></i><a href="https://dashboard.tawk.to/?lang=en#/chat">Message</a></li>
+                <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
+                <li><i class="fas fa-users"></i><a href="{% url 'system_admin'%}">Employees</a></li>
+                <li><i class="fas fa-users"></i><a href="{% url 'customer'%}">Customers</a></li>
+                <li><i class="fa-solid fa-user-plus"></i> <a href="{% url 'add_employee' %}">Add Employees</a></li>
+                
+                <li hidden><i class="fa-solid fa-message"></i><a href="https://dashboard.tawk.to/?lang=en#/chat">Message</a></li>
 
-            <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
-           
-            
-      </div>
+                <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
+               
+                
+          </div>
          
         </section>
 
@@ -81,7 +81,7 @@
           <div class="val-box">
             <i class="fas fa-users"></i>
             <div>
-              <a href="{% url 'system_admin'%}"><h3>Total Employees</h3><a/>
+                <a href="{% url 'system_admin'%}"><h3>Total Employees</h3><a/>
                <span>{{total_employees}}</span>
             </div>
           </div>
@@ -89,8 +89,9 @@
             <div class="val-box">
                 <i class="fas fa-users"></i>
                 <div>
-                  <a href="{% url 'customer'%}"><h3>Total Customers</h3></a>
-                  <span>{{total_customers}}</span>
+                    <a href="{% url 'customer'%}"><h3>Total Customers</h3></a>
+
+                    <span>{{total_customers}}</span>
                 </div>
             </div>
 
@@ -106,21 +107,23 @@
                     <tr>
                         <td>Name</td>
                         <td>Address</td>
-                        <td>Status</td>
-                        <td>Role</td>
-                        <td>Action</td>
-                        
+                        <td>phone number</td>
+                       
                     </tr>
                 </thead>
 
                 <tbody>
-                    {% for employee in employees %}
+                    {% for employee in customer %}
+                    {% if employee.role == 'customer'%}
                   <tr>
 
                     
                     <td class="people">
-                        <img src="{{ employee.img.url }}">
+                        
                         <div class="people-de">
+                            
+                         
+                            <img src="{% static 'img/User_Avatar.png' %}" alt="Logo">
                             <h5>{{ employee.first_name }} {{ employee.last_name }}</h5>
                             <p>{{ employee.email }}</p>
                         </div>
@@ -131,31 +134,21 @@
                             
                     </td>
 
-                    <td class="active">
-                      <a href="{% url 'update_employee_active_status' employee.id %}">
-                        {% if employee.is_active %}
-                           <span class="active">Active</span>
-                        {% else %}
-                           <span class="inactive">Inactive</span>
-                        {% endif %}
-                      </a>
-                    </td>
+                  
 
                     <td class="role">
-                        <p>{{ employee.role }}</p>
+                        <p>{{ employee.phone_number}}</p>
                     </td>
 
-                    
-                    <td>
-                      <a href="{% url 'employee_detail' employee.id %}"><i class="fa-solid fa-eye" style="color: #000000;"></i></a>
-                    </td>
+                   
                   </tr>
+                  
+                  {% endif %}
                   {% empty %}
                   <tr>
                     <td colspan="7">No employees found.</td>
                   </tr>
 
-                  
                    {% endfor %}
 
                  
