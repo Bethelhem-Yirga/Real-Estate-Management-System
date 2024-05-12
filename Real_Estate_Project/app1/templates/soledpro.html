@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>selseperson </title>
+    <title>selseperson</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/marketing_manager.css' %}">
     <style>
@@ -56,12 +56,12 @@
             
             
                      <li><i class="fa fa-chart-pie-alt"></i><a href="#">Dashboard</a></li>
-                     <li><i class="fa-solid fa-pen-to-square"></i><a href='/salesperson'>Report </a></li>
+                     <li><i class="fa-solid fa-pen-to-square"></i></i><a href='/salesperson'>Report </a></li>
                      <li><i class="fa-sharp fa-solid fa-house"></i></i><a href="{% url 'sale_properties' %}">Available to sell</a></li>
                      <li><i class="fa-sharp fa-solid fa-house"></i><a href="{% url 'rental_properties' %}">Available rent</a></li>
                      <li><i class="fa-sharp fa-solid fa-house"></i><a href="{% url 'soledpro' %}">Soled property</a></li>
                      <li><i class="fa-solid fa-users-line"></i><a href='/salespersons'>salespersons</a></li>
-                    
+                     
                      <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
          
            
@@ -69,7 +69,6 @@
            </div>
          
         </section>
-
         
       <section id="interface"> 
             <div class="navigation"> 
@@ -97,10 +96,8 @@
             Dashboard
         </h3>
 .
-      
 
-            
-        </div>
+     
 
         
 
@@ -118,7 +115,7 @@
 
                 <tbody>
                     {% for x in all_info %}
-                    {% if x.status == 'For Sale' %}
+                    {% if x.status == 'Sold' %}
                   <tr>
 
                     
@@ -141,7 +138,6 @@
 
                     <td class="role">
                         <p>
-                          
                             <a href="#" onclick="openPopup('{{ x.image.url }}', '{{ x.propertyType }}', '{{ x.country }}', '{{ x.city }}', '{{ x.area }}', '{{ x.description }}'
                             ,'{{ x.noOfRooms }}','{{ x.bedrooms }}','{{ x.bathrooms }}','{{ x.roomFloor }}','{{ x.TotalFloor }}','{{ x.year_built }}','{{ x.roomFloor }}','{{ x.status }}')">
                                 <i class="fa-solid fa-eye" style="color: #787d8d;"></i>

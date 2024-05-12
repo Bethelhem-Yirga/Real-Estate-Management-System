@@ -669,7 +669,7 @@ def login(request):
                     'admin': 'system_admin',
                     'manager': 'manager_page',
                     'customer': 'property_listing',
-                    'salesperson': 'salespersons',
+                    'salesperson': 'soledpro',
                     'marketing_manager': 'mrk_mng',
                     'maintenance_staff/plumber': 'maintenance_staff_page',
                     'maintenance_staff/electrician': 'maintenance_staff_page',
@@ -1182,22 +1182,42 @@ from django.shortcuts import render
 from .models import Properties
 
 def rental_properties(request):
-    # Query properties with status for rent
-    properties_for_rent = Properties.objects.filter(status='For Rent')
-    
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
     context = {
-        'properties': properties_for_rent,
-        'title': 'Rental Properties',
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
     }
     return render(request, 'rental_properties.html', context)
 
 def sale_properties(request):
-    # Query properties with status for sale
-    properties_for_sale = Properties.objects.filter(status='For Sale')
-    
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
     context = {
-        'properties': properties_for_sale,
-        'title': 'Properties For Sale',
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
     }
     return render(request, 'sale_properties.html', context)
 
@@ -1418,3 +1438,25 @@ def salesperson_view(request):
         return render(request, 'registration_info.html', {'registration': registration, 'finances': finances})
           
     return render(request, 'sealse_report.html')
+
+def soledpro(request):
+    all_info = Properties.objects.all()
+    total_properties = Properties.objects.count()
+    sale_properties = Properties.objects.filter(status='For Sale').count()
+    rent_properties = Properties.objects.filter(status='For Rent').count()
+    soled_properties = Properties.objects.filter(status='Sold').count()
+    rented_properties = Properties.objects.filter(status='Rented').count()
+    marketing_manager_profile = Employee.objects.filter(role='marketing_manager').first()
+
+    context = {
+        'all_info': all_info,
+        'total_properties': total_properties,
+        'sale_properties': sale_properties,
+        'rent_properties': rent_properties,
+        'soled_properties':soled_properties,
+        'rented_properties': rented_properties,
+        'marketing_manager_profile':marketing_manager_profile
+    }
+    return render(request, 'soledpro.html', context)
+
+   
