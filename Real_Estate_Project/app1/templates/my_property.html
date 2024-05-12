@@ -1,7 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyProperty</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
 
 <style>
      
-    @import url('https://fonts.googleapis.com/css?family=Poppins: wght@100;200;300;400; 500;600;700; 800;900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins: wght@100;200;300;400; 500;600;700; 800;900&display=swap');
     *{
     margin: 0;
     padding: 0;
@@ -9,218 +18,11 @@
     font-family: 'Poppins', sans-serif;
     
     }
-    body {
-    width: 100%;
-    background:#E5E7EB;
-    position: relative;
-    display: flex;
-    
-    }
-    
-    #menu {
-    background: #111827;
-    width: 300px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    }
-    
-    #menu .logo{
-    display: flex;
-    align-items: center;
-    color: #fff;
-    padding: 30px 0 0 30px;
-     }
-    
-    
-     #menu .logo img {
-         width: 40px;
-         margin-right: 15px;
-    }
-    
-    #menu .items {
-        margin-top: 40px;
-    }
-    
-    
-    #menu .items li{
-    list-style: none; 
-    padding: 3px 0;
-    transition: 0.3s ease;
-    }
-    
-    #menu .items li i{
-    color: rgb(134, 141, 151);
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    font-size: 14px;
-    margin: 10px 0 25px;
-    
-    }
-    
-    #menu .items li i a{
-        text-decoration: none;
-        color: rgb(134, 141, 151);
-    }
-    
-    
-    #menu .items li:hover{
-        background: #253847; 
-        cursor: pointer;
-    }
-    
-    #menu .items li:nth-child(1)
-    { 
-        border-left: 4px solid #fff;
-    }
-    
-    
-    #menu .items li:hover i,
-    #menu .items li:hover a { 
-        color: #F3F4F6;
-    }
-    #menu .items li a {
-        text-decoration: none;
-    color: rgb(134, 141, 151);
-    font-weight: 300px;
-    transition: 0.3s ease;
-    }
-    
-    
-    #interface {
-    width: calc(100% - 300px);
-    margin-left: 300px;
-    position: relative;
-    }
-    
-    #interface .navigation {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    padding: 15px 30px;
-    border-bottom: 3px solid #594ef7;
-    position: fixed;
-    width: calc(100% - 300px);
-     }
-    
-     
-    #interface .navigation .search {
-        display: flex;
-    justify-content: flex-start; align-items: center;
-    padding: 10px 14px;
-    border: 1px solid #d7dbe6;
-    border-radius: 4px;
-    }
-    
-    #interface .navigation .search i {
-    margin-right: 14px;
-    }
-    
-    
-    #interface .navigation .search input {
-    border: none; outline: none;
-    font-size: 14px;
-    }
-    
-    
-    #interface .navigation .profile {
-    display: flex;
-    justify-content: flex-start; 
-    align-items: center;
-    }
-    
-    #interface .navigation .profile i {
-    margin-right: 20px;
-    font-size: 19px; 
-    font-weight: 400;
-    }
-    
-    
-    #interface .navigation .profile img {
-        width: 55px; 
-        height: 55px;
-        object-fit: cover; 
-        border-radius: 50%;
-    }
-    
-    .n1{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    
-    #menu-btn{
-        color: #2b2b2b;
-        font-size: 20px;
-        cursor: pointer;
-        margin-right: 50px;
-    }
-    
-    .i-name {
-    color: #444a53;
-    padding: 30px 30px 0 30px;
-    font-size: 24px;
-    font-weight: 700;
-    margin-top: 70px;
-    }
-    
-    .values {
-    padding: 30px 30px 0 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap:wrap ;
-    }
-    
-    
-    .values .val-box { 
-        background: #fff; 
-        width: 235px;
-        padding: 16px 20px;
-        border-radius: 5px; 
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    
-    
-    .values .val-box i { 
-    font-size: 25px; width: 60px; height: 60px;
-    line-height: 60px; border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    
-    margin-right: 15px;
-    }
-    
-    .values .val-box:nth-child(1) i{
-        background: #111827;
-    }
-    
-    .values .val-box:nth-child(2) i{
-        background: #4b6aad;
-    }
-    
-    .values .val-box:nth-child(3) i{
-        background: #0a3288;
-    }
-    
-    
-    
-    
-    .values .val-box h3 { 
-        font-size: 18px; 
-        font-weight: 600;
-    }
-    
-    .values .val-box span {
-       font-size: 15px;
-       color: #828997;
-    }
+body{
+    background: #f8f9fb;
+
+}
+   
     
     
     .board {
@@ -229,6 +31,7 @@
     overflow: auto;
     background: #fff; 
     border-radius: 8px;
+    margin-top:180px;
     
     }
     
@@ -271,6 +74,10 @@
     
     tr{
     border-bottom: 1px solid #eef0f3;
+    
+    }
+    thead{
+        
     }
     
     
@@ -278,7 +85,8 @@
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 400;
-    background:#F9FAFB;
+    background-color: #0c0c1d;
+        color:#ffffff;
     text-align: start;
     padding: 15px;
     }
@@ -288,10 +96,53 @@
     }
     
      
-        </style>
+</style>
+</head>
+
+
+<body>
+
+
+    <header class="header">
+        <nav class="nav container">
+           <div class="nav__data">
+              
+              <a href="/" class="nav__logo">
+               <img src="{% static 'img/logo.png' %}" alt="logo" >
+              </a>
+              
+              <div class="nav__toggle" id="nav-toggle">
+                 <i class="ri-menu-line nav__burger"></i>
+                 <i class="ri-close-line nav__close"></i>
+              </div>
+
+           </div>
+
+           
+           <div class="nav__menu" id="nav-menu">
+              <ul class="nav__list">
+                 <li><a href="/" class="nav__link">Home</a></li>
+                 <li><a href="{% url 'property_listing' email=email %}" class="nav__link">listing</a></li>
+                 <li><a href="{% url 'my_property' email=email %}" class="nav__link">my property</a></li>
+
+                 <li><a href="/salespersons" class="nav__link">salesperson</a></li>
+
+                 <li><a href="{% url 'contact_us' %}" class="nav__link">feedback</a></li>
+                 <li><a href="{% url 'about' %}" class="nav__link">About</a></li>
+              
+
+                  
+
+                 
+              </ul>
+           </div>
+        </nav>
+    </header>
+
+    
 <div class="board">
     <table width="100%">
-        <thead>
+        <thead >
             <tr>
                 <td>Customer info </td>
                 <td>Amount price </td>
@@ -299,7 +150,7 @@
                 <td>Date of purchase </td>
                 <td>Size  </td>
                 <td>Photo  </td>
-                <td>Detail  </td>
+               
                 <td></td>
             </tr>
         </thead>
@@ -320,8 +171,8 @@
             </td>
 
             <td class="people-des">
-                    <h5>{{ finance_entry.price }}</h5>
-                    <p> {{ finance_entry.remaining_amount }}</p>
+                    <h5>{{ finance_entry.price }} birr</h5>
+                    
             </td>
 
             <td class="active">
@@ -342,7 +193,7 @@
             </td>
             <td class="role">
         
-          <P>{{ finance_entry.property.size }}</p>
+          <P>{{ finance_entry.property.size }} sq m</p>
         </td>
         <td class="people">
             <img src="{{ finance_entry.property.image.url }}">
@@ -352,12 +203,7 @@
                
             </div>
         </td>
-        <td class="role">
-          
-            
-                <button class="detail-button" onclick="showDetails('{{ finance_entry.id }}')">Details</button>
-    
-        </td>
+        
           </tr>
           {% endif %}
           {% endfor %}
@@ -366,3 +212,10 @@
     </table>
 
 </div>
+
+
+
+</body>
+</html>
+
+

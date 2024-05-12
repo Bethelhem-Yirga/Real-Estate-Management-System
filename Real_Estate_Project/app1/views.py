@@ -1298,6 +1298,7 @@ def Manager(request):
     all_info = AskMaintenance.objects.all()
     employees = Employee.objects.all()
     all_objects = Finance.objects.all()
+    feedback = ContactMessage.objects.all()
 
     
     manager_profile = Employee.objects.filter(role='manager').first()
@@ -1307,6 +1308,7 @@ def Manager(request):
         'manager_profile':manager_profile,
         'employees':employees,
         'finance_entries':all_objects,
+        'feedback':feedback,
         
     }
     return render(request, 'manager_page.html', context)

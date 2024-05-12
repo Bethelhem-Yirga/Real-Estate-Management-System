@@ -1,36 +1,367 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Property Detail</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/property_detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/property_listing.css' %}">
     <style>
-      .contact-bg {
-        height: 48vh;
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('{% static "img/abt2.jpg" %}');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        text-align: center;
-        color: #fff;
-        display: flex;
-        background-size: 100% 100%;
-        background-position: center;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    
+        * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      list-style: none;
+      border: none;
+      outline: none;
+      scroll-behavior: smooth;
     }
-  </style>
+
+
+    :root{
+      --h1-font: 5rem;
+      --h2-font: 2.9rem;
+      --p-font: 1.1rem;
+
+      --bg-color: #ffffff;
+      --text-color: #121b25;
+
+      --main-color: #c7c73a;
+      --other-color: #000;
+   }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .title h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin-bottom: 30px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.title h1 span{
+    color: #c7c73a;
+    margin-left: 15px;
+    font-family: mv boli;
+}
+
+.title h1 span::after{
+    content: '';
+    width: 100%;
+    height: 2px;
+    background:  #c7c73a;
+    display: block;
+    position: relative;
+    bottom: 15px;
+}
+
+    section{
+        padding: 80px 15% 70px;
+    }
+
+    .property-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 4.5rem;
+}
+.row{
+    position: relative;
+    cursor: pointer;
+    
+    padding: 12px;
+   
+
+}
+
+.row img{
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+.row h5{
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 10px;
+
+}
+.row p{
+    font-size: var(--p-font);
+    color: var(--other-color);
+    margin-bottom: 20px;
+}
+.list{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.list a{
+    color: var(--text-color);
+    font-size: var(--p-font);
+}
+.Residence-list .fa-solid{
+    font-size: 18px;
+    color: var(--main-color);
+
+}
+
+
+
+.responsive-div p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.responsive-div h3 {
+  margin:0;
+}
+.responsive-div.description {
+  margin-top: 80px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+}
+
+.responsive-div.description h3 {
+  grid-row: 1;
+  grid-column: 1;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  position: relative;
+  
+  margin-bottom:15px;
+}
+
+.responsive-div.description h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  
+}
+
+.responsive-div h3{
+  margin-bottom:20px;
+}
+
+.responsive-div.detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  padding: 50px;
+  border-radius: 5px;
+}
+
+
+.responsive-div.detail h3 {
+  grid-row: 1;
+  grid-column: 1;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  position: relative;
+  margin-bottom:15px;
+}
+
+.responsive-div.detail h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+}
+
+.responsive-div.detail .column-1 {
+  grid-column: 1 / span 1;
+}
+
+.responsive-div.detail .column-2 {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.responsive-div.detail .column-3 {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.responsive-div.detail .column-4 {
+  grid-column: 3 / span 1;
+  grid-row: 2 / span 1;
+}
+
+
+.responsive-div.detail p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+;
+.responsive-div.detail p:first-child {
+  margin-top: 0;
+}
+
+.responsive-div.detail p:last-child {
+  margin-bottom: 0;
+}
+
+responsive-div.address {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 50px;
+  border-radius: 5px;
+  margin-top:20px;
+}
+
+.responsive-div.address h3 {
+  grid-row: 1;
+  grid-column: 1;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  position: relative;
+ 
+  margin-top:15px
+}
+
+.responsive-div.address h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+}
+
+
+
+
+.responsive-div.address .column-1 {
+  grid-column: 1 / span 1;
+}
+
+.responsive-div.address .column-2 {
+  grid-column: 2 / span 1;
+}
+
+.responsive-div.address p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  margin-top:20px;
+}
+
+.responsive-div.address p span ,
+.responsive-div.features p span ,
+.responsive-div.description p span ,
+.responsive-div.detail p span {
+  font-weight: bold;
+  color:#c7c73a;
+}
+
+
+
+.responsive-div.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 50px;
+  border-radius: 5px;
+}
+
+.responsive-div.features .column-1 {
+  grid-column: 1 / span 1;
+}
+
+.responsive-div.features .column-2 {
+  grid-column: 1 / span 1;
+}
+
+.responsive-div.features .column-2.row-2 {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.responsive-div.features h3 {
+  grid-row: 1;
+  grid-column: 1;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  position: relative;
+  margin-bottom:15px;
+}
+
+.responsive-div.features h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+
+}
+
+.responsive-div.features p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.responsive-div.features p:first-child {
+  margin-top: 0;
+}
+
+.responsive-div.features p:last-child {
+  margin-bottom: 0;
+}
+
+
+.responsive-div .property-status {
+  display: inline-block;
+  padding: 6px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+
+
+
+
+</style>
 </head>
 <body>
-  <header class="header">
+<header class="header">
     <nav class="nav container">
        <div class="nav__data">
           
           <a href="/" class="nav__logo">
            <img src="{% static 'img/logo.png' %}" alt="logo" >
+           
           </a>
           
           <div class="nav__toggle" id="nav-toggle">
@@ -59,116 +390,182 @@
        </div>
     </nav>
 </header>
+<section class="property">
+        
 
-<div class="responsive-div gallery" style="width: 100%; max-width:120%;">
-  {% if property.image %}
-  <div class="gallery-item">
-      <h3 class="property-title">{{ property.area }} {{ property.bedrooms }} Bedrooms {{ property.propertyType }} Apartment</h3>
-      {% if property.status == 'For Rent' %}
-          <a href="{% url 'application_for_rent' property_id=property.id email=email%}">
-              <h3 class="property-status">{{ property.status }}</h3>
-          </a>
-      {% elif property.status == 'For Sale' %}
-          <a href="{% url 'application_for_sale' property_id=property.id email=email %}">
-              <h3 class="property-status">{{ property.status }}</h3>
-          </a>
-      {% endif %}
-      <h3 class="property-location"><i class="fa-solid fa-location-dot" style="color: #b0b0b0;"></i> {{ property.area }}, {{ property.city }}</h3>
-      <img src="{{ property.image.url }}" alt="img">
+        <div class="property-content">
+            
+            <div class="row">
+              
+                <h5 class="property-title">{{ property.area }} 
+                  {% if property.status == 'For Sale' %}
+                  {{ property.bedrooms }} Bedrooms 
+                  {%endif%}
+                  {{ property.propertyType }} Apartment
+                </h5>
+                <div class="responsive-div property-status ">
+                {% if property.status == 'For Rent' %}
+                <a href="{% url 'application_for_rent' property_id=property.id email=email%}">
+                    <h3 class="property-status">Applay here</h3>
+                </a>
+                {% elif property.status == 'For Sale' %}
+                <a href="{% url 'application_for_sale' property_id=property.id email=email %}">
+                    <h3 class="property-status">Applay here</h3>
+                </a>
+                {% endif %}
+               
+              </div>
+               
+                <img src="{{ property.image.url }}" alt="img">
+
+                <p class="property-location"><i class="fa-solid fa-location-dot" style="color: #b0b0b0;"></i> {{ property.area }}, {{ property.city }}</p>
+
+                 <div class="list" >
+                    <a href="" class="Residence-list">
+                        <i class="fa-solid fa-bed" ></i>
+                        {{ property.bedrooms}} Bedrooms
+                    </a>
+
+                    <a href="" class="Residence-list">
+                        <i class="fa-solid fa-bath"></i>
+                        {{ property.bathrooms }} Bathrooms
+                    </a>
+
+                    <a href="" class="Residence-list">
+                      <i class="fa-solid fa-chart-area"></i>
+                      {{ property.size}} Sq mt 
+                      
+                    </a> 
+                </div>
+<!--
+
+
+                <div class="responsive-div description">
+                  <h3>Description</h3>
+                  <p>Property Description: {{ property.description }}</p>
+                </div>
+
+
+                
+
+
+<div class="responsive-div address">
+
+  <h3>Address</h3>
+  <div class="column-1">
+    <p><span>Country: </span>{{ property.country}}</p>
+    <p><span>City: </span>{{ property.city}}</p>
   </div>
-{% else %}
-  <p>No image available</p>
-{% endif %}
-  
-  <p>
-    Property Type: <span> {{ property.propertyType }} </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <i class="fa-solid fa-bed" style="color: #000000;"></i><span> Bedrooms: {{ property.bedrooms}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    <i class="fa-solid fa-bath" style="color: #000000;"></i><span> Bathrooms: {{ property.bathrooms }}</span> &nbsp;&nbsp;&nbsp;&nbsp;
-    <i class="fa-solid fa-chart-area" style="color: #000000;"></i> <span>Size: {{ property.size}} Sq mt</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    <i class="fa-regular fa-calendar-days" style="color: #050505;"></i> <span>Year Built: {{ property.year_built }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-  </p>
-
+  <div class="column-2">
+    <p><span>Area: </span>{{ property.area }}</p>
+  </div>
 </div>
 
-<div class="responsive-div description">
-  <h3>Description</h3>
-  <p>Property Description: {{ property.description }}</p>
+-->
+<div class="responsive-div detail">
+  <div class="column-1">
+<h3>Property Details</h3>
 </div>
-   
-    <div class="responsive-div detail">
-      <div class="column-1">
-        <h3>Property Details</h3>
-      </div>
-      <div class="column-2">
-        <p><span>Property ID: </span>{{ property.id }}</p>
-        <p><span>Property Type: </span>{{ property.propertyType }}</p>
-        <p><span>Size: </span>{{ property.size}} Sq mt</p>
-      </div>
-      <div class="column-3">
-        <p><span>Number Of Rooms: </span>{{property.noOfRooms}}</p>
-        <p><span>Total Floor: </span>{{ property.TotalFloor}}</p>
-        <p><span>Bedrooms: </span>{{ property.bedrooms}}</p>
-      </div>
-      <div class="column-4">
-        <p><span>Bathrooms: </span>{{ property.bathrooms }}</p>
-        <p><span>Price: </span>{{ property.price }}</p>
-        <p><span>Year Built: </span>{{ property.year_built }}</p>
-      </div>
-    </div>
-    
-    <div class="responsive-div address">
-      <h3>Address</h3>
-      <div class="column-1">
-        <p><span>Country: </span>{{ property.country}}</p>
-        <p><span>City: </span>{{ property.city}}</p>
-      </div>
-      <div class="column-2">
-        <p><span>Area: </span>{{ property.area }}</p>
-      </div>
-    </div>
-    
-    
+<div class="column-2">
   
-    <div class="responsive-div features">
-      <div class="column-1">
-        <h3>Features</h3>
-      </div>
-      <div class="column-2">
-        <p>
-          <input type="checkbox" id="air_conditioning" name="air_conditioning" {% if property.air_conditioning %}checked{% endif %}>
-          <label for="air_conditioning">Air conditioning</label>
-        </p>
-        <p>
-          <input type="checkbox" id="gym" name="gym" {% if property.gym %}checked{% endif %}>
-          <label for="gym">Gym</label>
-        </p>
-        <p>
-          <input type="checkbox" id="laundry" name="laundry" {% if property.laundry %}checked{% endif %}>
-          <label for="laundry">Laundry</label>
-        </p>
-      </div>
-      <div class="column-2 row-2">
-        <p>
-          <input type="checkbox" id="lawn" name="lawn" {% if property.lawn %}checked{% endif %}>
-          <label for="lawn">Lawn</label>
-        </p>
-        <p>
-          <input type="checkbox" id="swimming_pool" name="swimming_pool" {% if property.swimming_pool %}checked{% endif %}>
-          <label for="swimming_pool">Swimming pool</label>
-        </p>
-        <p>
-          <input type="checkbox" id="wifi" name="wifi" {% if property.wifi %}checked{% endif %}>
-          <label for="wifi">Wifi</label>
-        </p>
-      </div>
-    </div>
-    
+    <p><span ><i class="fa-solid fa-house"></i> Property ID: </span>{{ property.id }}</p>
+  
+<p><span><i class="fa-solid fa-arrow-right"></i> Property Type: </span>{{ property.propertyType }}</p>
+<p><span><i class="fa-solid fa-chart-area"></i> Size: </span>{{ property.size}} Sq mt</p>
+</div>
+<div class="column-3">
+<p><span><i class="fa-solid fa-house-chimney-window"></i> Number Of Rooms: </span>{{property.noOfRooms}}</p>
+<p><span><i class="fa-solid fa-building"></i> Total Floor: </span>{{ property.TotalFloor}}</p>
+<p><span><i class="fa-solid fa-bed"></i> Bedrooms: </span>{{ property.bedrooms}}</p>
+</div>
+<div class="column-4">
+<p><span><i class="fa-solid fa-bath"></i> Bathrooms: </span>{{ property.bathrooms }}</p>
+<p><span><i class="fa-solid fa-money-bill"></i> Price: </span>{{ property.price }} birr</p>
+</div>
+</div>
 
-    
-    <p>Payment Link: <a href="{{ property.payment_link }}">{{ property.payment_link }}</a></p>
-    
-    
+{% if property.status == 'For Sale' %}
+
+<div class="responsive-div features">
+
+  <div class="column-1">
+    <h3>Features</h3>
+  </div>
+  <div class="column-2">
+    <p>
+      <input type="checkbox" id="air_conditioning" name="air_conditioning" {% if property.air_conditioning %}checked{% endif %}>
+      <label for="air_conditioning">Air conditioning</label>
+    </p>
+    <p>
+      <input type="checkbox" id="gym" name="gym" {% if property.gym %}checked{% endif %}>
+      <label for="gym">Gym</label>
+    </p>
+    <p>
+      <input type="checkbox" id="laundry" name="laundry" {% if property.laundry %}checked{% endif %}>
+      <label for="laundry">Laundry</label>
+    </p>
+  </div>
+  <div class="column-2 row-2">
+    <p>
+      <input type="checkbox" id="lawn" name="lawn" {% if property.lawn %}checked{% endif %}>
+      <label for="lawn">Lawn</label>
+    </p>
+    <p>
+      <input type="checkbox" id="swimming_pool" name="swimming_pool" {% if property.swimming_pool %}checked{% endif %}>
+      <label for="swimming_pool">Swimming pool</label>
+    </p>
+    <p>
+      <input type="checkbox" id="wifi" name="wifi" {% if property.wifi %}checked{% endif %}>
+      <label for="wifi">Wifi</label>
+    </p>
+  </div>
+</div>
+
+{%endif%}          
+
+            </div>
+
+        </div>
+
+
+
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+      <div class="footer-content">
+          <div class="footer-section">
+              <h3>Opening Hours</h3>
+              <p>Monday - Friday: 8:00AM-5:00PM</p>
+              <p>Saturday: 8:00AM-12:00PM</p>
+          </div>
+          <div class="footer-section">
+              <h3>Address</h3>
+              <p>Behar Building, 9th floor, Africa Avenue,</p>
+              <p>Addis Ababa, Ethiopia</p>
+              <p>Tel: +251-114670669</p>
+              <p>Fax: +251-114652154</p>
+          </div>
+          <div class="footer-section">
+              <h3>Follow Us</h3>
+              <div class="social-icons">
+                  <a href="https://www.facebook.com/giftatofficial/"><i class="fab fa-facebook-f"></i></a>
+                  <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FGIFTBusinessG"><i class="fab fa-twitter"></i></a>
+                  <a href="https://www.youtube.com/@GIFTBusinessGroup"><i class="fab fa-youtube"></i></a>
+                  <a href="https://t.me/giftbusinessgroup"><i class="fab fa-telegram"></i></a>
+              </div>
+          </div>
+      </div>
+      
+  </div>
+</footer>
+
+
+
 </body>
 </html>
-    
-  
+
+
+

@@ -243,6 +243,7 @@ text-decoration: underline;
   grid-row: 2 / span 1;
 }
 
+
 .responsive-div.detail h3 {
   grid-row: 1;
   grid-column: 1;

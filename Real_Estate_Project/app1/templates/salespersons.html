@@ -15,10 +15,10 @@
   
   </head>
  
-  <body>
+  <body style="background:#fff">
 
-    <header class="header">
-        <nav class="nav container">
+    <header class="header" >
+        <nav class="nav container" >
            <div class="nav__data">
               
               <a href="#" class="nav__logo">
@@ -47,7 +47,7 @@
             </ul>
          </div>
         </nav>
-     </header>
+    </header>
 
    
     
@@ -61,7 +61,7 @@
           
         </div>
 
-        <div class="row">
+        <div class="row" style="">
             {% for salesperson in salespersons %}
 
           <div class="col-lg-6">
@@ -78,7 +78,7 @@
                   <a href=""><i class="bi bi-linkedin"></i></a>
                   <a href=""> <i class="bi bi-whatsapp"></i> </a>
                 </div>
-                <a href="{% url 'salesperson_profile' salesperson.id %}" class="profile-btn">view profile</a>
+                <a href="{% url 'salesperson_profile' salesperson.id %}" class="profile-btn">contact me</a>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@
 
 
     
-    <footer class="footer">
+    <footer class="footer" style="margin-top:200px">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
