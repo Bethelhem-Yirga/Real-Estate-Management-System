@@ -1325,3 +1325,34 @@ def my_property(request,email):
 
     print(all_objects)  # Add this line for debugging
     return render(request, 'my_property.html',context)
+
+
+
+from django.shortcuts import render, get_object_or_404, get_list_or_404
+from .models import Salesperson, Registration, Finance
+
+from django.shortcuts import render, get_object_or_404, get_list_or_404
+from .models import Salesperson, Registration, Finance
+
+def salesperson_view(request):
+    if request.method == 'POST':
+        property_id = request.POST.get('property_id')
+        email = request.POST.get('email')
+        date_of_markate = request.POST.get('date_of_markate')
+        
+        # Get registration info
+        registration = get_object_or_404(Registration, email=email)
+        
+        # Get finance info based on property ID
+        finances = get_list_or_404(Finance, property__id=property_id)
+        
+        # Create a new Salesperson instance
+        salesperson = Salesperson.objects.create(
+            property_id=property_id,
+            registration=registration,
+            date_of_markate=date_of_markate
+        )
+        
+        return render(request, 'registration_info.html', {'registration': registration, 'finances': finances})
+          
+    return render(request, 'sealse_report.html')

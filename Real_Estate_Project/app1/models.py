@@ -476,6 +476,40 @@ class AskMaintenance(models.Model):
         
     date_added = models.DateTimeField(default=datetime.now, blank=True)
 
-    
+from django.db import models
 
+class Salesperson(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE, related_name='salespersons', default=0)
+    registration = models.ForeignKey(Registration, on_delete=models.CASCADE, related_name='salespersons', null=True, blank=True)
+    date_of_markate = models.DateField()
+
+    def __str__(self):
+        return f"Salesperson - ID: {self.id}"
+        '''
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Salesperson, Registration, Finance
+
+def insert_salesperson_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        property_id = request.POST.get('property_id')
+        
+        # Check if the email belongs to an employee with the role of salesperson
+        registration = get_object_or_404(Registration, email=email, role='salesperson')
+        
+        # Get the finance information based on the property ID
+        finance = get_object_or_404(Finance, property__id=property_id)
+        
+        # Create a new Salesperson instance
+        salesperson = Salesperson.objects.create(
+            registration=registration,
+            property=finance.property,
+            date_of_markate=finance.date
+        )
+        
+        # Optionally, you can redirect to a success page or render a success message
+        return redirect('success_page_url')  # Replace 'success_page_url' with the URL of your success page
+        
+    return render(request, 'insert_salesperson.html')
+    ''' 
     

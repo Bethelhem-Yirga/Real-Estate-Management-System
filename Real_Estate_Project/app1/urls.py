@@ -10,7 +10,7 @@ from django.urls import path
 from . import views
 from django.urls import path
 from .views import rental_properties
-
+from .views import salesperson_view
 from .views import sale_properties
 
 urlpatterns = [
@@ -108,6 +108,6 @@ urlpatterns = [
     path('manager_page/', views.Manager, name='manager_page'),
 
 
-
+ path('salesperson/', salesperson_view, name='salesperson_view'),
 
 ]

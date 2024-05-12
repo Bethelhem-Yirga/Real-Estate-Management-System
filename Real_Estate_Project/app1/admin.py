@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import AskMaintenance, ContactMessage, Employee, MarketingManager, Properties, Registration
+from .models import AskMaintenance, ContactMessage, Employee, MarketingManager, Properties, Registration ,Salesperson
 
 
 from .models import Properties, Registration,Application,Report
@@ -20,5 +20,5 @@ admin.site.register(ContactMessage)
 admin.site.register(Applicationrent)
 admin.site.register(Finance)
 admin.site.register(AskMaintenance)
-
+admin.site.register(Salesperson)
 # Register your models here.
