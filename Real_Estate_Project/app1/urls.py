@@ -109,5 +109,5 @@ urlpatterns = [
 
 
  path('salesperson/', salesperson_view, name='salesperson_view'),
-
+path('soledpro/', views.soledpro, name='soledpro'),
 ]
