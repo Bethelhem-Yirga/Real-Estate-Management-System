@@ -666,7 +666,7 @@ def login(request):
                     'admin': 'system_admin',
                     'manager': 'manager_page',
                     'customer': 'property_listing',
-                    'salesperson': 'salespersons',
+                    'salesperson': 'soledpro',
                     'marketing_manager': 'mrk_mng',
                     'maintenance_staff/plumber': 'maintenance_staff_page',
                     'maintenance_staff/electrician': 'maintenance_staff_page',
