@@ -30,7 +30,7 @@
 
 
 <body>
-      <header class="header">
+    <header class="header">
         <div class="container">
             <div class="logo">
                 <img src="{% static 'img/logo.png' %}" alt="logo">
@@ -59,15 +59,10 @@
 
                 </ul>
             </nav>
-            
-      
-       
-
-    </div>
-
-      </header>
+        </div>
+    </header>
     
-      <section class="hero">
+    <section class="hero">
       
         <div class="hero-text">
             <h3 class="gift-real-estate">Gift Real Estate</h3>
@@ -75,7 +70,7 @@
           
         </div>
             
-      </section>
+    </section>
 
 
    
@@ -88,14 +83,28 @@
              
         <div class="de-box">
           {% for property in properties|slice:":6" %}
+           {% if property.status == "For Sale" or property.status == "For Rent" %}
             <div class="box">
                 <div class="image">
                     <a href="{% url 'login' %}"><img src="{{ property.image.url }}" alt=""></a>
                   </div>
                 <div class="price-name">
-                    <h4>{{ property.price }} birr</h4>
+                    <h4 style="">{{ property.price }} birr </h4>
+
+                  
                     <p>{{ property.propertyType }} apartment
-                      &nbsp  <a href="{% url 'login' %}">detail</a>
+                      &nbsp  &nbsp  &nbsp
+                    <a href="{% url 'login' %}" 
+                    style=" background-color: #0f1b2e;
+                    color: white;
+                    padding: 2px 4px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: background-color 0.3s ease;">
+                        see more
+                    </a>
                     </p>
                 </div>
                 <div class="location-detail">
@@ -111,6 +120,8 @@
                 </div>
 
             </div>
+            {% endif %}
+
             {% endfor %}
 
         </div>
@@ -128,7 +139,7 @@
 
                 <div class="info">
                     <h2 class="name">{{ salesperson.first_name }} {{ salesperson.last_name }}</h2>
-                    <p class="bio">salesperson</p>
+                    <p class="bio">{{ salesperson.email }}</p>
 
                     <div class="team_icon">
                         <i class="fa-brands fa-facebook-f"></i>

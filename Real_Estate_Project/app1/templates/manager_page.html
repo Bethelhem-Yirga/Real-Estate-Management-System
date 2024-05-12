@@ -59,7 +59,7 @@
     
             <li><i class="fa-solid fa-clipboard-list"></i><a onclick="financeReportTable()" href="#">Finance Report</a></li>
            
-            <li><i class="fa-solid fa-lock"></i><a href="#">Change Password</a></li>
+            <li><i class="fa-solid fa-comments"></i><a onclick="feedbackTable()" href="#">Feedback</a></li>
             <li><i class="fas fa-right-from-bracket"></i><a href="/">Logout</a></li>
            
             
@@ -396,7 +396,59 @@
     
         </table>
     
-    </div>
+       </div>
+
+       <div class="board" id="feedback-board" style="display: none;">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Subject</td>
+                    <td>Messages</td>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for x in feedback %}
+              <tr>
+
+                
+                <td class="people">
+                    
+                    <div class="people-de">
+                        <p>{{x.name}} {{x.last_name}}</p>
+                      
+                    </div>
+                </td>
+
+                <td class="people-des">
+                        <p>{{ x.email}}</p>
+                     
+                </td>
+
+                <td class="active">
+                    <p>{{ x.subject}}</p>
+                </td>
+
+                <td class="role">
+                    <p>
+                        <p>{{ x.message}}</p> 
+                    </p>
+                </td>
+
+              </tr>
+               {% endfor %}
+
+             
+             
+
+            </tbody>
+
+        </table>
+
+       </div>
     
 
         
@@ -412,6 +464,7 @@
             document.getElementById("work-order-board").style.display = "block";
             document.getElementById("completed-works-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("feedback-board").style.display = "none";
             document.getElementById("report-board").style.display = "none";
         }
     
@@ -420,6 +473,7 @@
             document.getElementById("work-order-board").style.display = "none";
             document.getElementById("report-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("feedback-board").style.display = "none";
             document.getElementById("completed-works-board").style.display = "block";
             
         }
@@ -428,6 +482,7 @@
             document.getElementById("work-order-board").style.display = "none";
             document.getElementById("completed-works-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("feedback-board").style.display = "none";
             document.getElementById("report-board").style.display = "block";
         }
 
@@ -435,7 +490,16 @@
             document.getElementById("work-order-board").style.display = "none";
             document.getElementById("completed-works-board").style.display = "none";
             document.getElementById("report-board").style.display = "none";
+            document.getElementById("feedback-board").style.display = "none";
             document.getElementById("finance-report-board").style.display = "block";
+        }
+
+        function feedbackTable(){
+            document.getElementById("work-order-board").style.display = "none";
+            document.getElementById("completed-works-board").style.display = "none";
+            document.getElementById("report-board").style.display = "none";
+            document.getElementById("finance-report-board").style.display = "none";
+            document.getElementById("feedback-board").style.display = "block";
         }
       </script>
 
