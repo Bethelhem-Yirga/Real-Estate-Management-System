@@ -155,8 +155,11 @@ MESSAGE_TAGS = {
 
 
 
-
-
+ALLOWED_HOSTS = [
+    '.vercel.app',          # Allows all Vercel preview and production URLs
+    'localhost',
+    '127.0.0.1',
+]
 
 STRIPE_PUBLIC_KEY = 'pk_test_51OqfhMLtwQqcAES8PUXGPbEnP33IHy6SYkmbOhpoXaAbJSkY0oFwa6QQSMsQloWZfJzYmIaMoqnH14cbhjqL70KA00dwoXdXLb'
 STRIPE_SECRET_KEY = 'sk_test_51OqfhMLtwQqcAES8MNhosQr5trtutBMuqQaFmzY4TOmj0uUuqneXGyp1BaFAlMAMwrwUgGDQNoFoDP7mLe5Iw3XC00OWClKYqI'
