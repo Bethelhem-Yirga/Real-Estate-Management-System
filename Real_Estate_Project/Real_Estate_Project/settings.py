@@ -157,6 +157,8 @@ MESSAGE_TAGS = {
 
 ALLOWED_HOSTS = [
     '.vercel.app',          # Allows all Vercel preview and production URLs
+    'https://realestatem.vercel.app/',
+    'realestatem.vercel.app',
     'localhost',
     '127.0.0.1',
 ]
